@@ -18,6 +18,20 @@
 
 机构标识：`assets/logos/*-color.png` 由 `tools/logos.py` 从团队提供的原图去底生成（Citadel 为海军蓝字标）。
 
+## 英文版（SimReal-Seed-Deck-EN.pptx）
+
+```bash
+cd deck
+./build_en.sh     # node build_en.js -> tools/postprocess.py ... en -> ../SimReal-Seed-Deck-EN.pptx
+```
+
+`build_en.js` 对应团队在 Google Slides 里改定的中文版（19页 + A1–A4），英文措辞沿用此前英文草稿。
+为了在 Google Slides 里导入后不出错：
+
+- 横条图不再翻转坐标轴（Google 会忽略翻转，导致标签和数据错位），改为把数据倒序传入，并使用图表自带的分类标签；
+- 图表分类改用单层 `strRef`（Google 读不了 pptxgenjs 默认的多层格式，会显示成 1、2、3）；
+- 加粗用同一字体的粗体（Instrument Sans Bold），不用单独的 SemiBold 字体名；三套字体都是 Google Fonts。
+
 ## 构建
 
 ```bash

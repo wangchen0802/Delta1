@@ -7,7 +7,11 @@
   3. Drop the stray mid-paragraph <a:pPr> pptxgenjs emits between runs.
   4. Subset + embed every font face the deck uses (EOT .fntdata parts).
 
-Usage: python3 postprocess.py build/raw.pptx out.pptx
+  5. Rewrite chart categories from multiLvlStrRef to plain strRef, which
+     Google Slides reads (it shows 1, 2, 3 ... for the multi-level form).
+
+Usage: python3 postprocess.py <build_dir>/raw.pptx out.pptx [zh|en]
+       (chart_labels.json is read from, and fonts written to, <build_dir>)
 """
 import html
 import json
@@ -20,7 +24,6 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import fonts  # noqa: E402
 
-BUILD = os.path.join(HERE, "..", "build")
 
 TOKENS = {
     "XSERIF": ("Newsreader", "Noto Serif CJK SC"),
@@ -105,6 +108,19 @@ def fix_chart_series(xml, custom):
     return re.sub(r'<c:ser>.*?</c:ser>', per_series, xml, flags=re.S)
 
 
+def plain_categories(xml):
+    def sub(m):
+        body = m.group(0)
+        ref = re.search(r'<c:f>(.*?)</c:f>', body, re.S)
+        count = re.search(r'<c:ptCount val="(\d+)"/>', body)
+        pts = re.findall(r'<c:pt idx="\d+">\s*<c:v>.*?</c:v>\s*</c:pt>', body, re.S)
+        if len(re.findall(r'<c:lvl>', body)) != 1 or not ref or not count:
+            return body
+        return ('<c:cat><c:strRef><c:f>' + ref.group(1) + '</c:f><c:strCache><c:ptCount val="' + count.group(1) + '"/>'
+                + "".join(pts) + '</c:strCache></c:strRef></c:cat>')
+    return re.sub(r'<c:cat>\s*<c:multiLvlStrRef>.*?</c:multiLvlStrRef>\s*</c:cat>', sub, xml, flags=re.S)
+
+
 def set_theme_fonts(xml):
     xml = re.sub(r'(<a:majorFont><a:latin typeface=")[^"]*("\s*/>\s*<a:ea typeface=")[^"]*(")',
                  r'\1Newsreader\2Noto Serif CJK SC\3', xml)
@@ -157,11 +173,12 @@ def embed_fonts(parts, font_dir):
     parts["[Content_Types].xml"] = ct.encode("utf-8")
 
 
-def main(src, dst):
+def main(src, dst, profile="zh"):
+    build_dir = os.path.dirname(os.path.abspath(src))
     zin = zipfile.ZipFile(src)
     parts = {n: zin.read(n) for n in zin.namelist()}
     order = zin.namelist()
-    custom = json.load(open(os.path.join(BUILD, "chart_labels.json"), encoding="utf-8"))
+    custom = json.load(open(os.path.join(build_dir, "chart_labels.json"), encoding="utf-8"))
 
     for name in list(parts):
         if re.match(r'ppt/slides/slide\d+\.xml$', name):
@@ -170,7 +187,7 @@ def main(src, dst):
             parts[name] = x.encode("utf-8")
         elif re.match(r'ppt/charts/chart\d+\.xml$', name):
             x = parts[name].decode("utf-8")
-            x = resolve_chart_fonts(fix_chart_series(x, custom))
+            x = resolve_chart_fonts(plain_categories(fix_chart_series(x, custom)))
             parts[name] = x.encode("utf-8")
         elif re.match(r'ppt/theme/theme\d+\.xml$', name):
             parts[name] = set_theme_fonts(parts[name].decode("utf-8")).encode("utf-8")
@@ -179,10 +196,10 @@ def main(src, dst):
     if leftovers:
         raise SystemExit(f"unresolved font tokens in {leftovers}")
 
-    chars_path = os.path.join(BUILD, "chars.txt")
+    chars_path = os.path.join(build_dir, "chars.txt")
     open(chars_path, "w", encoding="utf-8").write(collect_text(parts))
-    font_dir = os.path.join(BUILD, "fonts")
-    fonts.build(chars_path, font_dir)
+    font_dir = os.path.join(build_dir, "fonts")
+    fonts.build(chars_path, font_dir, profile)
     embed_fonts(parts, font_dir)
 
     names = ["[Content_Types].xml"] + [n for n in order if n != "[Content_Types].xml"]
@@ -196,4 +213,4 @@ def main(src, dst):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    main(sys.argv[1], sys.argv[2], *(sys.argv[3:4]))

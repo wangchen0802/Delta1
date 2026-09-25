@@ -5,7 +5,7 @@ uses (plus ASCII and common CJK punctuation, so small edits still render),
 converted to TrueType outlines where needed (PowerPoint only embeds glyf
 fonts), and wrapped as EOT .fntdata parts.
 
-Usage: python3 fonts.py <chars.txt> <out_dir>
+Usage: python3 fonts.py <chars.txt> <out_dir> [zh|en]
 """
 import io
 import json
@@ -25,7 +25,7 @@ SRC = os.path.join(HERE, "..", "fonts")
 NOTO = "/usr/share/fonts/opentype/noto"
 
 # typeface name used in slide XML -> (slot, loader)
-FACES = [
+FACES_ZH = [
     # Latin
     ("Newsreader", "regular", ("file", "Newsreader-Regular.ttf")),
     ("Newsreader", "italic", ("file", "Newsreader-Italic.ttf")),
@@ -37,6 +37,15 @@ FACES = [
     ("Noto Sans CJK SC", "regular", ("ttc", "NotoSansCJK-Regular.ttc")),
     ("Noto Sans CJK SC Medium", "regular", ("ttc", "NotoSansCJK-Medium.ttc")),
 ]
+# English deck: Latin faces only; emphasis is real bold so Google Slides maps it too.
+FACES_EN = [
+    ("Newsreader", "regular", ("file", "Newsreader-Regular.ttf")),
+    ("Newsreader", "italic", ("file", "Newsreader-Italic.ttf")),
+    ("Instrument Sans", "regular", ("file", "InstrumentSans-Regular.ttf")),
+    ("Instrument Sans", "bold", ("file", "InstrumentSans-Bold.ttf")),
+    ("IBM Plex Mono", "regular", ("file", "IBMPlexMono-Regular.ttf")),
+]
+PROFILES = {"zh": FACES_ZH, "en": FACES_EN}
 
 EXTRA_RANGES = [
     (0x20, 0x7E),        # ASCII
@@ -101,14 +110,14 @@ def subset_font(font, unicodes):
     s.subset(font)
 
 
-def build(chars_path, out_dir):
+def build(chars_path, out_dir, profile="zh"):
     text = open(chars_path, encoding="utf-8").read()
     unicodes = {ord(c) for c in text if ord(c) >= 0x20}
     for lo, hi in EXTRA_RANGES:
         unicodes.update(range(lo, hi + 1))
     os.makedirs(out_dir, exist_ok=True)
     manifest = []
-    for i, (family, slot, (kind, src)) in enumerate(FACES, 1):
+    for i, (family, slot, (kind, src)) in enumerate(PROFILES[profile], 1):
         font = load_face(kind, src, family)
         subset_font(font, unicodes)
         if "CFF " in font:
@@ -126,4 +135,4 @@ def build(chars_path, out_dir):
 
 
 if __name__ == "__main__":
-    build(sys.argv[1], sys.argv[2])
+    build(sys.argv[1], sys.argv[2], *(sys.argv[3:4]))
