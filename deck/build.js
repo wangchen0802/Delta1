@@ -528,7 +528,7 @@ function chart(s, type, name, cats, values, o, labels) {
   const stats = [
     ['0 / 400', '次作弊攻击成功', 'Puzzle Benchmark', true],
     ['6 → 0', '个评分漏洞，两轮受控对比', 'Month-End Close'],
-    ['709', '道AI无法作弊通过的谜题', 'Puzzle Benchmark'],
+    ['749', '道AI无法作弊通过的谜题', 'Puzzle Benchmark'],
     ['~$2,400', '前沿实验室每个强化学习任务的算力成本，单位美元', 'Mechanize估算'],
   ];
   stats.forEach(([fig, cap, src, dark], i) => {
@@ -588,7 +588,7 @@ function chart(s, type, name, cats, values, o, labels) {
   s.addImage({ path: A('star-chart-16x9.jpg'), x: 0, y: 0, w: W, h: H, altText: 'star chart' });
   eyebrow(s, '12', '进展', true);
   title(s, '成立两周，合作方已在排队', [], true);
-  const stats = [['2', '家前沿AI实验室正在洽谈，目标第3个月签下首个付费客户'], ['7,000+', '名专家在候补名单上'], ['500+', '首周GitHub星标'], ['5', '位硅谷顶级天使主动接洽']];
+  const stats = [['2', '家前沿AI实验室正在洽谈，目标第3个月签下首个付费客户'], ['7,000+', '名专家在候补名单上'], ['180+', '首周GitHub星标'], ['5', '位硅谷顶级天使主动接洽']];
   const gap = 0.3, cw = (CW - 3 * gap) / 4;
   stats.forEach(([n, d], i) => {
     const x = X0 + i * (cw + gap);
@@ -867,13 +867,13 @@ function chart(s, type, name, cats, values, o, labels) {
   eyebrow(s, 'A2', '附录');
   title(s, '产品清单');
   const data = [
-    ['Xitadel', '交易', 'AI在真实行情中交易，按盈亏评分；已跑通自我进化（+12%）', '开源', 'Xitadel-QuantBench'],
+    ['Xitadel', '交易', 'AI在真实行情中交易，按盈亏与风险评分；已跑通自我进化（+12%）', '开源', 'Xitadel-QuantBench'],
     ['SimReal-MLBench', 'AI研究', '60个研究任务、7类数据，参照OpenAI的MLE-bench', '开源', 'Simreal-MLBench'],
     ['Future Prediction Bench', '预测', '预测真实事件，揭晓后按结果打分；数据实时接入', '上线', ''],
     ['Month-End Close', '财务', '让AI零差错完成月结；评分漏洞6 → 0', '上线', ''],
     ['SWE-Forward', '软件工程', '检验AI写的代码能否挺过下一个版本', '上线', ''],
     ['MathmoBench', '数学证明', '让AI证明答案，而不是猜答案', '开源', 'MathmoBench'],
-    ['Puzzle Benchmark', '逻辑推理', '709道无法作弊的谜题；400次作弊攻击0次成功', '开源', 'hard-puzzle-benchmark'],
+    ['Puzzle Benchmark', '逻辑推理', '749道无法作弊的谜题；400次作弊攻击0次成功', '开源', 'hard-puzzle-benchmark'],
   ];
   const border = (top) => [top ? { type: 'solid', pt: 0.75, color: C.ink } : { type: 'none' }, { type: 'none' },
     { type: 'solid', pt: 0.75, color: C.rule }, { type: 'none' }];
