@@ -11,11 +11,13 @@ import sys
 import tempfile
 
 import pymupdf
-from fontTools import subset
-from fontTools.ttLib import TTCollection
+from fontTools.ttLib import TTCollection, TTFont
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import fonts as fonts_py  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-LATIN = os.path.join(HERE, '..', 'fonts', 'InstrumentSans-Regular.ttf')
+LATIN_SRC = os.path.join(HERE, '..', 'fonts', 'InstrumentSans-Regular.ttf')
 CJK_TTC = '/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc'
 
 PARAS = [
@@ -52,13 +54,20 @@ def tokens(text):
 
 
 def main(src, dst):
-    # Noto Sans CJK SC, cut down to the characters used here (MuPDF cannot subset CFF fonts itself)
-    cjk_path = os.path.join(tempfile.mkdtemp(), 'NotoSansCJKsc-Regular.otf')
+    # Both faces are cut down to the characters used and embedded as TrueType.
+    # Noto Sans CJK ships CID-keyed CFF outlines; embedded as CFF, Apple's PDF
+    # viewers (iPhone, Preview) look glyphs up by CID and show the wrong ones.
+    tmp = tempfile.mkdtemp()
+    used = [ord(c) for c in ''.join(PARAS)]
     cjk = TTCollection(CJK_TTC).fonts[2]
-    sub = subset.Subsetter(subset.Options())
-    sub.populate(text=''.join(PARAS))
-    sub.subset(cjk)
+    fonts_py.subset_font(cjk, used)
+    fonts_py.cff_to_glyf(cjk)
+    cjk_path = os.path.join(tmp, 'NotoSansCJKsc-Regular.ttf')
     cjk.save(cjk_path)
+    lat = TTFont(LATIN_SRC)
+    fonts_py.subset_font(lat, used)
+    LATIN = os.path.join(tmp, 'InstrumentSans-Regular.ttf')
+    lat.save(LATIN)
     fonts = {'lat': pymupdf.Font(fontfile=LATIN), 'cjk': pymupdf.Font(fontfile=cjk_path)}
     face = lambda t: 'cjk' if is_cjk(t[0]) else 'lat'
     # Full-width brackets are set half-width, as Google Slides does on this page:
@@ -70,8 +79,12 @@ def main(src, dst):
     page = doc[2]
     page.add_redact_annot(BOX, fill=False)
     page.apply_redactions(images=pymupdf.PDF_REDACT_IMAGE_NONE, graphics=pymupdf.PDF_REDACT_LINE_ART_NONE)
-    page.insert_font(fontname='lat', fontfile=LATIN)
-    page.insert_font(fontname='cjk', fontfile=cjk_path)
+    for name, path in (('lat', LATIN), ('cjk', cjk_path)):
+        xref = page.insert_font(fontname=name, fontfile=path)
+        # state the (default) identity CID-to-glyph mapping explicitly for strict viewers
+        cid = int(doc.xref_get_key(xref, 'DescendantFonts')[1].strip('[]').split()[0])
+        doc.xref_set_key(cid, 'CIDToGIDMap', '/Identity')
+        doc.xref_set_key(xref, 'BaseFont', doc.xref_get_key(cid, 'BaseFont')[1])  # same name on both levels
 
     y = FIRST_BASELINE
     for p in PARAS:
@@ -99,7 +112,6 @@ def main(src, dst):
             y += LEADING
         y += PARA_GAP
     assert y - LEADING - PARA_GAP < BOX.y1, 'text runs past the box'
-    doc.subset_fonts()
     doc.save(dst, garbage=3, deflate=True)
     print('wrote', dst, 'last baseline', round(y - LEADING - PARA_GAP, 1))
 
