@@ -25,12 +25,14 @@ cd deck
 ./build_en.sh     # node build_en.js -> tools/postprocess.py ... en -> ../SimReal-Seed-Deck-EN.pptx
 ```
 
-`build_en.js` 对应团队在 Google Slides 里改定的中文版（19页 + A1–A4），英文措辞沿用此前英文草稿。
+`build_en.js` 对应团队在 Google Slides 里改定的英文版（17页：封面 → 融资）。
 为了在 Google Slides 里导入后不出错：
 
-- 横条图不再翻转坐标轴（Google 会忽略翻转，导致标签和数据错位），改为把数据倒序传入，并使用图表自带的分类标签；
-- 图表分类改用单层 `strRef`（Google 读不了 pptxgenjs 默认的多层格式，会显示成 1、2、3）；
+- 柱状图、条形图用形状和文本框画，不用 PowerPoint 图表对象（Google Slides 会把图表转成低分辨率图片，字体变成 Arial）；
+- 不用固定磅值的行距（Google 会把它换算成倍数再乘自己约1.2倍的行高，行距被拉大）；一律单倍行距，文本框按1.2倍行高留足高度；
 - 加粗用同一字体的粗体（Instrument Sans Bold），不用单独的 SemiBold 字体名；三套字体都是 Google Fonts。
+
+第12页背景星图用 `assets/star-chart-16x9-dim.jpg`：原图的线条向底色压暗55%，不再穿过文字抢视线。
 
 ## 构建
 
