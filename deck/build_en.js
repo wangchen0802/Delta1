@@ -10,6 +10,8 @@
 //   - no exact (point) line spacing. Google Slides turns it into a multiple of
 //     its own ~1.2em line, which spreads lines apart; everything uses single
 //     spacing, and text boxes are sized for a 1.2em line;
+//   - no line, oval or rounded shapes (some viewers, e.g. the iPhone preview,
+//     misplace thin line shapes): structure comes from spacing and flat panels;
 //   - emphasis is real bold of the same family, not a separate "SemiBold" family;
 //   - fonts are Google Fonts (Newsreader, Instrument Sans, IBM Plex Mono).
 
@@ -111,20 +113,14 @@ function numeral(text, opts = {}, plusColor) {
     : r(p, opts)));
 }
 
-function hline(s, x, y, w, color = C.rule, pt = 0.75) {
-  s.addShape(pres.shapes.LINE, { x, y, w, h: 0, line: { color, width: pt } });
+// Flat panel, no outline. The deck draws no line, oval or rounded shapes:
+// structure comes from spacing and panels only.
+function box(s, x, y, w, h, fill) {
+  s.addShape(pres.shapes.RECTANGLE, { x, y, w, h, fill: { color: fill }, line: { type: 'none' } });
 }
-function vline(s, x, y, h, color = C.rule, pt = 0.75) {
-  s.addShape(pres.shapes.LINE, { x, y, w: 0, h, line: { color, width: pt } });
-}
-function box(s, x, y, w, h, fill, line) {
-  s.addShape(pres.shapes.RECTANGLE, {
-    x, y, w, h, fill: { color: fill },
-    line: line ? { color: line, width: 0.75 } : { color: fill, width: 0 },
-  });
-}
-function arrow(s, x, y, w, color = C.grey) {
-  s.addShape(pres.shapes.LINE, { x, y, w, h: 0, line: { color, width: 1, endArrowType: 'triangle' } });
+// Arrow as a glyph (Instrument Sans has →), centred in its box.
+function arrow(s, x, y, w, h, color = C.grey, size = 16) {
+  T(s, '→', { x, y, w, h, fontSize: size, color, align: 'center', valign: 'middle' });
 }
 
 function pngSize(file) {
@@ -191,7 +187,7 @@ function source(s, text, y, o = {}) {
   T(s, text, Object.assign({ x: X0, y, w: CW, h: 0.26, fontSize: S.note, color: C.grey }, o));
 }
 
-// Column chart drawn with shapes: value above each bar, category below the baseline.
+// Column chart drawn with shapes: value above each bar, category below it.
 function colChart(s, o) {
   const { x, y, w, h, cats, values, max, colors, labels } = o;
   const catH = 0.26, lblH = 0.3, gap = o.gap === undefined ? 0.42 : o.gap;
@@ -204,9 +200,8 @@ function colChart(s, o) {
       x: sx - 0.1, y: baseY - bh - lblH, w: slot + 0.2, h: lblH - 0.04,
       fontFace: F.serif, fontSize: o.labelSize || 12, align: 'center', valign: 'bottom',
     });
-    T(s, c, { x: sx - 0.1, y: baseY + 0.07, w: slot + 0.2, h: catH - 0.07, fontFace: F.mono, fontSize: o.catSize || S.note, color: C.grey, align: 'center' });
+    T(s, c, { x: sx - 0.1, y: baseY + 0.08, w: slot + 0.2, h: catH - 0.08, fontFace: F.mono, fontSize: o.catSize || S.note, color: C.grey, align: 'center' });
   });
-  hline(s, x, baseY, w, C.mid, 0.75);
 }
 
 // Horizontal bars drawn with shapes, listed top to bottom. A category is a
@@ -226,7 +221,6 @@ function hbarChart(s, o) {
       x: bx + bw + 0.1, y: ry, w: valW + plotW - bw, h: rowH, fontFace: F.serif, fontSize: o.labelSize || 13, valign: 'middle',
     });
   });
-  vline(s, bx, y, rowH * cats.length, C.mid, 0.75);
 }
 
 // ================================================================ slides ===
@@ -239,16 +233,13 @@ function hbarChart(s, o) {
   T(s, 'The data and self-improvement engine of the AI economy', { x: X0, y: 1.5, w: 9, h: 0.32, fontFace: F.sansB, fontSize: S.lead, color: C.accent });
   T(s, paras([['Every industry’s best AI'], ['grows in our worlds.']]), { x: X0, y: 1.92, w: 9, h: 1.86, fontFace: F.serif, fontSize: S.display });
   T(s, 'SimReal  ·  Seed round', { x: X0, y: 3.98, w: 9, h: 0.4, fontFace: F.serif, fontSize: S.kicker, color: C.grey });
-  hline(s, X0, 5.12, CW, C.ink, 0.75);
   const cols = [['Founded', '10 September 2026'], ['This round', '$20M'], ['Contact', 'business@simreal.co']];
-  const cw = CW / 3;
+  const cw = 3.2;
   cols.forEach(([k, v], i) => {
-    const x = X0 + i * cw, ix = x + (i ? 0.24 : 0);
-    if (i) vline(s, x, 5.12, 0.86);
-    label(s, k, ix, 5.3, cw - 0.3);
-    T(s, v, { x: ix, y: 5.56, w: cw - 0.3, h: 0.32, fontSize: S.lead });
+    const x = X0 + i * cw;
+    label(s, k, x, 5.2, cw - 0.3);
+    T(s, v, { x, y: 5.46, w: cw - 0.3, h: 0.32, fontSize: S.lead });
   });
-  hline(s, X0, 5.98, CW);
   T(s, CONFIDENTIAL, { x: X0, y: 6.98, w: 9, h: 0.26, fontSize: S.chrome, color: C.grey, valign: 'middle' });
 }
 
@@ -265,13 +256,12 @@ function hbarChart(s, o) {
     ['Market', '$8.5B → $100B+', 'More than 50 companies selling training data and RL environments to AI labs already earn ~$8.5B a year combined; the industry expects annual spend to pass $100B within two years.'],
     ['This round', '$20M', 'A $20M seed round to build 200+ training environments across 30+ industries within 24 months.'],
   ];
-  const gap = 0.4, cw = (CW - 2 * gap) / 3, ch = 1.98, y0 = 1.6;
+  const gap = 0.45, cw = (CW - 2 * gap) / 3, y0 = 1.72, rowGap = 2.02;
   cells.forEach(([k, fig, txt, hi], i) => {
-    const x = X0 + (i % 3) * (cw + gap), y = y0 + Math.floor(i / 3) * (ch + 0.12);
-    hline(s, x, y, cw, hi ? C.accent : C.ink, hi ? 1.5 : 0.75);
-    label(s, k, x, y + 0.14, cw, hi ? C.accent : C.grey);
-    T(s, numeral(fig, { fontFace: F.serif, fontSize: 30, color: hi ? C.accent : C.ink }), { x, y: y + 0.4, w: cw, h: 0.56 });
-    T(s, txt, { x, y: y + 1.04, w: cw, h: 0.86, fontSize: 12, color: C.body });
+    const x = X0 + (i % 3) * (cw + gap), y = y0 + Math.floor(i / 3) * rowGap;
+    label(s, k, x, y, cw, hi ? C.accent : C.grey);
+    T(s, numeral(fig, { fontFace: F.serif, fontSize: 30, color: hi ? C.accent : C.ink }), { x, y: y + 0.26, w: cw, h: 0.56 });
+    T(s, txt, { x, y: y + 0.9, w: cw, h: 0.86, fontSize: 12, color: C.body });
   });
   kicker(s, [
     ['Whoever owns the best training world owns the best AI in every field.', ['training world']],
@@ -288,7 +278,7 @@ function hbarChart(s, o) {
     r('we know the gap between passing a test and doing the job.')],
   { x: X0, y: 0.74, w: CW, h: 0.98, fontFace: F.serif, fontSize: S.h1 });
 
-  box(s, X0, 1.86, CW, 0.7, C.card, C.rule);
+  box(s, X0, 1.86, CW, 0.7, C.tint);
   const logos = [
     ['logos/jane-street-color.png', 1], ['logos/citadel-color.png', 1], ['logos/de-shaw-color.png', 1.05],
     ['logos/millennium-color.png', 1], ['logos/optiver-color.png', 1], ['logos/cambridge-ink.png', 1.12],
@@ -306,29 +296,28 @@ function hbarChart(s, o) {
       ['Duke Mathematics & Statistics', 'YK Pao School']],
     ['James', 'CPO', ['Quant trading intern at Optiver (Amsterdam)', 'Equity research at Fidelity'], ['LSE Mathematics', 'SCIE']],
   ];
-  const gap = 0.18, cw = (CW - 3 * gap) / 4, cy = 2.7, ch = 3.26, pad = 0.22, eduH = 0.8;
+  const gap = 0.18, cw = (CW - 3 * gap) / 4, cy = 2.7, ch = 3.26, pad = 0.21, eduH = 0.5;
   people.forEach(([name, role, bio, edu], i) => {
     const x = X0 + i * (cw + gap), tw = cw - 2 * pad;
-    box(s, x, cy, cw, ch, C.card, C.rule);
+    box(s, x, cy, cw, ch, C.tint);
     T(s, [r(name, { fontFace: F.serif, fontSize: 26 }), r('   ' + role, { fontFace: F.mono, fontSize: S.small, color: C.accent })],
       { x: x + pad, y: cy + 0.16, w: tw, h: 0.5, valign: 'middle' });
     T(s, bio.map((b, j) => r(b, { breakLine: j < bio.length - 1 })), {
-      x: x + pad, y: cy + 0.76, w: tw, h: ch - eduH - 0.86, fontSize: S.small, color: C.body, paraSpaceAfter: 4,
+      x: x + pad, y: cy + 0.76, w: tw, h: ch - eduH - 0.96, fontSize: S.small, color: C.body, paraSpaceAfter: 4,
     });
-    hline(s, x + pad, cy + ch - eduH, tw);
-    T(s, edu.map((e, j) => r(e, { breakLine: j < edu.length - 1 })), { x: x + pad, y: cy + ch - eduH + 0.1, w: tw, h: eduH - 0.18, fontSize: S.label, color: C.ink });
+    T(s, [r(edu[0], { color: C.ink, breakLine: edu.length > 1 }), ...edu.slice(1).map((e) => r(e, { color: C.grey }))],
+      { x: x + pad, y: cy + ch - eduH - 0.12, w: tw, h: eduH, fontSize: S.label, valign: 'bottom' });
   });
 
   // The benchmark: founders of the category's breakouts, and what their first backers made.
-  T(s, 'The founders of Scale AI, Mercor and AfterQuery all started around 20.', { x: X0, y: 6.17, w: 7.0, h: 0.3, fontFace: F.serif, fontSize: 16 });
-  T(s, 'Returns for their first-round investors', { x: X0, y: 6.5, w: 7.0, h: 0.22, fontSize: S.small, color: C.grey });
+  T(s, 'The founders of Scale AI, Mercor and AfterQuery all started around 20.', { x: X0, y: 6.2, w: 7.0, h: 0.3, fontFace: F.serif, fontSize: 16 });
+  T(s, 'Returns for their first-round investors', { x: X0, y: 6.52, w: 7.0, h: 0.22, fontSize: S.small, color: C.grey });
   const rets = [['17,000x', 'Scale AI'], ['40x', 'Mercor'], ['1,800x', 'AfterQuery']];
-  const rx = 8.1, rw = (X1 - rx) / 3;
+  const rx = 8.3, rw = (X1 - rx) / 3;
   rets.forEach(([n, co], i) => {
     const x = rx + i * rw;
-    vline(s, x, 6.18, 0.54);
-    T(s, n, { x: x + 0.2, y: 6.12, w: rw - 0.2, h: 0.38, fontFace: F.serif, fontSize: 22 });
-    tag(s, co, x + 0.2, 6.5, rw - 0.2, C.grey, { fontSize: S.note });
+    T(s, n, { x, y: 6.14, w: rw, h: 0.38, fontFace: F.serif, fontSize: 22 });
+    tag(s, co, x, 6.52, rw, C.grey, { fontSize: S.note });
   });
   footer(s, 3);
 }
@@ -345,23 +334,20 @@ function hbarChart(s, o) {
     ['27×', 'Growth in Mercor’s gross run-rate revenue: from $75M to $2B in 16 months (including payouts to experts).', true],
   ];
   stats.forEach(([fig, txt, hi], i) => {
-    const y = 1.62 + i * 1.5;
-    hline(s, X0, y, lw, hi ? C.accent : C.rule, hi ? 1.5 : 0.75);
-    T(s, fig, { x: X0, y: y + 0.14, w: lw, h: 0.56, fontFace: F.serif, fontSize: 30, color: hi ? C.accent : C.ink });
-    T(s, txt, { x: X0, y: y + 0.76, w: lw - 0.2, h: 0.56, fontSize: 12, color: C.body });
+    const y = 1.7 + i * 1.46;
+    T(s, fig, { x: X0, y, w: lw, h: 0.56, fontFace: F.serif, fontSize: 30, color: hi ? C.accent : C.ink });
+    T(s, txt, { x: X0, y: y + 0.62, w: lw - 0.2, h: 0.56, fontSize: 12, color: C.body });
   });
 
   const rx = 6.55, rw = X1 - rx;
-  hline(s, rx, 1.62, rw, C.ink);
   T(s, [r('Mercor gross run-rate', { fontFace: F.sansB }), r('   16 months, 27×', { color: C.accent, fontFace: F.sansB })],
-    { x: rx, y: 1.76, w: rw, h: 0.26, fontSize: 12 });
+    { x: rx, y: 1.7, w: rw, h: 0.26, fontSize: 12 });
   colChart(s, {
-    x: rx, y: 2.1, w: rw, h: 1.74, max: 2150,
+    x: rx, y: 2.04, w: rw, h: 1.8, max: 2150,
     cats: ['Feb ’25', 'Sep ’25', 'Dec ’25', 'Early ’26', 'Jun ’26'], values: [75, 500, 760, 1000, 2000],
     colors: [C.mid, C.mid, C.mid, C.mid, C.accent], labels: ['$75M', '$500M', '$760M', '$1B', '$2B'], gap: 0.45,
   });
-  hline(s, rx, 4.12, rw, C.ink);
-  T(s, 'Even the fastest-growing company has barely started.', { x: rx, y: 4.24, w: rw, h: 0.3, fontFace: F.serif, fontSize: S.lead });
+  T(s, 'Even the fastest-growing company has barely started.', { x: rx, y: 4.26, w: rw, h: 0.3, fontFace: F.serif, fontSize: S.lead });
   hbarChart(s, {
     x: rx, y: 4.66, w: rw, rowH: 0.48, labelW: 2.7, max: 108, valW: 0.8,
     cats: [['Mercor', 'Jun ’26, gross run-rate'], ['Training data and RL environments', '50+ companies, 2026'], ['Industry estimate', 'annual spend within two years']],
@@ -380,20 +366,18 @@ function hbarChart(s, o) {
   subtitle(s, 'Training tasks have answer keys; real work doesn’t.');
   const px = 6.95, pw = X1 - px, top = 1.95, rh = 1.0;
   box(s, px, top, pw, 0.5 + 3 * rh, C.tint);
-  label(s, 'Passes the test', 1.75, top + 0.16, 4, C.grey);
-  label(s, 'Fails the job', px + 0.32, top + 0.16, 4, C.accent);
+  label(s, 'Passes the test', 1.75, top + 0.2, 4, C.grey);
+  label(s, 'Fails the job', px + 0.32, top + 0.2, 4, C.accent);
   const rows = [
     ['Trading', 'Writes a strategy that reads like a pro’s', 'Loses money on a real market day'],
     ['Finance', 'Produces books that look finished', 'The numbers don’t balance'],
     ['Software', 'Ships code that passes today’s tests', 'Breaks at the next release'],
   ];
   rows.forEach(([dom, a, b], i) => {
-    const y = top + 0.5 + i * rh;
-    hline(s, X0, y, px - X0 - 0.2);
-    hline(s, px, y, pw, C.rule2);
+    const y = top + 0.45 + i * rh;
     T(s, dom, { x: X0, y, w: 1.1, h: rh, fontSize: S.small, color: C.grey, valign: 'middle' });
     T(s, a, { x: 1.75, y, w: 4.45, h: rh, fontSize: 17, color: C.grey, valign: 'middle' });
-    arrow(s, 6.25, y + rh / 2, 0.45);
+    arrow(s, 6.2, y, 0.6, rh);
     T(s, b, { x: px + 0.32, y, w: pw - 0.5, h: rh, fontFace: F.serif, fontSize: 21, valign: 'middle' });
   });
   kicker(s, [
@@ -414,21 +398,17 @@ function hbarChart(s, o) {
     ['Gen 3', 'Verifiable answers', 'Verification', 'Models solve by the rules', 'Reasoning models'],
     ['Gen 4', 'Real-world feedback', 'Practice', 'AI enters the real world and the real economy', 'Autonomy and\nself-improvement'],
   ];
-  const gap = 0.2, cw = (CW - 3 * gap) / 4, y0 = 1.72, ch = 3.3, pad = 0.26;
+  const gap = 0.2, cw = (CW - 3 * gap) / 4, y0 = 1.72, ch = 3.3, pad = 0.28;
   gens.forEach(([gen, src, word, mech, jump], i) => {
     const x = X0 + i * (cw + gap), tw = cw - 2 * pad, dark = i === 3;
-    box(s, x, y0, cw, ch, dark ? C.ink : C.card, dark ? null : C.rule);
+    box(s, x, y0, cw, ch, dark ? C.ink : C.tint);
     T(s, [r(gen + '   ', { fontFace: F.mono, color: dark ? C.accentLt : C.accent }), r(src, { color: dark ? C.onDarkHi : C.grey })],
-      { x: x + pad, y: y0 + 0.26, w: tw, h: 0.24, fontFace: F.sansB, fontSize: S.label });
-    T(s, word, { x: x + pad, y: y0 + 0.58, w: tw, h: 0.62, fontFace: F.serif, fontSize: 32, color: dark ? C.onDarkHi : C.ink });
-    T(s, mech, { x: x + pad, y: y0 + 1.24, w: tw, h: 0.48, fontSize: 12, color: dark ? C.onDark : C.grey });
-    hline(s, x + pad, y0 + 1.86, tw, dark ? C.darkRule : C.rule);
-    T(s, jump.split('\n').map((l, j, a) => r(l, { breakLine: j < a.length - 1 })), { x: x + pad, y: y0 + 2.0, w: tw, h: 0.62, fontFace: F.serif, fontSize: S.h3, color: dark ? C.accentLt : C.ink });
-    if (dark) {
-      s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: x + pad, y: y0 + 2.76, w: 1.4, h: 0.28, rectRadius: 0.14,
-        fill: { color: C.accent }, line: { color: C.accent, width: 0 } });
-      T(s, 'Just beginning', { x: x + pad, y: y0 + 2.76, w: 1.4, h: 0.28, fontSize: S.label, align: 'center', valign: 'middle', color: C.onDarkHi });
-    }
+      { x: x + pad, y: y0 + 0.28, w: tw, h: 0.24, fontFace: F.sansB, fontSize: S.label });
+    T(s, word, { x: x + pad, y: y0 + 0.6, w: tw, h: 0.62, fontFace: F.serif, fontSize: 32, color: dark ? C.onDarkHi : C.ink });
+    T(s, mech, { x: x + pad, y: y0 + 1.26, w: tw, h: 0.48, fontSize: 12, color: dark ? C.onDark : C.grey });
+    T(s, jump.split('\n').map((l, j, a) => r(l, { breakLine: j < a.length - 1 })),
+      { x: x + pad, y: y0 + 2.02, w: tw, h: 0.62, fontFace: F.serif, fontSize: S.h3, color: dark ? C.accentLt : C.ink });
+    if (dark) T(s, 'Just beginning', { x: x + pad, y: y0 + 2.76, w: tw, h: 0.24, fontFace: F.sansB, fontSize: S.label, color: C.onDarkHi });
   });
   kicker(s, [['AI’s next feedback signal is rooted in the real world.', ['the real world']]], 5.62, { size: 30 });
   footer(s, 6);
@@ -444,7 +424,7 @@ function hbarChart(s, o) {
   const opGap = 0.5, cw = (CW - 2 * opGap) / 3, y = 1.95, ch = 1.12;
   parts.forEach(([t, d], i) => {
     const x = X0 + i * (cw + opGap);
-    box(s, x, y, cw, ch, C.card, C.rule);
+    box(s, x, y, cw, ch, C.tint);
     T(s, t, { x: x + 0.3, y: y + 0.22, w: cw - 0.6, h: 0.42, fontFace: F.serif, fontSize: S.h2 });
     T(s, d, { x: x + 0.3, y: y + 0.68, w: cw - 0.6, h: 0.26, fontSize: 12, color: C.grey });
     if (i < 2) T(s, '+', { x: x + cw, y, w: opGap, h: ch, fontSize: 22, color: C.grey, align: 'center', valign: 'middle' });
@@ -455,16 +435,14 @@ function hbarChart(s, o) {
   tag(s, 'SimReal', X0 + 0.32, by, 1.3, C.accentLt, { h: 1.0, valign: 'middle' });
   T(s, 'A world that always answers back', { x: 2.2, y: by, w: 9, h: 1.0, fontFace: F.serif, fontSize: 28, color: C.onDarkHi, valign: 'middle' });
 
-  label(s, 'The loop', X0, 4.98, 3);
+  label(s, 'The loop', X0, 5.0, 3);
   const steps = ['AI acts', 'The world answers back', 'AI trains on the result', 'AI improves itself'];
-  const ly = 5.56, span = CW / 4;
-  hline(s, X0 + 0.12, ly, span * 3, C.ink, 1);
+  const loop = [];
   steps.forEach((t, i) => {
-    const x = X0 + i * span, last = i === 3;
-    s.addShape(pres.shapes.OVAL, { x, y: ly - 0.12, w: 0.24, h: 0.24,
-      fill: { color: last ? C.accent : (i === 0 ? C.ink : C.paper) }, line: { color: last ? C.accent : C.ink, width: 1.25 } });
-    T(s, t, { x, y: ly + 0.3, w: span - 0.1, h: 0.4, fontFace: F.serif, fontSize: S.h3, color: last ? C.accent : C.ink });
+    loop.push(r(t, { color: i === 3 ? C.accent : C.ink }));
+    if (i < 3) loop.push(r('   →   ', { fontFace: F.sans, color: C.grey }));
   });
+  T(s, loop, { x: X0, y: 5.28, w: CW, h: 0.42, fontFace: F.serif, fontSize: 20, valign: 'middle' });
   footer(s, 7);
 }
 
@@ -477,33 +455,30 @@ function hbarChart(s, o) {
   const lw = 6.45, kx = 2.45;
   const rows = [['Real markets', 'AI trades real markets, against top human traders.'], ['Market as judge', 'The market settles every trade.'],
     ['Learns from results', 'AI reviews every day’s P&L; every round makes the next one stronger.']];
-  const ry = 2.2, rh = 0.56;
+  const ry = 2.24, rh = 0.52;
   rows.forEach(([k, v], i) => {
     const y = ry + i * rh;
-    hline(s, X0, y, lw);
     T(s, k, { x: X0, y, w: kx - X0 - 0.1, h: rh, fontFace: F.sansB, fontSize: 12, valign: 'middle' });
     T(s, v, { x: kx, y, w: lw - (kx - X0), h: rh, fontSize: S.body, color: C.body, valign: 'middle' });
   });
-  hline(s, X0, ry + 3 * rh, lw);
   T(s, 'We trained the open-source model Qwen3.8-27B inside Xitadel. On real market data it had never seen, its trading performance rose 12%, repeated across multiple independent runs.',
-    { x: X0, y: ry + 3 * rh + 0.2, w: lw, h: 0.72, fontSize: S.body, color: C.body });
+    { x: X0, y: 4.0, w: lw, h: 0.72, fontSize: S.body, color: C.body });
   T(s, paras([['We have shown AI can make itself better in a real market.'], ['Next: more strategies, more markets.', [], { color: C.accent }]]),
     { x: X0, y: 4.96, w: lw, h: 0.66, fontFace: F.serif, fontSize: 17 });
 
-  const cx = 7.45, cw = X1 - cx, cy = 0.95, ch = 4.75, pad = 0.3, tw = cw - 2 * pad;
-  box(s, cx, cy, cw, ch, C.card, C.rule);
-  T(s, 'Every round starts from the last one', { x: cx + pad, y: cy + 0.26, w: tw - 1.0, h: 0.26, fontFace: F.sansB, fontSize: 12 });
-  tag(s, 'Schematic', cx + cw - pad - 1.0, cy + 0.28, 1.0, C.faint, { align: 'right' });
+  const cx = 7.45, cw = X1 - cx, cy = 0.95, ch = 4.75, pad = 0.32, tw = cw - 2 * pad;
+  box(s, cx, cy, cw, ch, C.tint);
+  T(s, 'Every round starts from the last one', { x: cx + pad, y: cy + 0.28, w: tw - 1.0, h: 0.26, fontFace: F.sansB, fontSize: 12 });
+  tag(s, 'Schematic', cx + cw - pad - 1.0, cy + 0.3, 1.0, C.faint, { align: 'right' });
   const rounds = ['Base', 'Round 1', 'Round 2', 'Round 3', 'Round 4'];
   const fills = [C.rule, C.mid, C.accentPale, C.accentLt, C.accent];
   const rg = 0.16, rw = (tw - 4 * rg) / 5;
   rounds.forEach((t, i) => {
     const x = cx + pad + i * (rw + rg);
-    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: cy + 0.7, w: rw, h: 0.36, rectRadius: 0.06, fill: { color: fills[i] }, line: { color: fills[i], width: 0 } });
-    T(s, t, { x, y: cy + 0.7, w: rw, h: 0.36, fontSize: S.label, align: 'center', valign: 'middle', color: i >= 3 ? C.onDarkHi : C.ink });
-    if (i < 4) T(s, '›', { x: x + rw, y: cy + 0.7, w: rg, h: 0.36, fontSize: 12, color: C.grey, align: 'center', valign: 'middle' });
+    box(s, x, cy + 0.72, rw, 0.36, fills[i]);
+    T(s, t, { x, y: cy + 0.72, w: rw, h: 0.36, fontSize: S.label, align: 'center', valign: 'middle', color: i >= 3 ? C.onDarkHi : C.ink });
+    if (i < 4) T(s, '›', { x: x + rw, y: cy + 0.72, w: rg, h: 0.36, fontSize: 12, color: C.grey, align: 'center', valign: 'middle' });
   });
-  hline(s, cx + pad, cy + 1.34, tw);
   label(s, 'Measured result', cx + pad, cy + 1.5, tw);
   T(s, numeral('+12%', { fontFace: F.serif, fontSize: 44, color: C.accent }), { x: cx + pad, y: cy + 1.76, w: 2.1, h: 0.72 });
   T(s, 'Trading performance on real market data it had never seen', { x: cx + pad + 2.1, y: cy + 1.86, w: tw - 2.1, h: 0.5, fontSize: S.small, color: C.grey, valign: 'middle' });
@@ -527,15 +502,14 @@ function hbarChart(s, o) {
     ['ml-modalities.png', 'SimReal-MLBench', 'AI researcher', 'AI runs a whole research project on its own, from data to experiments to results: 60 real tasks across 7 data types.', 'Goal: AI that improves AI, faster and faster.'],
     ['forecast-fan.png', 'Future Prediction Bench', 'AI forecaster', 'AI calls real-world events before they happen, from sports to earthquakes, and is scored once the outcome is known.', 'Goal: judgment that holds up in the real world.'],
   ];
-  const gap = 0.3, cw = (CW - gap) / 2, y = 1.95, ch = 3.55, pad = 0.35;
+  const gap = 0.3, cw = (CW - gap) / 2, y = 1.95, ch = 3.55, pad = 0.36;
   cards.forEach(([img, name, role, desc, goal], i) => {
     const x = X0 + i * (cw + gap), tw = cw - 2 * pad;
-    box(s, x, y, cw, ch, C.card, C.rule);
-    s.addImage({ path: A(img), x: x + (cw - 3.1) / 2, y: y + 0.16, w: 3.1, h: 1.55, altText: name });
-    hline(s, x + pad, y + 1.86, tw);
+    box(s, x, y, cw, ch, C.tint);
+    s.addImage({ path: A(img), x: x + (cw - 3.1) / 2, y: y + 0.18, w: 3.1, h: 1.55, altText: name });
     T(s, [r(name, { fontFace: F.serif, fontSize: S.kicker }), r('   ' + role, { fontFace: F.mono, fontSize: S.label, color: C.accent })],
-      { x: x + pad, y: y + 1.98, w: tw, h: 0.42, valign: 'middle' });
-    T(s, desc, { x: x + pad, y: y + 2.46, w: tw, h: 0.6, fontSize: 12, color: C.body });
+      { x: x + pad, y: y + 1.96, w: tw, h: 0.42, valign: 'middle' });
+    T(s, desc, { x: x + pad, y: y + 2.44, w: tw, h: 0.6, fontSize: 12, color: C.body });
     T(s, goal, { x: x + pad, y: y + 3.1, w: tw, h: 0.26, fontFace: F.sansB, fontSize: 12, color: C.accent });
   });
   const by = 5.8;
@@ -565,10 +539,9 @@ function hbarChart(s, o) {
     ['What customers get', 'Scores they can trust, and compute spent on real learning.'],
   ];
   rows.forEach(([k, v], i) => {
-    const y = 1.62 + i * 1.4;
-    hline(s, X0, y, lw, C.ink);
-    label(s, k, X0, y + 0.16, lw, C.accent);
-    T(s, v, { x: X0, y: y + 0.46, w: lw - 0.2, h: 0.8, fontSize: S.lead, color: C.body });
+    const y = 1.7 + i * 1.4;
+    label(s, k, X0, y, lw, C.accent);
+    T(s, v, { x: X0, y: y + 0.3, w: lw - 0.2, h: 0.8, fontSize: S.lead, color: C.body });
   });
   const gx = 7.25, gap = 0.2, sw = (X1 - gx - gap) / 2, sh = 2.0;
   const stats = [
@@ -579,10 +552,10 @@ function hbarChart(s, o) {
   ];
   stats.forEach(([fig, cap, src, dark], i) => {
     const x = gx + (i % 2) * (sw + gap), y = 1.62 + Math.floor(i / 2) * (sh + gap);
-    box(s, x, y, sw, sh, dark ? C.ink : C.card, dark ? null : C.rule);
+    box(s, x, y, sw, sh, dark ? C.ink : C.tint);
     T(s, fig, { x: x + 0.28, y: y + 0.24, w: sw - 0.4, h: 0.7, fontFace: F.serif, fontSize: S.stat, color: dark ? C.accentLt : C.ink });
     T(s, cap, { x: x + 0.28, y: y + 1.0, w: sw - 0.5, h: 0.5, fontSize: S.small, color: dark ? C.onDarkHi : C.body });
-    tag(s, src, x + 0.28, y + sh - 0.4, sw - 0.5, dark ? C.onDark : C.faint, { fontSize: S.note });
+    tag(s, src, x + 0.28, y + sh - 0.4, sw - 0.5, dark ? C.onDark : C.grey, { fontSize: S.note });
   });
   source(s, 'Red-team logs are available in due diligence. Compute estimate: Mechanize, cited in Epoch AI, An FAQ on RL environments (Jan 2026).', 6.4);
   footer(s, 10);
@@ -593,15 +566,14 @@ function hbarChart(s, o) {
   const s = newSlide();
   eyebrow(s, '11', 'Business model');
   title(s, 'Build once, earn recurring revenue with every model upgrade', ['recurring revenue']);
-  label(s, 'Core business', X0, 1.6, 4);
+  label(s, 'Core business', X0, 1.62, 4);
   const base = [['Expert data', 'Demonstrations and judgments from professionals'], ['RL training environments', 'Real work, rebuilt so agents can practice'],
     ['Evaluation and red-teaming', 'Private evals, public benchmarks, adversarial tests'], ['Enterprise custom work', 'Environments built around a company’s own workflows']];
   const gap = 0.3, cw = (CW - 3 * gap) / 4;
   base.forEach(([t, d], i) => {
     const x = X0 + i * (cw + gap);
-    hline(s, x, 1.9, cw, C.ink);
-    T(s, t, { x, y: 2.02, w: cw, h: 0.36, fontFace: F.serif, fontSize: 17 });
-    T(s, d, { x, y: 2.44, w: cw, h: 0.44, fontSize: S.small, color: C.grey });
+    T(s, t, { x, y: 1.94, w: cw, h: 0.36, fontFace: F.serif, fontSize: 17 });
+    T(s, d, { x, y: 2.36, w: cw, h: 0.44, fontSize: S.small, color: C.grey });
   });
   box(s, X0, 3.1, CW, 1.0, C.ink);
   tag(s, 'Only us', X0 + 0.32, 3.1, 1.4, C.accentLt, { h: 1.0, valign: 'middle' });
@@ -620,7 +592,6 @@ function hbarChart(s, o) {
       r(t, { fontFace: F.sansB, fontSize: S.small, color: i === 3 ? C.onDarkHi : C.ink })],
     { x: x + 0.14, y: base0 - h + 0.1, w: sw - 0.2, h: 0.42 });
   });
-  vline(s, 7.95, 4.4, 2.1);
   T(s, 'Six to seven figures', { x: 8.3, y: 4.5, w: 4.43, h: 0.66, fontFace: F.serif, fontSize: 34 });
   T(s, [r('US$ per lab contract, per quarter', { breakLine: true }), r('Exclusive licenses at 4–5× (industry reference, Epoch AI)', { color: C.grey })],
     { x: 8.3, y: 5.26, w: 4.43, h: 0.62, fontSize: 12, color: C.body, paraSpaceAfter: 3 });
@@ -639,11 +610,9 @@ function hbarChart(s, o) {
   const gap = 0.3, cw = (CW - 3 * gap) / 4;
   stats.forEach(([n, d], i) => {
     const x = X0 + i * (cw + gap);
-    hline(s, x, 1.7, cw, C.darkRule);
-    T(s, numeral(n, { fontFace: F.serif, fontSize: 44, color: C.onDarkHi }, C.accentLt), { x, y: 1.84, w: cw, h: 0.78 });
-    T(s, d, { x, y: 2.7, w: cw - 0.1, h: 0.6, fontSize: 12, color: C.onDark });
+    T(s, numeral(n, { fontFace: F.serif, fontSize: 44, color: C.onDarkHi }, C.accentLt), { x, y: 1.72, w: cw, h: 0.78 });
+    T(s, d, { x, y: 2.58, w: cw - 0.1, h: 0.6, fontSize: 12, color: C.onDark });
   });
-  hline(s, X0, 3.85, CW, C.darkRule);
   T(s, 'People from the world’s top trading firms already support us.', { x: X0, y: 4.02, w: CW, h: 0.44, fontFace: F.serif, fontSize: S.h2, color: C.onDarkHi });
   const ls = ['logos/jane-street-paper.png', 'logos/imc-paper.png', 'logos/citadel-securities-paper.png', 'logos/optiver-paper.png'];
   const slot = CW / 5, ly = 5.3;
@@ -659,19 +628,17 @@ function hbarChart(s, o) {
   eyebrow(s, '13', 'Expert network');
   title(s, '200,000+ reachable, verified experts across 21 top universities');
   subtitle(s, 'Every training world is graded to standards set by people who actually know the work.');
-  hline(s, X0, 2.25, 3.9, C.ink);
-  T(s, numeral('200,000+', { fontFace: F.serif, fontSize: S.hero, color: C.ink }, C.accent), { x: X0, y: 2.38, w: 4.4, h: 0.98 });
-  T(s, 'reachable, verified experts', { x: X0, y: 3.38, w: 4.2, h: 0.28, fontSize: S.body, color: C.grey });
-  hline(s, X0, 3.96, 3.9);
-  T(s, '21', { x: X0, y: 4.1, w: 4.2, h: 0.8, fontFace: F.serif, fontSize: 44 });
-  T(s, 'top universities', { x: X0, y: 4.9, w: 4.2, h: 0.28, fontSize: S.body, color: C.grey });
-  const gx = 5.1, gw = X1 - gx;
-  label(s, 'Universities in our network include', gx, 1.97, 6);
+  T(s, numeral('200,000+', { fontFace: F.serif, fontSize: S.hero, color: C.ink }, C.accent), { x: X0, y: 2.2, w: 4.4, h: 0.98 });
+  T(s, 'reachable, verified experts', { x: X0, y: 3.2, w: 4.2, h: 0.28, fontSize: S.body, color: C.grey });
+  T(s, '21', { x: X0, y: 3.86, w: 4.2, h: 0.8, fontFace: F.serif, fontSize: 44 });
+  T(s, 'top universities', { x: X0, y: 4.66, w: 4.2, h: 0.28, fontSize: S.body, color: C.grey });
+  const gx = 5.1, gw = X1 - gx, gy = 2.2, cellH = 1.18;
+  box(s, gx, gy, gw, 3 * cellH + 0.1, C.tint);
+  label(s, 'Universities in our network include', gx, 1.92, 6);
   const unis = ['harvard', 'stanford', 'mit', 'oxford', 'cambridge', 'princeton', 'yale', 'berkeley', 'tsinghua', 'columbia', 'uchicago', 'duke'];
-  const cols = 4, cellW = gw / cols, cellH = 1.18, gy = 2.25;
-  for (let row = 0; row <= 3; row++) hline(s, gx, gy + row * cellH, gw, row ? C.rule : C.ink);
+  const cols = 4, cellW = gw / cols;
   unis.forEach((u, i) => {
-    const cx = gx + (i % cols + 0.5) * cellW, cy = gy + (Math.floor(i / cols) + 0.5) * cellH;
+    const cx = gx + (i % cols + 0.5) * cellW, cy = gy + 0.05 + (Math.floor(i / cols) + 0.5) * cellH;
     logo(s, `logos/${u}-ink.png`, cx, cy, 0.36, 1.5, 0.66);
   });
   source(s, 'Logos identify where members of our network studied or work. They do not imply endorsement.', 6.5, { fontSize: S.chrome, h: 0.22 });
@@ -683,41 +650,37 @@ function hbarChart(s, o) {
   const s = newSlide();
   eyebrow(s, '14', 'Market');
   title(s, 'Today: AI labs. Tomorrow: every company that deploys AI.', ['Tomorrow:']);
-  const lx = X0, lw = 6.1, rx = 7.2, rw = X1 - rx, top = 1.6;
+  const lx = X0, lw = 6.1, rx = 7.2, rw = X1 - rx, top = 1.68;
 
-  hline(s, lx, top, lw, C.ink);
-  label(s, 'Today  ·  AI labs', lx, top + 0.14, lw);
-  T(s, 'Training data and RL environments: ~$8.5B a year', { x: lx, y: top + 0.4, w: lw, h: 0.32, fontFace: F.serif, fontSize: 17 });
-  T(s, 'Revenue of leading companies, US$ billions, latest reported', { x: lx, y: top + 0.76, w: lw, h: 0.22, fontSize: S.small, color: C.grey });
+  label(s, 'Today  ·  AI labs', lx, top, lw);
+  T(s, 'Training data and RL environments: ~$8.5B a year', { x: lx, y: top + 0.26, w: lw, h: 0.32, fontFace: F.serif, fontSize: 17 });
+  T(s, 'Revenue of leading companies, US$ billions, latest reported', { x: lx, y: top + 0.62, w: lw, h: 0.22, fontSize: S.small, color: C.grey });
   hbarChart(s, {
-    x: lx, y: top + 1.08, w: lw, rowH: 0.38, labelW: 1.25, max: 2.3, valW: 0.8, barH: 0.22,
+    x: lx, y: top + 0.96, w: lw, rowH: 0.38, labelW: 1.25, max: 2.3, valW: 0.8, barH: 0.22,
     cats: ['Mercor', 'Surge AI', 'Snorkel AI', 'AfterQuery'], values: [2.0, 1.2, 0.375, 0.1],
     colors: [C.ink, C.mid, C.mid, C.mid], labels: ['$2.0B', '$1.2B', '$0.375B', '$0.1B+'],
   });
   source(s, 'Menlo Ventures market map (Jul 2026). Mercor: gross run-rate, Jun 2026  ·  Surge AI: 2024 revenue  ·  Snorkel AI: run-rate, Sep 2026  ·  AfterQuery: run-rate, Apr 2026',
-    top + 2.7, { x: lx, w: lw, h: 0.38 });
+    top + 2.56, { x: lx, w: lw, h: 0.38 });
 
-  hline(s, rx, top, rw, C.accent, 1.5);
-  label(s, 'Tomorrow  ·  every company that deploys AI', rx, top + 0.14, rw, C.accent);
-  T(s, [r('AI agent market: $7.9B in 2025 '), r('→', { color: C.grey }), r(' ~$111B by 2032')], { x: rx, y: top + 0.4, w: rw, h: 0.32, fontFace: F.serif, fontSize: 17 });
+  label(s, 'Tomorrow  ·  every company that deploys AI', rx, top, rw, C.accent);
+  T(s, [r('AI agent market: $7.9B in 2025 '), r('→', { color: C.grey }), r(' ~$111B by 2032')], { x: rx, y: top + 0.26, w: rw, h: 0.32, fontFace: F.serif, fontSize: 17 });
   colChart(s, {
-    x: rx, y: top + 0.86, w: rw, h: 1.78, max: 118,
+    x: rx, y: top + 0.72, w: rw, h: 1.84, max: 118,
     cats: ['2025', '26', '27', '2028E', '29', '30', '31', '2032E'], values: [7.92, 11.55, 16.84, 24.56, 35.81, 52.22, 76.14, 111.03],
     colors: [C.mid, C.rule2, C.rule2, C.mid, C.rule2, C.rule2, C.rule2, C.accent],
     labels: ['$7.9B', '$11.6B', '$16.8B', '~$25B', '$35.8B', '$52.2B', '$76.1B', '~$111B'], labelSize: 10, gap: 0.3,
   });
-  source(s, 'Precedence Research; 2026–2032 extrapolated at its 45.8% CAGR', top + 2.7, { x: rx, w: rw });
+  source(s, 'Precedence Research; 2026–2032 extrapolated at its 45.8% CAGR', top + 2.56, { x: rx, w: rw });
 
-  const by = 4.72;
-  hline(s, lx, by, lw);
-  label(s, 'Economic value', lx, by + 0.14, 3);
-  T(s, 'Generative AI could create $2.6–4.4T of value a year', { x: lx, y: by + 0.4, w: lw, h: 0.3, fontFace: F.serif, fontSize: 17 });
-  T(s, 'Value created, not spend  ·  McKinsey', { x: lx, y: by + 0.78, w: lw, h: 0.22, fontSize: S.small, color: C.grey });
-  hline(s, rx, by, rw);
-  label(s, 'Category signal', rx, by + 0.14, 3);
+  const by = 4.86;
+  label(s, 'Economic value', lx, by, 3);
+  T(s, 'Generative AI could create $2.6–4.4T of value a year', { x: lx, y: by + 0.26, w: lw, h: 0.3, fontFace: F.serif, fontSize: 17 });
+  T(s, 'Value created, not spend  ·  McKinsey', { x: lx, y: by + 0.64, w: lw, h: 0.22, fontSize: S.small, color: C.grey });
+  label(s, 'Category signal', rx, by, 3);
   T(s, [r('Mercor, AfterQuery, Snorkel and UniPat each do one piece of the loop, and each is valued in the billions.', { color: C.body, breakLine: true }),
     r('SimReal combines the pieces into one self-improving loop.', { fontFace: F.sansB })],
-  { x: rx, y: by + 0.4, w: rw, h: 0.8, fontSize: S.small, paraSpaceAfter: 3 });
+  { x: rx, y: by + 0.28, w: rw, h: 0.8, fontSize: S.small, paraSpaceAfter: 3 });
   kicker(s, [['Lab training is our entry point. The autonomous economy is our total addressable market.', ['autonomous economy']]], 6.2);
   footer(s, 14);
 }
@@ -737,22 +700,20 @@ function hbarChart(s, o) {
   const rh = 1.04, rg = 0.12, y0 = 1.62;
   rows.forEach(([n, ex, d, us], i) => {
     const y = y0 + i * (rh + rg);
-    box(s, X0, y, lw, rh, us ? C.ink : C.card, us ? null : C.rule);
-    T(s, n, { x: X0 + 0.28, y: y + 0.18, w: 2.7, h: 0.36, fontFace: F.serif, fontSize: 17, color: us ? C.onDarkHi : C.ink });
-    T(s, ex, { x: X0 + 0.28, y: y + 0.56, w: 2.7, h: 0.4, fontSize: S.label, color: us ? C.accentLt : C.grey });
+    box(s, X0, y, lw, rh, us ? C.ink : C.tint);
+    T(s, n, { x: X0 + 0.3, y: y + 0.18, w: 2.7, h: 0.36, fontFace: F.serif, fontSize: 17, color: us ? C.onDarkHi : C.ink });
+    T(s, ex, { x: X0 + 0.3, y: y + 0.56, w: 2.7, h: 0.4, fontSize: S.label, color: us ? C.accentLt : C.grey });
     T(s, d, { x: X0 + 3.1, y, w: lw - 3.35, h: rh, fontSize: S.body, color: us ? C.onDarkHi : C.body, valign: 'middle' });
   });
-  const rx = 8.0, rw = X1 - rx, wy = y0 + 0.3, wh = (4 * rh + 3 * rg - 0.3) / 4;
+  const rx = 8.0, rw = X1 - rx, wy = y0 + 0.36, wh = (4 * rh + 3 * rg - 0.36) / 4;
   label(s, 'Why we win', rx, y0, rw, C.accent);
   const why = [['Our own assets', 'Environments, grading systems and the outcome data from every run are all ours.'], ['Stickiness', 'Every model upgrade is compared and retrained on the same environments.'],
     ['Speed', '7 products in 14 days. The faster AI changes, the more our speed counts.'], ['Independence', 'No equity from model companies, so every lab can buy from us with confidence.']];
   why.forEach(([t, d], i) => {
     const y = wy + i * wh;
-    hline(s, rx, y, rw);
-    T(s, t, { x: rx, y: y + 0.1, w: rw, h: 0.34, fontFace: F.serif, fontSize: S.h3 });
-    T(s, d, { x: rx, y: y + 0.48, w: rw, h: 0.44, fontSize: S.small, color: C.grey });
+    T(s, t, { x: rx, y, w: rw, h: 0.34, fontFace: F.serif, fontSize: S.h3 });
+    T(s, d, { x: rx, y: y + 0.38, w: rw, h: 0.44, fontSize: S.small, color: C.grey });
   });
-  hline(s, rx, wy + 4 * wh, rw);
   footer(s, 15);
 }
 
@@ -767,18 +728,15 @@ function hbarChart(s, o) {
     ['AfterQuery', '$3.2B', 'reported, 18 months after YC', ['Founded at about 21 by two high-school friends, still in college', 'A co-founder interned at Citadel Securities', 'Fastest unicorn in YC history']],
     ['SimReal', '14 days', 'to ship 7 products', ['Four quants, average age 21', 'Final-year students at Cambridge, LSE and Duke', 'Quant experience: Jane Street, Citadel, D. E. Shaw, Optiver']],
   ];
-  const gap = 0.2, cw = (CW - 3 * gap) / 4, y = 1.62, ch = 4.0, pad = 0.26;
+  const gap = 0.2, cw = (CW - 3 * gap) / 4, y = 1.62, ch = 4.0, pad = 0.28;
   cos.forEach(([n, fig, cap, pts], i) => {
     const x = X0 + i * (cw + gap), tw = cw - 2 * pad, us = i === 3;
-    box(s, x, y, cw, ch, us ? C.ink : C.card, us ? null : C.rule);
-    T(s, n, { x: x + pad, y: y + 0.22, w: tw, h: 0.34, fontFace: F.serif, fontSize: S.h3, color: us ? C.onDarkHi : C.ink });
-    T(s, fig, { x: x + pad, y: y + 0.6, w: tw, h: 0.7, fontFace: F.serif, fontSize: S.stat, color: us ? C.accentLt : C.ink });
-    T(s, cap, { x: x + pad, y: y + 1.32, w: tw, h: 0.24, fontSize: S.small, color: us ? C.onDark : C.grey });
-    pts.forEach((p, j) => {
-      const py = y + 1.76 + j * 0.72;
-      hline(s, x + pad, py, tw, us ? C.darkRule : C.rule);
-      T(s, p, { x: x + pad, y: py + 0.1, w: tw, h: 0.54, fontSize: S.small, color: us ? C.onDarkHi : C.body });
-    });
+    box(s, x, y, cw, ch, us ? C.ink : C.tint);
+    T(s, n, { x: x + pad, y: y + 0.24, w: tw, h: 0.34, fontFace: F.serif, fontSize: S.h3, color: us ? C.onDarkHi : C.ink });
+    T(s, fig, { x: x + pad, y: y + 0.62, w: tw, h: 0.7, fontFace: F.serif, fontSize: S.stat, color: us ? C.accentLt : C.ink });
+    T(s, cap, { x: x + pad, y: y + 1.34, w: tw, h: 0.24, fontSize: S.small, color: us ? C.onDark : C.grey });
+    T(s, pts.map((p, j) => r(p, { breakLine: j < pts.length - 1 })),
+      { x: x + pad, y: y + 1.84, w: tw, h: 1.9, fontSize: S.small, color: us ? C.onDarkHi : C.body, paraSpaceAfter: 10 });
   });
   kicker(s, [['Same starting point, same market. We have been here since day one.', ['since day one']]], 6.02);
   footer(s, 16);
@@ -797,15 +755,13 @@ function hbarChart(s, o) {
   label(s, 'Use of funds', rx, 1.62, 3);
   const uses = [['Training environments', 'Each new industry adds a new line of lab revenue'], ['Experts and data', 'From our 7,000+ waitlist, so each world ships in weeks'],
     ['Compute', 'Training and self-improvement experiments'], ['Anti-cheating and security', 'Every test is attacked first, so labs trust every score']];
-  const uy = 1.92, uh = 0.65;
+  const uy = 1.9, uh = 0.64;
   uses.forEach(([t, d], i) => {
     const y = uy + i * uh;
-    hline(s, rx, y, rw, i ? C.rule : C.ink);
     tag(s, String(i + 1).padStart(2, '0'), rx, y, 0.5, C.accent, { h: uh, valign: 'middle' });
     T(s, t, { x: rx + 0.55, y, w: 3.0, h: uh, fontFace: F.serif, fontSize: 17, valign: 'middle' });
     T(s, d, { x: rx + 3.6, y, w: rw - 3.6, h: uh, fontSize: 12, color: C.grey, valign: 'middle' });
   });
-  hline(s, rx, uy + 4 * uh, rw);
   label(s, 'Milestones this round funds', X0, 4.86, 5);
   const ms = [['Month 3', 'First paying lab'], ['Month 12', '50+ training environments'], ['Month 24', '200+ environments, 30+ industries']];
   const ag = 0.45, mw = (CW - 2 * ag) / 3, my = 5.12, mh = 1.16;
@@ -814,7 +770,7 @@ function hbarChart(s, o) {
     box(s, x, my, mw, mh, last ? C.ink : C.tint);
     tag(s, t, x + 0.28, my + 0.18, 2, last ? C.accentLt : C.accent);
     T(s, d, { x: x + 0.28, y: my + 0.44, w: mw - 0.45, h: 0.5, fontFace: F.serif, fontSize: 17, color: last ? C.onDarkHi : C.ink });
-    if (i < 2) arrow(s, x + mw + 0.1, my + mh / 2, ag - 0.2);
+    if (i < 2) arrow(s, x + mw, my, ag, mh);
   });
   T(s, 'Valuation and terms to be discussed.', { x: X0, y: 6.46, w: 6, h: 0.24, fontSize: S.small, color: C.grey });
   footer(s, 17);
