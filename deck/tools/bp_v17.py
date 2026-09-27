@@ -5,6 +5,7 @@ Edits in place, keeping every other slide untouched:
   2   overview: market ($8.5B -> $700B) and round cells
   3   team: Henry's card as three paragraphs, like Charles's
   10  our edge: a young team that ships first, with the proof
+  11  business model: stages, what each buys, why they buy again
   13  expert network: entry roles in every industry plus top research, climbing to senior roles over time
   14  market: labs today -> the $7T AI economy in 2030 -> the $700B training layer (10%) we sell into
   15  competition: UniPat and Humanlaya as the China peers
@@ -344,6 +345,60 @@ def slide15(x):
     return add_shapes(x, sh)
 
 
+def slide11(x):
+    """Business model: what the lab buys at each stage, what it pays for, and why it buys again."""
+    keep = {376, 377, 378}                               # footer logo, confidential line, page number
+    ids = [shape_id(m.group(0)) for m in shape_blocks(x)]
+    x = drop_shapes(x, set(ids) - keep)
+    sh = Shapes(3000)
+    header_title(sh, '11', '商业模式', [('每一轮都有新交付：', False), ('合作越深，收入越高', True)])
+    # products, one line, with the peer proof on the right
+    sh.text(0.6, 1.6, 7.6, 0.34, [para([run('四类产品   ', 10, C['grey'], MONO),
+                                        run('训练环境  ·  专家数据  ·  评测与攻防测试  ·  RSI自我进化服务', 14, C['ink'], SERIF)])], 'ctr')
+    sh.text(8.3, 1.6, 4.43, 0.34, [para([run('同一模式：AfterQuery 14个月做到年化1亿美元', 10.5, C['accent'])], 'r')], 'ctr')
+    # stage table
+    cols = [(0.8, 2.3, '合作阶段'), (3.2, 3.3, '客户买什么'), (6.65, 2.6, '收费依据'), (9.4, 3.15, '为什么继续买')]
+    ty = 2.2
+    sh.rule(0.6, ty - 0.02, 12.13, C['ink'])
+    for cx, cw, h in cols:
+        sh.text(cx, ty + 0.04, cw, 0.26, [para([run(h, 9.5, C['grey'], MONO)])], 'ctr')
+    stages = [
+        ('01', '付费试点', '一个能力目标的环境与评测包', '固定范围、固定验收标准', '验证接入与训练价值'),
+        ('02', '正式授权', '环境、任务集、验证器、约定使用权', '期限、范围、独占性、交付量', '扩大领域与任务覆盖'),
+        ('03', '持续更新', '新场景、新任务、私有留出集、验证器维护', '年度合同或分批订单', '旧任务会被做饱和，新能力需要新任务'),
+        ('04', '联合训练（RSI）', '训练实验、消融分析、迁移验证、托管运行', '项目或持续服务合同', '解决客户下一阶段的能力缺口'),
+    ]
+    rh, y0 = 0.62, ty + 0.36
+    sh.rule(0.6, y0, 12.13)
+    for i, (n, name, buy, fee, why) in enumerate(stages):
+        y, dark = y0 + i * rh, i == 3
+        if dark:
+            sh.rect(0.6, y, 12.13, rh, C['ink'])
+        main, sub, acc = (C['onDarkHi'], C['onDark'], C['accentLt']) if dark else (C['ink'], C['body'], C['accent'])
+        sh.text(0.8, y, 0.45, rh, [para([run(n, 10, acc, MONO)])], 'ctr')
+        sh.text(1.25, y, 1.9, rh, [para([run(name, 15, main, SERIF)])], 'ctr')
+        sh.text(3.2, y, 3.3, rh, [para([run(buy, 11, sub)], line=1.1)], 'ctr')
+        sh.text(6.65, y, 2.6, rh, [para([run(fee, 11, sub)], line=1.1)], 'ctr')
+        sh.text(9.4, y, 3.15, rh, [para([run(why, 11, acc if dark else main, SANS, True)], line=1.1)], 'ctr')
+        if not dark:
+            sh.rule(0.6, y + rh, 12.13)
+    # scope notes
+    notes = [
+        ('开源 vs 付费', ['开源基准：公开，用来建立信任', '付费产品：私有任务、留出集与验证器']),
+        ('非独家 vs 独家', ['非独家：同一环境可授权给多家实验室', '独家：按领域与期限锁定，溢价较大（Epoch AI）']),
+        ('交付之后，仍由我们提供', ['验证器维护、防作弊修补', '难度升级、托管运行']),
+    ]
+    by, bh, gap = 5.32, 1.12, 0.25
+    bw = (12.13 - 2 * gap) / 3
+    for i, (h, lines) in enumerate(notes):
+        bx = 0.6 + i * (bw + gap)
+        sh.rect(bx, by, bw, bh, C['tint'])
+        sh.text(bx + 0.26, by + 0.16, bw - 0.52, 0.34, [para([run(h, 14, C['ink'], SERIF)])], 'ctr')
+        sh.text(bx + 0.26, by + 0.54, bw - 0.52, 0.5, [para([run(t, 10.5, C['body'])], before=0 if j == 0 else 2)
+                                                      for j, t in enumerate(lines)])
+    return add_shapes(x, sh)
+
+
 HOT_SPOTS = ['数据标注', '专家数据', 'RL环境', '自我进化']
 
 
@@ -648,16 +703,6 @@ COPY = {
         289: P('目标：经得起现实检验的判断'),
         290: P('14天7款产品，零外部融资'),
     },
-    'slide11.xml': {
-        345: P(mk('环境与数据打开合作，', ('自我进化服务带来持续收入',))),
-        364: P('实验室每训一个新模型，就回来再买一轮'),
-        374: P('1亿美元'),
-        375: P('AfterQuery同一模式，14个月的年化收入', 'Mercor年化20亿美元，Snorkel一年18倍'),
-        386: P('环境授权；独家价4–5倍'),
-        390: P('真实工作的示范与判断'),
-        400: P('每次模型升级，都回来再训练'),
-        401: P('持续收费，随模型升级增长'),
-    },
     'slide12.xml': {
         389: P('家前沿实验室在谈\n目标第2个月首单'),
         392: P('名专家候补'),
@@ -673,7 +718,7 @@ COPY = {
         488: P('测今天的水平，分数就是产品'),
         496: P('不只测分，还让AI越练越强\n每次打分都变成下一轮训练'),
         500: P('环境构建工具、验证器、专业任务库和失败案例积累'),
-        503: P('每次模型升级，都回到同一套环境对比、再训练'),
+        503: P('每轮升级都需要新任务、新留出集和验证器维护'),
         506: P('14天7款产品：AI变得越快，我们越有利'),
         509: P('不属于任何一家实验室：中美实验室都能放心采购'),
     },
@@ -738,7 +783,7 @@ def main(src, dst):
     subprocess.run([sys.executable, ADD_SLIDE, work + '/', 'slide17.xml', '--after', 'slide17.xml'], check=True,
                    stdout=subprocess.DEVNULL)
     new_slide = sorted(os.listdir(os.path.join(work, 'ppt', 'slides')), key=lambda n: int(re.sub(r'\D', '', n) or 0))[-1]
-    edits = {'slide20.xml': lambda x: x.replace('709道', '749道'), 'slide10.xml': slide10, 'slide13.xml': slide13, 'slide15.xml': slide15, 'slide16.xml': slide16, 'slide1.xml': slide1, 'slide2.xml': slide2, 'slide3.xml': slide3, 'slide14.xml': slide14,
+    edits = {'slide20.xml': lambda x: x.replace('709道', '749道'), 'slide10.xml': slide10, 'slide11.xml': slide11, 'slide13.xml': slide13, 'slide15.xml': slide15, 'slide16.xml': slide16, 'slide1.xml': slide1, 'slide2.xml': slide2, 'slide3.xml': slide3, 'slide14.xml': slide14,
              'slide17.xml': slide17, new_slide: slide18, 'slide21.xml': slide21}
     for name, fn in edits.items():
         p = os.path.join(work, 'ppt', 'slides', name)
