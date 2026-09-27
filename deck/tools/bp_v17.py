@@ -5,7 +5,7 @@ Edits in place, keeping every other slide untouched:
   2   overview: market ($8.5B -> $700B) and round cells
   3   team: Henry's card as three paragraphs, like Charles's
   10  our edge: a young team that ships first, with the proof
-  13  expert network: entry roles in every industry plus top research, deepening over time
+  13  expert network: entry roles in every industry plus top research, climbing to senior roles over time
   14  market: labs today -> the $7T AI economy in 2030 -> the $700B training layer (10%) we sell into
   15  competition: UniPat and Humanlaya as the China peers
   17  raise: stage / product / revenue targets / $150M post-money valuation
@@ -310,7 +310,7 @@ def slide13(x):
     sh = Shapes(3000)
     sh.rule(0.6, 5.14, 3.9)
     rows = [('入门岗位', '每个行业，AI最先接手的工作', C['ink']), ('顶尖科研', '最难的问题，最难的评分标准', C['ink']),
-            ('持续深入', '每上线一个行业，网络就往更深处延伸', C['accent'])]
+            ('向上延伸', '成员逐年晋升，网络延伸到资深与高层', C['accent'])]
     for i, (k, d, col) in enumerate(rows):
         y = 5.22 + i * 0.4
         sh.text(0.6, y, 1.1, 0.4, [para([run(k, 13, col, SERIF)])], 'ctr')
@@ -639,7 +639,7 @@ COPY = {
         400: P('顶级交易公司的从业者，在支持我们的研发'),
     },
     'slide13.xml': {
-        418: P('精准覆盖每个行业的入门岗位与顶尖科研，并持续深入'),
+        418: P('精准覆盖每个行业的入门岗位与顶尖科研，并逐步延伸到更高层'),
     },
     'slide15.xml': {
         480: P(mk('别人做一环，我们做让AI持续进步的', ('完整闭环',))),
