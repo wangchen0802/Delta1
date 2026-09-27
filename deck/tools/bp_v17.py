@@ -443,12 +443,15 @@ def slide17(x):
     sh = Shapes(3000)
     header_title(sh, '17', '融资计划', [('本轮融资2,000万美元，', False), ('投后估值1.5亿美元', True)])
     # left: the round
-    sh.rect(0.6, 1.62, 3.9, 2.95, C['ink'])
-    sh.text(0.95, 1.86, 3.0, 0.22, [para([run('种子轮', 10, C['accentLt'], MONO)])])
-    sh.text(0.95, 2.12, 3.3, 1.0, [para([run('$20M', 64, C['accentLt'], SERIF)])])
-    sh.text(0.95, 3.2, 3.3, 0.3, [para([run('投后1.5亿美元  ·  出让约13%', 13, C['onDarkHi'])])])
-    sh.text(0.95, 3.6, 3.3, 0.7, [para([run('6个月年化收入1亿美元', 13, C['accentLt'], SANS, True)]),
-                                  para([run('12个月年化收入3亿美元', 13, C['accentLt'], SANS, True)], before=3)])
+    sh.rect(0.6, 1.62, 3.9, 3.0, C['ink'])
+    sh.text(0.95, 1.82, 3.0, 0.22, [para([run('种子轮', 10, C['accentLt'], MONO)])])
+    sh.text(0.95, 2.02, 3.3, 0.88, [para([run('$20M', 56, C['accentLt'], SERIF)])])
+    sh.text(0.95, 2.94, 3.3, 0.28, [para([run('投后1.5亿美元  ·  出让约13%', 13, C['onDarkHi'])])])
+    sh.rect(0.95, 3.34, 3.2, 0.01, '3A3935')
+    sh.text(0.95, 3.44, 3.3, 0.2, [para([run('本轮商业目标', 9.5, C['onDark'], MONO)])])
+    sh.text(0.95, 3.66, 3.3, 0.3, [para([run('从试点推进到可验证的付费采购与复购', 12.5, C['onDarkHi'])])], 'ctr')
+    sh.text(0.95, 4.02, 3.3, 0.54, [para([run('6个月年化收入1亿美元', 13, C['accentLt'], SANS, True)]),
+                                   para([run('12个月年化收入3亿美元', 13, C['accentLt'], SANS, True)], before=3)])
     # right: why this price
     sh.text(4.95, 1.62, 5, 0.22, [para([run('估值依据', 10, C['grey'], MONO)])])
     sh.rule(4.95, 1.9, 7.78)
