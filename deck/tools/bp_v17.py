@@ -359,7 +359,7 @@ def slide16(x):
             x = move(x, base + k, y0 + dy)
     x = move(x, 561, 6.2)
     sh = Shapes(3000)
-    sh.text(0.6, 1.48, 8, 0.2, [para([run('AI的热点一直在变', 10, C['grey'], MONO)])])
+    sh.text(0.6, 1.48, 8, 0.2, [para([run('AI数据与后训练热点', 10, C['grey'], MONO)])])
     for i, (bx, h) in enumerate(zip(xs, HOT_SPOTS)):
         dark = i == 3
         sh.rect(bx, 1.74, cw, 0.48, C['ink'] if dark else C['tint'])
