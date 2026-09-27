@@ -8,6 +8,7 @@ Edits in place, keeping every other slide untouched:
   13  expert network: entry roles in every industry plus top research, climbing to senior roles over time
   14  market: labs today -> the $7T AI economy in 2030 -> the $700B training layer (10%) we sell into
   15  competition: UniPat and Humanlaya as the China peers
+  16  comps: the hot-spot strip from page 10 over the four company cards
   17  raise: stage / product / revenue targets / $150M post-money valuation
   18  (new) use of funds as two engines: revenue and RSI
   A3  sources for the new figures
@@ -264,7 +265,7 @@ def slide10(x):
         ('02', '交付质量', '749道题、400次作弊攻击0次成功；财务环境评分漏洞6→0'),
         ('03', '市场验证', '首周GitHub 500+星标、7,000+专家候补、2家前沿实验室在谈'),
         ('04', '过往战绩', 'U稳定币0→14亿美元、一个月上线Binance；五家顶级量化机构经历'),
-        ('05', '行业覆盖', '21所顶尖大学的研究网络：快速、低成本覆盖每个行业的入门岗位'),
+        ('05', '行业覆盖', '21所顶尖大学研究网络：快速、低成本覆盖各行业入门岗位和前沿科研'),
     ]
     rh = (bot - 1.9) / len(rows)
     for i, (n, hd, d) in enumerate(rows):
@@ -340,6 +341,31 @@ def slide15(x):
     sh.text(0.6, 6.3, 12.13, 0.3, [para([run('国内现状  ', 10, C['accent'], SANS, True),
                                          run('9月，UniPat获阿里领投3亿美元（估值25亿美元），Humanlaya完成数亿元人民币Pre-A；'
                                              '阿里、字节、DeepSeek都已向两家采购。赛道在中美同时升温。', 10, C['body'])])], 'ctr')
+    return add_shapes(x, sh)
+
+
+HOT_SPOTS = ['数据标注', '专家数据', 'RL环境', '自我进化']
+
+
+def slide16(x):
+    """Comps: the page-10 hot-spot strip over the four cards, one wave per company."""
+    xs, cw, top = [0.6, 3.68, 6.77, 9.85], 2.88, 2.36
+    for base in (521, 531, 541, 551):
+        x = move(x, base, top, 3.73)
+        # name, value, caption, then three rule+line pairs pulled slightly closer together
+        for k, dy in [(1, 0.61), (2, 0.61), (3, 0.61), (4, 0.61), (5, 0.61), (6, 0.51), (7, 0.51), (8, 0.41), (9, 0.41)]:
+            b = [m.group(0) for m in shape_blocks(x) if shape_id(m.group(0)) == base + k][0]
+            y0 = int(re.search(r'<a:off x="-?\d+" y="(-?\d+)"', b).group(1)) / EMU
+            x = move(x, base + k, y0 + dy)
+    x = move(x, 561, 6.2)
+    sh = Shapes(3000)
+    sh.text(0.6, 1.48, 8, 0.2, [para([run('AI的热点一直在变', 10, C['grey'], MONO)])])
+    for i, (bx, h) in enumerate(zip(xs, HOT_SPOTS)):
+        dark = i == 3
+        sh.rect(bx, 1.74, cw, 0.48, C['ink'] if dark else C['tint'])
+        sh.text(bx + 0.26, 1.74, cw - 0.4, 0.48, [para([run(h, 14, C['onDarkHi'] if dark else C['ink'], SERIF)])], 'ctr')
+        if i < 3:
+            sh.text(bx + cw, 1.74, xs[i + 1] - bx - cw, 0.48, [para([run('→', 11, C['grey'])], 'ctr')], 'ctr')
     return add_shapes(x, sh)
 
 
@@ -712,7 +738,7 @@ def main(src, dst):
     subprocess.run([sys.executable, ADD_SLIDE, work + '/', 'slide17.xml', '--after', 'slide17.xml'], check=True,
                    stdout=subprocess.DEVNULL)
     new_slide = sorted(os.listdir(os.path.join(work, 'ppt', 'slides')), key=lambda n: int(re.sub(r'\D', '', n) or 0))[-1]
-    edits = {'slide20.xml': lambda x: x.replace('709道', '749道'), 'slide10.xml': slide10, 'slide13.xml': slide13, 'slide15.xml': slide15, 'slide1.xml': slide1, 'slide2.xml': slide2, 'slide3.xml': slide3, 'slide14.xml': slide14,
+    edits = {'slide20.xml': lambda x: x.replace('709道', '749道'), 'slide10.xml': slide10, 'slide13.xml': slide13, 'slide15.xml': slide15, 'slide16.xml': slide16, 'slide1.xml': slide1, 'slide2.xml': slide2, 'slide3.xml': slide3, 'slide14.xml': slide14,
              'slide17.xml': slide17, new_slide: slide18, 'slide21.xml': slide21}
     for name, fn in edits.items():
         p = os.path.join(work, 'ppt', 'slides', name)
