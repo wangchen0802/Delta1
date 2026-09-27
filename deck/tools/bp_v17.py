@@ -162,7 +162,7 @@ def slide3(x):
     ppr_first = re.search(r'<a:pPr[^>]*>.*?</a:pPr>', paras[0], re.S).group(0)
     ppr_next = re.search(r'<a:pPr[^>]*>.*?</a:pPr>', paras[2], re.S).group(0)   # has spcBef 600
     end = re.search(r'<a:endParaRPr[^>]*>.*?</a:endParaRPr>', paras[0], re.S).group(0)
-    texts = ['师从剑桥统计学教授Po-Ling Loh（国际数理统计学会会士，2025年Ethel Newbold奖得主）',
+    texts = ['师从剑桥统计学教授Po-Ling Loh（国际数理统计学会会士，2025年Ethel Newbold奖）',
              '剑桥研究中心AI最年轻本科研究员（2026）',
              'Jane Street、D. E. Shaw量化实习']
     new = ''.join(f'<a:p>{ppr_first if i == 0 else ppr_next}<a:r>{rpr}<a:t>{html.escape(t, quote=False)}</a:t></a:r>{end}</a:p>'
@@ -369,6 +369,223 @@ def slide21(x):
     return x[:m.start()] + s2 + x[m.end():]
 
 
+RUN = r'<a:r>.*?</a:r>'
+RPR = r'<a:rPr[^>]*/>|<a:rPr[^>]*>.*?</a:rPr>'
+FILL = r'<a:solidFill>.*?</a:solidFill>'
+
+
+def set_paras(xml, sid, paras):
+    """Replace shape `sid`'s text paragraph by paragraph. Each original paragraph keeps
+    its pPr and any leading/trailing line breaks; empty spacer paragraphs stay put.
+    paras: [[(text, overrides), ...], ...]; '\n' in text becomes a line break.
+    overrides: {'b': 0|1} and/or {'acc': True} (copy the formatting of the original
+    run with the same text, else of the paragraph's first differently coloured run)."""
+    for m in shape_blocks(xml):
+        s = m.group(0)
+        if shape_id(s) != sid:
+            continue
+        body = re.search(r'(<a:lstStyle/>)(.*)(</p:txBody>)', s, re.S)
+        old = re.findall(r'<a:p>.*?</a:p>', body.group(2), re.S)
+        all_runs = [(re.search(RPR, r, re.S).group(0), html.unescape(re.search(r'<a:t>([^<]*)', r).group(1)))
+                    for r in re.findall(RUN, body.group(2), re.S)]
+        new, queue = [], list(paras)
+        for p in old:
+            rs = list(re.finditer(RUN, p, re.S))
+            if not rs:
+                new.append(p)
+                continue
+            if not queue:
+                continue
+            runs = queue.pop(0)
+            head, mid, tail = p[:rs[0].start()], p[rs[0].start():rs[-1].end()], p[rs[-1].end():]
+            prs = [re.search(RPR, r.group(0), re.S).group(0) for r in rs]
+            base = prs[0]
+            fill0 = re.search(FILL, base, re.S)
+            fill0 = fill0.group(0) if fill0 else ''
+            accent = next((r for r in prs if (re.search(FILL, r, re.S) or [''])[0] != fill0), base)
+            br = re.search(r'<a:br>.*?</a:br>|<a:br/>', mid, re.S)
+            br = br.group(0) if br else f'<a:br>{base}</a:br>'
+            out = []
+            for text, ov in runs:
+                r = base
+                if ov.get('acc'):
+                    r = next((rp for rp, t in all_runs if t == text.strip('\n')), accent)
+                if 'b' in ov:
+                    r = re.sub(r' b="\d"', f' b="{ov["b"]}"', r) if ' b="' in r else r.replace('<a:rPr', f'<a:rPr b="{ov["b"]}"', 1)
+                for i, line in enumerate(text.split('\n')):
+                    if i:
+                        out.append(br)
+                    if line:
+                        out.append(f'<a:r>{r}<a:t>{html.escape(line, quote=False)}</a:t></a:r>')
+            new.append(head + ''.join(out) + tail)
+        assert not queue, (sid, queue)
+        s2 = s[:body.start(2)] + ''.join(new) + s[body.end(2):]
+        return xml[:m.start()] + s2 + xml[m.end():]
+    raise KeyError(sid)
+
+
+def P(*paras):
+    """P('a', 'b') -> two plain paragraphs; a paragraph may also be a list of (text, overrides)."""
+    return [p if isinstance(p, list) else [(p, {})] for p in paras]
+
+
+def mk(*parts):
+    """mk('plain', ('marked',), 'plain') -> one paragraph; marked parts keep the original accent."""
+    return [(t[0], {'acc': True}) if isinstance(t, tuple) else (t, {}) for t in parts]
+
+
+# Copy edits on the team's slides: same facts, fewer words.
+COPY = {
+    'slide1.xml': {
+        18: P('AI经济的引擎：用数据、环境与自我进化，推动AI下一次跃迁'),
+        19: P('每个行业最强的AI', '都来自我们搭建的世界'),
+    },
+    'slide2.xml': {
+        42: P('为AI实验室和企业提供评测、数据与训练环境\n独家环境让AI自我进化（RSI）'),
+        46: P('机器学习、事件预测、做市交易的评测与RL环境', '旗舰Xitadel已跑通自我进化（RSI）'),
+        50: P('Qwen3.8-27B在Xitadel训练后，在未见过的真实行情上交易表现最高提升12%，多次独立复现'),
+        54: P([('剑桥、LSE、杜克', {'b': 1}), ('本科\n', {'b': 0}),
+               ('剑桥研究中心AI最年轻本科研究员', {'b': 1}), ('\n', {'b': 0}),
+               ('Jane Street、Citadel、D. E. Shaw、\nMillennium、Optiver', {'b': 1})]),
+        38: [mk('给AI真实的工作环境，让它反复犯错、学习、', ('自我进化',))],
+        63: P(mk('谁有最好的', ('训练世界',), '，谁就有该行业最好的AI'), '从交易出发，让AI自我进化，走向整个世界'),
+    },
+    'slide3.xml': {
+        73: P('奥赛与名校 → 华尔街最残酷的交易台：我们最懂做题与做事的差距'),
+        86: P('United Stables首位员工：U稳定币从0做到14亿美元，一个月上线Binance', '汇丰港元稳定币发行项目唯一实习生', 'Citadel对冲基金实习'),
+        96: P('Millennium香港数据科学家', 'Millennium另类数据团队史上首位应届招聘', '17岁成为出版作家'),
+        104: P('Scale AI、Mercor、AfterQuery创始人都在20岁左右起步', '首轮投资人回报：17,000倍、40倍、1,800倍'),
+    },
+    'slide4.xml': {
+        129: P(mk('18个月内收入涨27倍、估值涨10倍：', ('赛道才刚开始',))),
+        133: P('Mercor年化毛营收：16个月，7,500万→20亿美元'),
+        152: P('Snorkel AI年化收入一年增至3.75亿美元'),
+        163: P('Mercor估值：18个月，20亿→200亿美元（洽谈中）'),
+        176: P('AfterQuery估值：3亿→32亿美元'),
+        187: P('AI智能体市场：7年，79亿→约1,110亿美元'),
+        212: P('Scale AI新训练项目已涉及RL环境'),
+    },
+    'slide5.xml': {
+        136: P(mk('AI会做题了：谁有最好的', ('训练世界',), '，谁就有每个领域最好的AI')),
+        159: [mk('AI越独立接管经济活动，', ('判断对错的标准',), '就越重要'), mk('有了真实环境和准确标准，AI才能', ('自我进化',))],
+    },
+    'slide6.xml': {
+        173: P('真实工作没有标准答案：考满分的AI，未必能放心交付'),
+        195: P('AI进入现实经济'),
+        200: P('下一代反馈信号，来自现实世界'),
+    },
+    'slide7.xml': {
+        207: P(mk('每个动作都有', ('真实反馈',), '，AI持续自我进化')),
+        208: P('环境、评分、专家三合一：AI做真实工作，从每次结果中学习'),
+        212: P('还原真实工作'),
+        227: P('每次结果都是训练'),
+        254: P('每一轮都从上一轮出发'),
+    },
+    'slide8.xml': {
+        250: P('真实市场，与顶尖交易员同场；IMC Trading授权数据'),
+        253: P('每笔交易由市场结算'),
+        256: P('每天复盘盈亏与订单，一轮比一轮强'),
+        258: P('开源模型Qwen3.8-27B在Xitadel训练后，在未见过的真实行情上交易表现提升12%，多次独立复现'),
+        259: P('已证明：AI能在真实金融市场里自己变强', '下一步：多策略、多市场、多行业'),
+        261: P('每一轮都从上一轮的反馈出发'),
+        264: P('以基础模型=100计；多次独立复现（受控实验，Qwen3.8-27B）'),
+        265: P('两周，我们跑通了全球首个做市交易的自我进化'),
+    },
+    'slide9.xml': {
+        276: P('同一套方法，已用在机器学习和事件预测'),
+        282: P('AI独立完成研究项目，从数据到结果：60个真实任务，7类数据'),
+        283: P('目标：AI改进AI'),
+        288: P('AI预判真实事件，从体育赛事到地震，揭晓后按结果打分、持续进化'),
+        289: P('目标：经得起现实检验的判断'),
+        290: P('14天7款产品，零外部融资'),
+    },
+    'slide10.xml': {
+        339: P(mk('AI作弊不了：', ('每一分算力，都用在真进化上',))),
+        345: P('749道题，上线前逐题攻击\n空子先被我们找到、补上'),
+        349: P('每个RL任务的算力成本（Mechanize估算）\n被钻空子，钱就白花'),
+        352: P('Month-End Close两轮受控对比：评分漏洞6个降到0'),
+        355: P('只认真实结果：盈亏、账目、代码能否运行'),
+        357: P('作弊不了，分数才可信；分数可信，AI才能进化', '我们让每一次训练都算数'),
+    },
+    'slide11.xml': {
+        345: P(mk('环境与数据打开合作，', ('自我进化服务带来持续收入',))),
+        364: P('实验室每训一个新模型，就回来再买一轮'),
+        375: P('美元 / 每份合同 / 每季度', '独家4–5倍（Epoch AI）'),
+        386: P('环境授权；独家价4–5倍'),
+        390: P('真实工作的示范与判断'),
+        400: P('每次模型升级，都回来再训练'),
+        401: P('持续收费，随模型升级增长'),
+    },
+    'slide12.xml': {
+        389: P('家前沿实验室在谈\n目标第3个月首单'),
+        392: P('名专家候补'),
+        398: P('位硅谷顶级天使主动联系'),
+        400: P('顶级交易公司的从业者，在支持我们的研发'),
+    },
+    'slide13.xml': {
+        418: P('每个训练世界，都能最快找到对的评分人'),
+    },
+    'slide15.xml': {
+        480: P(mk('别人做一环，我们做让AI持续进步的', ('完整闭环',))),
+        484: P('专家示范与判断，按人工意见打分'),
+        488: P('测今天的水平，分数就是产品'),
+        496: P('不只测分，还让AI越练越强\n每次打分都变成下一轮训练'),
+        500: P('环境、评分体系、每次运行的结果数据，都归我们'),
+        503: P('每次模型升级，都回到同一套环境对比、再训练'),
+        506: P('14天7款产品：AI变得越快，我们越有利'),
+    },
+    'slide16.xml': {
+        526: P('19岁的Alexandr Wang创立'),
+        538: P('22岁成最年轻白手起家亿万富翁'),
+        548: P('创始人曾在Citadel Securities实习'),
+        520: [mk('赛道突围者都起步年轻、跑得快；', ('我们更快',))],
+        546: P('两位约21岁的在校大学生创立'),
+        554: P('7款产品', '全球首个自我进化做市环境'),
+        560: P('量化经历：\nJane Street、Citadel、\nD. E. Shaw、Optiver、Millennium'),
+        561: [mk('同样的起点，同一个赛道，', ('更快的加速度',))],
+    },
+    'slide18.xml': {
+        619: P('三个世界已上线：交易、AI研究、未来预测'),
+    },
+    'slide19.xml': {
+        634: P('回放真实交易日与订单簿，每笔交易由市场结算'),
+        637: P('开源模型Qwen3.8-27B，比较训练前后表现'),
+        640: P('模型未见过的真实交易日'),
+        643: P(mk('交易表现较基础模型', ('提升12%',), '，多次独立复现（受控实验）')),
+        646: P('Xitadel公开预览版：人类参考分80，前沿模型最高77.28（GPT 6），尚无模型越过人类线'),
+        649: P('运行记录、指标定义与脚本，尽调时提供'),
+    },
+    'slide22.xml': {
+        695: P('让AI反复做真实工作、按结果打分的系统，常称RL环境'),
+        699: P('按真实结果打分（盈亏、账目、代码能否运行），不靠AI主观判断'),
+        703: P('AI用自己在真实环境中的结果训练自己，一轮比一轮强'),
+        707: P('上线前模拟作弊与攻击，找出并修补评分漏洞'),
+        711: P('只改一个条件（是否在Xitadel训练），比较前后表现'),
+        715: P('按当前收入推算的全年收入，含付给专家的部分'),
+    },
+}
+
+
+# Closing page: the two-line 44pt title runs into the subtitle; move the lines below it down.
+MOVE_Y = {'slide18.xml': {619: 4.55, 620: 4.95, 621: 5.6, 622: 5.74}}
+
+
+def move_y(xml, sid, y):
+    for m in re.finditer(r'<p:sp>.*?</p:sp>|<p:cxnSp>.*?</p:cxnSp>', xml, re.S):
+        if shape_id(m.group(0)) == sid:
+            s2 = re.sub(r'(<a:off x="\d+" y=")\d+(")', lambda g: f'{g.group(1)}{round(y * 914400)}{g.group(2)}', m.group(0), count=1)
+            return xml[:m.start()] + s2 + xml[m.end():]
+    raise KeyError(sid)
+
+
+def apply_copy(name, xml):
+    for sid, paras in COPY.get(name, {}).items():
+        xml = set_paras(xml, sid, paras)
+    for sid, y in MOVE_Y.get(name, {}).items():
+        xml = move_y(xml, sid, y)
+    return xml
+
+
 def main(src, dst):
     work = tempfile.mkdtemp()
     with zipfile.ZipFile(src) as z:
@@ -382,6 +599,10 @@ def main(src, dst):
         p = os.path.join(work, 'ppt', 'slides', name)
         xml = open(p, encoding='utf-8').read()
         open(p, 'w', encoding='utf-8').write(fn(xml))
+    for name in set(COPY) | set(MOVE_Y):
+        p = os.path.join(work, 'ppt', 'slides', name)
+        xml = open(p, encoding='utf-8').read()
+        open(p, 'w', encoding='utf-8').write(apply_copy(name, xml))
     if os.path.exists(dst):
         os.remove(dst)
     with zipfile.ZipFile(dst, 'w', zipfile.ZIP_DEFLATED) as z:
