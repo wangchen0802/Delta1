@@ -5,7 +5,9 @@ Edits in place, keeping every other slide untouched:
   2   overview: market ($8.5B -> $700B) and round cells
   3   team: Henry's card as three paragraphs, like Charles's
   10  our edge: a young team that ships first, with the proof
+  13  expert network: entry roles in every industry plus top research, deepening over time
   14  market: labs today -> the $7T AI economy in 2030 -> the $700B training layer (10%) we sell into
+  15  competition: UniPat and Humanlaya as the China peers
   17  raise: stage / product / revenue targets / $150M post-money valuation
   18  (new) use of funds as two engines: revenue and RSI
   A3  sources for the new figures
@@ -260,11 +262,13 @@ def slide10(x):
     rows = [
         ('01', '抓趋势', 'RL环境刚成为实验室刚需，我们两周跑通全球首个做市交易的自我进化'),
         ('02', '交付质量', '749道题、400次作弊攻击0次成功；财务环境评分漏洞6→0'),
-        ('03', '市场验证', '首周GitHub 500+星标、7,000+专家候补、2家前沿实验室在谈'),
-        ('04', '过往战绩', 'U稳定币0→14亿美元、一个月上线Binance；五家顶级量化机构经历'),
+        ('03', '行业覆盖', '每个行业的入门岗位，AI最先接手：我们能快速、低成本覆盖'),
+        ('04', '市场验证', '首周GitHub 500+星标、7,000+专家候补、2家前沿实验室在谈'),
+        ('05', '过往战绩', 'U稳定币0→14亿美元、一个月上线Binance；五家顶级量化机构经历'),
     ]
+    rh = (bot - 1.9) / len(rows)
     for i, (n, hd, d) in enumerate(rows):
-        row_block(sh, 1.9 + i * 0.64, 0.64, n, hd, d, rx=rx, rw=rw)
+        row_block(sh, 1.9 + i * rh, rh, n, hd, d, rx=rx, rw=rw)
     # bottom: the hot spot keeps moving, which is our edge
     sh.text(0.6, 4.74, 8, 0.22, [para([run('AI的热点一直在变', 10, C['grey'], MONO)])])
     hot = [('数据标注', 'Scale AI'), ('专家数据', 'Mercor'), ('RL环境', 'AfterQuery'), ('自我进化', 'SimReal')]
@@ -278,6 +282,64 @@ def slide10(x):
             sh.text(bx + gw, 5.0, gg, 0.66, [para([run('→', 14, C['grey'])], 'ctr')], 'ctr')
     sh.text(0.6, 5.86, 12.13, 0.44, [para([run('热点变得越快，我们越有利。押注我们，就是押注', 20, C['ink'], SERIF),
                                            run('AI每一次范式变化', 20, C['accent'], SERIF), run('中的机会。', 20, C['ink'], SERIF)], 'ctr')], 'ctr')
+    return add_shapes(x, sh)
+
+
+def move(xml, sid, y=None, h=None):
+    """Set a shape's top (and height) in inches."""
+    for m in shape_blocks(xml):
+        if shape_id(m.group(0)) == sid:
+            b = m.group(0)
+            if y is not None:
+                b = re.sub(r'(<a:off x="-?\d+" y=")-?\d+(")', lambda g: g.group(1) + e(y) + g.group(2), b, count=1)
+            if h is not None:
+                b = re.sub(r'(<a:ext cx="\d+" cy=")\d+(")', lambda g: g.group(1) + e(h) + g.group(2), b, count=1)
+            return xml[:m.start()] + b + xml[m.end():]
+    raise KeyError(sid)
+
+
+def clone(xml, sid, new_id):
+    """Append a copy of shape `sid` under a new id."""
+    b = [m.group(0) for m in shape_blocks(xml) if shape_id(m.group(0)) == sid][0]
+    b = re.sub(r'<p:cNvPr id="\d+" name="[^"]*"', f'<p:cNvPr id="{new_id}" name="SimReal {new_id}"', b, count=1)
+    return xml.replace('</p:spTree>', b + '</p:spTree>', 1)
+
+
+def slide13(x):
+    """Expert network: breadth (every industry's entry roles) and depth (top research), deepening over time."""
+    sh = Shapes(3000)
+    sh.rule(0.6, 5.14, 3.9)
+    rows = [('入门岗位', '每个行业，AI最先接手的工作', C['ink']), ('顶尖科研', '最难的问题，最难的评分标准', C['ink']),
+            ('持续深入', '每上线一个行业，网络就往更深处延伸', C['accent'])]
+    for i, (k, d, col) in enumerate(rows):
+        y = 5.22 + i * 0.4
+        sh.text(0.6, y, 1.1, 0.4, [para([run(k, 13, col, SERIF)])], 'ctr')
+        sh.text(1.75, y, 2.9, 0.4, [para([run(d, 10.5, C['grey'])])], 'ctr')
+    return add_shapes(x, sh)
+
+
+def slide15(x):
+    """Competition: five rows instead of four, adding UniPat and Humanlaya as the China peers."""
+    top, rh, gap = 1.75, 0.78, 0.1
+    ys = [top + i * (rh + gap) for i in range(5)]
+    for sid in (4001, 4002, 4003, 4004):
+        x = clone(x, sid - 4001 + 481, sid)
+    # (box, title, subtitle, description, title offset, subtitle offset) per row
+    rows = [(481, 482, 483, 484, 0.1, 0.46), (4001, 4002, 4003, 4004, 0.1, 0.46), (485, 486, None, 488, 0.2, None),
+            (489, 490, None, 492, 0.2, None), (493, 494, 495, 496, 0.06, 0.48)]
+    for y, (box, title, sub, desc, to, so) in zip(ys, rows):
+        x = move(x, box, y, rh)
+        x = move(x, desc, y, rh)
+        x = move(x, title, y + to, 0.4)
+        if sub:
+            x = move(x, sub, y + so, 0.28)
+    x = set_paras(x, 4002, P('中国同行'))
+    x = set_paras(x, 4003, P('UniPat、Humanlaya'))
+    x = set_paras(x, 4004, P('主要服务国内实验室：专家数据与评测\nUniPat由阿里领投，估值25亿美元'))
+    sh = Shapes(3000)
+    sh.text(0.6, 6.3, 12.13, 0.3, [para([run('国内现状  ', 10, C['accent'], SANS, True),
+                                         run('9月，UniPat获阿里领投3亿美元（估值25亿美元），Humanlaya完成数亿元人民币Pre-A；'
+                                             '阿里、字节、DeepSeek都已向两家采购。赛道在中美同时升温。', 10, C['body'])])], 'ctr')
     return add_shapes(x, sh)
 
 
@@ -417,6 +479,8 @@ def slide21(x):
         entry('2030年AI经济推算：', '麦肯锡《Agents, robots, and us》（2025年11月）：2030年美国约2.9万亿美元；'
               'IMF《世界经济展望》（2026年4月）：美国GDP 32.4万亿美元、全球126.3万亿美元；美国以外按美国一半渗透率推算'),
         entry('训练市场推算：', '2030年AI经济 × 10%；10%参照大型科技公司研发投入占收入约10–15%（公司年报），取下限，为推算假设'),
+        entry('国内现状：', '彭博（2026年9月10日）：阿里、字节、DeepSeek等国内模型公司已向UniPat与Humanlaya采购数据或服务；'
+              'Humanlaya：2025年10月成立，2026年9月9日完成数亿元人民币Pre-A轮，鼎晖领投，红杉中国、今日资本、BAI参投（界面新闻、东方财富）'),
         entry('融资与估值：', 'Applied Compute：Upstarts（2025年6月，种子轮2,000万美元，投后1亿美元），'
               'Tech Startups（2025年9月，5亿美元），The Information（2026年8月，约30亿美元洽谈）；'
               'AfterQuery：Business Wire（2026年4月，A轮3,000万美元，估值3亿美元，年化收入1亿美元）；'
@@ -575,7 +639,7 @@ COPY = {
         400: P('顶级交易公司的从业者，在支持我们的研发'),
     },
     'slide13.xml': {
-        418: P('每个训练世界，都能最快找到对的评分人'),
+        418: P('精准覆盖每个行业的入门岗位与顶尖科研，并持续深入'),
     },
     'slide15.xml': {
         480: P(mk('别人做一环，我们做让AI持续进步的', ('完整闭环',))),
@@ -585,6 +649,7 @@ COPY = {
         500: P('环境、评分体系、每次运行的结果数据，都归我们'),
         503: P('每次模型升级，都回到同一套环境对比、再训练'),
         506: P('14天7款产品：AI变得越快，我们越有利'),
+        509: P('不属于任何一家实验室：中美实验室都能放心采购'),
     },
     'slide16.xml': {
         526: P('19岁的Alexandr Wang创立'),
@@ -647,7 +712,7 @@ def main(src, dst):
     subprocess.run([sys.executable, ADD_SLIDE, work + '/', 'slide17.xml', '--after', 'slide17.xml'], check=True,
                    stdout=subprocess.DEVNULL)
     new_slide = sorted(os.listdir(os.path.join(work, 'ppt', 'slides')), key=lambda n: int(re.sub(r'\D', '', n) or 0))[-1]
-    edits = {'slide20.xml': lambda x: x.replace('709道', '749道'), 'slide10.xml': slide10, 'slide1.xml': slide1, 'slide2.xml': slide2, 'slide3.xml': slide3, 'slide14.xml': slide14,
+    edits = {'slide20.xml': lambda x: x.replace('709道', '749道'), 'slide10.xml': slide10, 'slide13.xml': slide13, 'slide15.xml': slide15, 'slide1.xml': slide1, 'slide2.xml': slide2, 'slide3.xml': slide3, 'slide14.xml': slide14,
              'slide17.xml': slide17, new_slide: slide18, 'slide21.xml': slide21}
     for name, fn in edits.items():
         p = os.path.join(work, 'ppt', 'slides', name)
