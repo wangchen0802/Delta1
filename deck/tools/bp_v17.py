@@ -2,11 +2,11 @@
 
 Edits in place, keeping every other slide untouched:
   1   cover: this round -> "2,000万美元 · 投后估值1.5亿美元"
-  2   overview: market ($8.5B -> $7T) and round cells
+  2   overview: market ($8.5B -> $700B) and round cells
   3   team: Henry's card as three paragraphs, like Charles's
-  14  market: labs today -> the 2030 training layer we sell into -> the $7T AI economy it serves
+  14  market: labs today -> the $7T AI economy in 2030 -> the $700B training layer (10%) we sell into
   17  raise: stage / product / revenue targets / $150M post-money valuation
-  18  (new) use of funds, reverse-engineered from the revenue targets
+  18  (new) use of funds as two engines: revenue and RSI
   A3  sources for the new figures
 
 New shapes copy the Google Slides text style of the deck (Latin family names
@@ -147,8 +147,8 @@ def slide1(x):
 
 
 def slide2(x):
-    x = plain(x, 57, '$8.5B→$150–400B')
-    x = plain(x, 58, '实验室今天每年买85亿美元训练数据与RL环境；2030年训练层每年1,500–4,000亿美元，服务7万亿美元的AI经济')
+    x = plain(x, 57, '$8.5B→$700B')
+    x = plain(x, 58, '今天实验室每年买85亿美元训练数据与RL环境；2030年AI经济7万亿美元，训练占10%：7,000亿美元，82倍')
     x = plain(x, 62, '种子轮2,000万美元，投后1.5亿美元；6个月年化收入1亿美元，12个月3亿美元')
     return x
 
@@ -173,13 +173,13 @@ def slide3(x):
 
 
 def slide14(x):
-    """Market, one chain in one unit: labs today -> the 2030 training layer we sell
-    into -> the 2030 AI economy it serves."""
+    """Market, one chain in one unit: labs today -> the 2030 AI economy -> the
+    training layer we sell into (10% of it, like an R&D budget)."""
     keep = {470, 471, 472}                               # footer logo, confidential line, page number
     ids = [shape_id(m.group(0)) for m in shape_blocks(x)]
     x = drop_shapes(x, set(ids) - keep)
     sh = Shapes(3000)
-    header_title(sh, '14', '市场', [('2030年：AI经济', False), ('7万亿美元', True), ('，训练市场数千亿美元', False)])
+    header_title(sh, '14', '市场', [('2030年：训练市场', False), ('7,000亿美元', True), ('，是今天的82倍', False)])
     gap, top, ch = 0.3, 1.62, 3.7
     cw = (12.13 - 2 * gap) / 3
     xs = [0.6 + i * (cw + gap) for i in range(3)]
@@ -209,28 +209,29 @@ def slide14(x):
         sh.rect(x0 + 1.15, y + 0.03, w, 0.24, col)
         sh.text(x0 + 1.15 + w + 0.08, y, 0.9, 0.3, [para([run(lab, 11, C['ink'])])], 'ctr')
 
-    # 2030: the training layer, our market
+    # 2030: the AI economy
     x1 = xs[1]
-    sh.rect(x1, top, cw, 0.03, C['accent'])
-    sh.text(x1, top + 0.14, cw, 0.22, [para([run('2030年 · 我们的市场', 10, C['accent'], MONO)])])
-    sh.text(x1, top + 0.42, cw, 0.6, [para([run('1,500–4,000亿美元/年', 24, C['accent'], SERIF)])], 'ctr')
-    rows(x1, cw, [('AI基础设施支出', '3–4万亿美元'), ('× 训练层占比', '5–10%')], top + 1.12)
-    sh.text(x1, top + 2.02, cw, 0.6, [para([run('今天约1%。数据与算力互补：算力越多，训练越值钱。', 11, C['body'])], line=1.1)])
+    sh.rect(x1, top, cw, 0.02, C['ink'])
+    sh.text(x1, top + 0.14, cw, 0.22, [para([run('2030年 · AI经济', 10, C['grey'], MONO)])])
+    sh.text(x1, top + 0.42, cw, 0.6, [para([run('约7万亿美元/年', 28, C['ink'], SERIF)])])
+    rows(x1, cw, [('美国（麦肯锡）', '2.9万亿'), ('÷ 美国占全球GDP', '25.6%'), ('= 全球，同等渗透', '11.3万亿'),
+                  ('美国以外渗透减半', '7.1万亿')], top + 1.12)
 
-    # 2030: the AI economy it serves
+    # 2030: the training layer, our market
     x2, pad = xs[2], 0.26
     sh.rect(x2, top, cw, ch, C['ink'])
-    sh.text(x2 + pad, top + 0.14, cw - 2 * pad, 0.22, [para([run('2030年 · AI经济', 10, C['accentLt'], MONO)])])
-    sh.text(x2 + pad, top + 0.42, cw - 2 * pad, 0.6, [para([run('约7万亿美元/年', 28, C['accentLt'], SERIF)])])
-    rows(x2, cw, [('美国（麦肯锡）', '2.9万亿'), ('÷ 美国占全球GDP', '25.6%'), ('= 全球，同等渗透', '11.3万亿'),
-                  ('美国以外渗透减半', '7.1万亿')], top + 1.12, dark=True, pad=pad)
-    sh.text(x2 + pad, top + 2.9, cw - 2 * pad, 0.4, [para([run('训练层 = AI经济的2–6%', 13, C['onDarkHi'], SANS, True)])], 'ctr')
+    sh.text(x2 + pad, top + 0.14, cw - 2 * pad, 0.22, [para([run('2030年 · 我们的市场', 10, C['accentLt'], MONO)])])
+    sh.text(x2 + pad, top + 0.42, cw - 2 * pad, 0.6, [para([run('7,000亿美元/年', 28, C['accentLt'], SERIF)])])
+    rows(x2, cw, [('AI经济', '7万亿'), ('× 训练占比', '10%'), ('= 训练市场', '7,000亿')], top + 1.12, dark=True, pad=pad)
+    sh.text(x2 + pad, top + 2.42, cw - 2 * pad, 0.5, [para([run('今天的82倍', 22, C['onDarkHi'], SERIF)])], 'ctr')
+    sh.text(x2 + pad, top + 3.0, cw - 2 * pad, 0.5, [para([run('训练是AI经济的研发预算。大型科技公司研发约占收入10–15%，取下限。',
+                                                                10, C['onDark'])], line=1.1)])
 
     sh.text(0.6, 5.62, 12.13, 0.44, [para([run('今天卖给实验室，2030年卖给', 20, C['ink'], SERIF),
                                            run('整个AI经济', 20, C['accent'], SERIF), run('。', 20, C['ink'], SERIF)])], 'ctr')
     sh.text(0.6, 6.32, 12.13, 0.4, [para([run('来源：Menlo Ventures（2026.7）；Mercor年化毛营收（2026.7）、Surge收入（2024）、Snorkel年化收入（2026.9）；'
-                                              '黄仁勋（2026.9）；CNBC（2026.2）；Mechanize；麦肯锡（2025.11）；IMF（2026.4）。'
-                                              '训练层占比、美国以外渗透率为假设。', 8, C['grey'])], line=1.1)])
+                                              '麦肯锡（2025.11）；IMF（2026.4）；科技公司年报。'
+                                              '训练占比、美国以外渗透率为假设。', 8, C['grey'])], line=1.1)])
     return add_shapes(x, sh)
 
 
@@ -265,7 +266,7 @@ def slide17(x):
     rows = [
         ('01', '融资阶段', '对标Applied Compute种子轮：2,000万美元，投后1亿，14个月后约30亿'),
         ('02', '产品', '对标Snorkel E轮（35亿美元）：同样的数据、环境、评测，另有自我进化'),
-        ('03', '收入', '6个月年化1亿美元，12个月3亿美元；AfterQuery做到1亿美元用了13个月'),
+        ('03', '收入', '6个月年化1亿美元，12个月3亿美元；AfterQuery做到1亿美元用了14个月'),
         ('04', '估值', 'AfterQuery年化1亿美元时A轮估值3亿美元，我们是一半；6个月回报2–20倍'),
     ]
     for i, (n, hd, d) in enumerate(rows):
@@ -288,51 +289,64 @@ def slide17(x):
 
 
 def slide18(x):
+    """Use of funds as two engines: revenue (AfterQuery-style data and environments)
+    and RSI (live trading, event prediction, then self-evolving environments per industry)."""
     keep = {607, 608}
     ids = [shape_id(m.group(0)) for m in shape_blocks(x)]
     x = drop_shapes(x, set(ids) - keep)
     sh = Shapes(3000)
-    header_title(sh, '18', '资金用途', [('2,000万美元用在前6个月：年化收入做到', False), ('1亿美元', True)])
-    # left: the revenue formula
-    sh.rect(0.6, 1.62, 3.9, 2.95, C['ink'])
-    sh.text(0.95, 1.86, 3.0, 0.22, [para([run('收入公式', 10, C['accentLt'], MONO)])])
-    sh.text(0.95, 2.14, 3.3, 0.72, [para([run('年化收入 =', 17, C['onDarkHi'], SERIF)]),
-                                    para([run('环境数 × 卖出次数 × 单价', 17, C['onDarkHi'], SERIF)])])
-    sh.text(0.95, 2.98, 3.3, 0.9, [
-        para([run('6个月   ', 10, C['onDark'], MONO), run('50 × 10 × 20万 = ', 12, C['onDarkHi']), run('1亿美元', 12, C['accentLt'], SANS, True)]),
-        para([run('12个月  ', 10, C['onDark'], MONO), run('100 × 12 × 25万 = ', 12, C['onDarkHi']), run('3亿美元', 12, C['accentLt'], SANS, True)], before=5)])
-    sh.text(0.95, 3.84, 3.3, 0.6, [para([run('卖出次数 = 实验室数 × 每年2轮迭代（6个月5家，12个月6家）；单价区间2万–30万美元（Epoch AI）',
-                                             9, C['onDark'])], line=1.1)])
-    # right: where the money goes
-    sh.text(4.95, 1.62, 5, 0.22, [para([run('资金用途（前6个月）', 10, C['grey'], MONO)])])
-    sh.rule(4.95, 1.9, 7.78)
-    uses = [
-        ('600万美元', '环境 7→50', '环境数', '专家、环境工程、攻防测试'),
-        ('400万美元', '交付', '卖出次数', '驻场工程师、沙箱集群'),
-        ('400万美元', '算力', '单价', '上线前实测训练提升'),
-        ('450万美元', '团队 4→30人', '', '量化、RL研究、环境工程'),
-        ('150万美元', '运营', '', '法务、财务'),
+    header_title(sh, '18', '资金用途', [('两台引擎：收入引擎赚今天的钱，', False), ('RSI引擎拿下每个行业', True)])
+    top, colh, gap = 1.62, 4.36, 0.3
+    cw = (12.13 - gap) / 2
+    pad = 0.32
+    iw = cw - 2 * pad
+    engines = [
+        dict(dark=False, label='01  收入引擎', amount='1,000万美元',
+             mission='照AfterQuery的模式，向前沿实验室卖训练数据与RL环境',
+             uses=[('550万', '环境生产', '专家、环境工程、攻防测试'), ('300万', '交付', '驻场工程师、沙箱集群'),
+                   ('150万', '销售与运营', '实验室BD、法务、财务')],
+             block=[[('年化收入 = 环境数 × 卖出次数 × 单价', 13, 'main', SERIF, False)],
+                    [('6个月   ', 9.5, 'sub', MONO, False), ('50 × 10 × 20万 = ', 11.5, 'main', SANS, False), ('1亿美元', 11.5, 'acc', SANS, True)],
+                    [('12个月  ', 9.5, 'sub', MONO, False), ('100 × 12 × 25万 = ', 11.5, 'main', SANS, False), ('3亿美元', 11.5, 'acc', SANS, True)]],
+             ms=[('3个月', '首个付费实验室'), ('6个月', '年化1亿美元'), ('12个月', '年化3亿美元')]),
+        dict(dark=True, label='02  RSI引擎', amount='1,000万美元',
+             mission='研发自我进化：让AI在真实世界里，用真实结果训练自己',
+             uses=[('450万', '算力', '自我进化训练与评测'), ('350万', '研究团队', 'RL研究员、量化研究员'),
+                   ('200万', '实盘与合规', '交易账户、行情数据、合规')],
+             block=[[('实盘交易RSI  ', 11, 'main', SANS, True), ('AI用真实资金交易，每天的盈亏就是训练信号', 11, 'sub', SANS, False)],
+                    [('预测事件RSI  ', 11, 'main', SANS, True), ('AI对真实事件下判断，揭晓即结算、即训练', 11, 'sub', SANS, False)],
+                    [('同步开发  ', 11, 'main', SANS, True), ('财务、软件工程、法律、医疗等10个行业的自我进化环境', 11, 'sub', SANS, False)]],
+             ms=[('3个月', '实盘交易RSI上线'), ('6个月', '预测事件RSI上线'), ('12个月', '10个行业自我进化')]),
     ]
-    uh = 0.53
-    for i, (amt, hd, term, d) in enumerate(uses):
-        y = 1.9 + i * uh
-        sh.text(4.95, y, 1.45, uh, [para([run(amt, 15, C['accent'], SERIF)])], 'ctr')
-        sh.text(6.45, y, 1.85, uh, [para([run(hd, 14, C['ink'], SERIF)])], 'ctr')
-        lead = [run(term + '  ', 10, C['accent'], SANS, True)] if term else []
-        sh.text(8.35, y, 4.38, uh, [para(lead + [run(d, 10.5, C['grey'])], line=1.05)], 'ctr')
-        sh.rule(4.95, y + uh, 7.78)
-    # milestones
-    sh.text(0.6, 4.86, 5, 0.22, [para([run('资金对应的里程碑', 10, C['grey'], MONO)])])
-    ms = [('3个月', '首个付费实验室'), ('6个月', '50个环境 · 年化1亿美元'), ('12个月', '100+个环境 · 年化3亿美元')]
-    mw, ag = (12.13 - 2 * 0.45) / 3, 0.45
-    for i, (t, d) in enumerate(ms):
-        bx, last = 0.6 + i * (mw + ag), i == 2
-        sh.rect(bx, 5.14, mw, 0.98, C['ink'] if last else C['tint'])
-        sh.text(bx + 0.26, 5.28, 2, 0.22, [para([run(t, 10, C['accentLt'] if last else C['accent'], MONO)])])
-        sh.text(bx + 0.26, 5.54, mw - 0.4, 0.42, [para([run(d, 17, C['onDarkHi'] if last else C['ink'], SERIF)])])
-        if i < 2:
-            sh.text(bx + mw, 5.14, ag, 0.98, [para([run('→', 14, C['grey'])], 'ctr')], 'ctr')
-    sh.text(0.6, 6.3, 12.13, 0.3, [para([run('6个月后，扩张由收入支撑。', 11, C['grey'])])])
+    for k, eng in enumerate(engines):
+        x0, dark = 0.6 + k * (cw + gap), eng['dark']
+        col = dict(main=C['onDarkHi'] if dark else C['ink'], sub=C['onDark'] if dark else C['body'],
+                   acc=C['accentLt'] if dark else C['accent'], rule='3A3935' if dark else C['rule'])
+        sh.rect(x0, top, cw, colh, C['ink'] if dark else C['tint'])
+        ix = x0 + pad
+        sh.text(ix, top + 0.24, iw, 0.22, [para([run(eng['label'], 10, col['acc'], MONO, True)])])
+        sh.text(ix, top + 0.5, iw, 0.56, [para([run(eng['amount'], 30, col['main'], SERIF)])])
+        sh.text(ix, top + 1.12, iw, 0.3, [para([run(eng['mission'], 12.5, col['main'])])], 'ctr')
+        y0, rh = top + 1.56, 0.36
+        sh.rect(ix, y0, iw, 0.01, col['rule'])
+        for i, (amt, item, det) in enumerate(eng['uses']):
+            y = y0 + i * rh
+            sh.text(ix, y, 0.95, rh, [para([run(amt, 14, col['acc'], SERIF)])], 'ctr')
+            sh.text(ix + 1.0, y, 1.6, rh, [para([run(item, 13, col['main'], SERIF)])], 'ctr')
+            sh.text(ix + 2.65, y, iw - 2.65, rh, [para([run(det, 10, col['sub'])])], 'ctr')
+            sh.rect(ix, y + rh, iw, 0.01, col['rule'])
+        sh.text(ix, top + 2.84, iw, 0.76, [para([run(t, sz, col[c], f, bold) for t, sz, c, f, bold in line], before=0 if j == 0 else 4)
+                                           for j, line in enumerate(eng['block'])])
+        my = top + 3.7
+        sh.rect(ix, my - 0.06, iw, 0.01, col['rule'])
+        mw = iw / 3
+        for i, (t, d) in enumerate(eng['ms']):
+            sh.text(ix + i * mw, my, mw - 0.1, 0.2, [para([run(t, 9.5, col['acc'], MONO)])])
+            sh.text(ix + i * mw, my + 0.22, mw - 0.1, 0.34, [para([run(d, 12.5, col['main'], SERIF)])])
+    sh.text(0.6, 6.12, 12.13, 0.4, [para([run('收入引擎今天就赚钱；', 18, C['ink'], SERIF),
+                                          run('RSI引擎，让每个行业最强的AI都出自SimReal', 18, C['accent'], SERIF)], 'ctr')], 'ctr')
+    sh.text(0.6, 6.62, 12.13, 0.22, [para([run('卖出次数 = 实验室数 × 每年2轮迭代（6个月5家，12个月6家）；单价区间2万–30万美元（Epoch AI）。',
+                                              8.5, C['grey'])])])
     sh.text(11.73, 6.98, 1.0, 0.26, [para([run('18', 9, C['grey'], MONO)], 'r')], 'ctr')
     return add_shapes(x, sh)
 
@@ -355,9 +369,8 @@ def slide21(x):
     new = [
         entry('2030年AI经济推算：', '麦肯锡《Agents, robots, and us》（2025年11月）：2030年美国约2.9万亿美元；'
               'IMF《世界经济展望》（2026年4月）：美国GDP 32.4万亿美元、全球126.3万亿美元；美国以外按美国一半渗透率推算'),
-        entry('训练层推算：', '黄仁勋，高盛Communacopia大会（2026年9月）：2030年全球AI基础设施支出每年3–4万亿美元；'
-              'CNBC（2026年2月）：四大云厂商2026年资本开支约7,000亿美元；训练层占比5–10%为推算假设；'
-              'Mechanize《Cheap RL tasks will waste compute》'),
+        entry('训练市场推算：', '2030年AI经济 × 10%；10%参照大型科技公司研发投入占收入约10–15%（公司年报），取下限，为推算假设；'
+              '单任务算力成本：Mechanize《Cheap RL tasks will waste compute》'),
         entry('融资与估值：', 'Applied Compute：Upstarts（2025年6月，种子轮2,000万美元，投后1亿美元），'
               'Tech Startups（2025年9月，5亿美元），The Information（2026年8月，约30亿美元洽谈）；'
               'AfterQuery：Business Wire（2026年4月，A轮3,000万美元，估值3亿美元，年化收入1亿美元）；'
@@ -510,7 +523,8 @@ COPY = {
     'slide11.xml': {
         345: P(mk('环境与数据打开合作，', ('自我进化服务带来持续收入',))),
         364: P('实验室每训一个新模型，就回来再买一轮'),
-        375: P('美元 / 每份合同 / 每季度', '独家4–5倍（Epoch AI）'),
+        374: P('1亿美元'),
+        375: P('AfterQuery同一模式，14个月的年化收入', 'Mercor年化20亿美元，Snorkel一年18倍'),
         386: P('环境授权；独家价4–5倍'),
         390: P('真实工作的示范与判断'),
         400: P('每次模型升级，都回来再训练'),
@@ -593,7 +607,7 @@ def main(src, dst):
     subprocess.run([sys.executable, ADD_SLIDE, work + '/', 'slide17.xml', '--after', 'slide17.xml'], check=True,
                    stdout=subprocess.DEVNULL)
     new_slide = sorted(os.listdir(os.path.join(work, 'ppt', 'slides')), key=lambda n: int(re.sub(r'\D', '', n) or 0))[-1]
-    edits = {'slide1.xml': slide1, 'slide2.xml': slide2, 'slide3.xml': slide3, 'slide14.xml': slide14,
+    edits = {'slide20.xml': lambda x: x.replace('709道', '749道'), 'slide1.xml': slide1, 'slide2.xml': slide2, 'slide3.xml': slide3, 'slide14.xml': slide14,
              'slide17.xml': slide17, new_slide: slide18, 'slide21.xml': slide21}
     for name, fn in edits.items():
         p = os.path.join(work, 'ppt', 'slides', name)
