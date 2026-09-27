@@ -4,7 +4,7 @@ Edits in place, keeping every other slide untouched:
   1   cover: this round -> "2,000万美元 · 投后估值1.5亿美元"
   2   overview: market ($8.5B -> $7T) and round cells
   3   team: Henry's card as three paragraphs, like Charles's
-  14  market: 2030 AI economy of about $7T, derived step by step
+  14  market: labs today -> the 2030 training layer we sell into -> the $7T AI economy it serves
   17  raise: stage / product / revenue targets / $150M post-money valuation
   18  (new) use of funds, reverse-engineered from the revenue targets
   A3  sources for the new figures
@@ -147,9 +147,9 @@ def slide1(x):
 
 
 def slide2(x):
-    x = plain(x, 57, '$8.5B→$7T')
+    x = plain(x, 57, '$8.5B→$150–400B')
     x = plain(x, 58, '向AI实验室出售训练数据和RL环境的50余家公司，年收入合计已达约85亿美元；'
-                     '2030年全球AI经济约7万亿美元/年')
+                     '2030年训练层每年1,500–4,000亿美元，服务7万亿美元的AI经济')
     x = plain(x, 62, '种子轮2,000万美元，投后估值1.5亿美元；6个月年化收入1亿美元，12个月3亿美元')
     return x
 
@@ -174,39 +174,81 @@ def slide3(x):
 
 
 def slide14(x):
-    x = marked(x, 451, [('AI经济有多大，训练世界就有多大：2030年', False), ('7万亿美元', True)])
-    x = drop_shapes(x, set(range(496, 522)))           # AI agent market bars and their note
-    x = plain(x, 494, '终局：2030年全球AI经济')
-    x = plain(x, 495, '约7万亿美元/年：由麦肯锡的美国数字推到全球')
+    """Market, one chain in one unit of account: what labs pay today -> the training
+    layer we sell into in 2030 -> the AI economy that layer serves (and why it can pay)."""
+    keep = {470, 471, 472}                               # footer logo, confidential line, page number
+    ids = [shape_id(m.group(0)) for m in shape_blocks(x)]
+    x = drop_shapes(x, set(ids) - keep)
     sh = Shapes(3000)
-    rows = [
-        ('美国：2030年智能体与机器人每年释放的经济价值（麦肯锡）', '2.9万亿美元'),
-        ('美国占全球GDP（IMF，2026年：32.4 / 126.3万亿美元）', '25.6%'),
-        ('按美国同等渗透率外推到全球：2.9 ÷ 25.6%', '11.3万亿美元'),
-        ('美国以外只按美国一半的渗透率：(11.3 − 2.9) × 50%', '4.2万亿美元'),
-    ]
-    rx, rw, y0, rh = 6.95, 5.78, 2.42, 0.4
-    for i, (k, v) in enumerate(rows):
-        y = y0 + i * rh
-        sh.text(rx, y, 4.25, rh, [para([run(k, 10.5, C['body'])])], 'ctr')
-        sh.text(rx + 4.25, y, rw - 4.25, rh, [para([run(v, 14, C['ink'], SERIF)], 'r')], 'ctr')
-        sh.rule(rx, y + rh, rw)
-    y = y0 + 4 * rh + 0.08
-    sh.rect(rx, y, rw, 0.44, C['ink'])
-    sh.text(rx + 0.2, y, 3.9, 0.44, [para([run('2030年全球AI经济：2.9 + 4.2', 11, C['onDarkHi'], SANS, True)])], 'ctr')
-    sh.text(rx + 4.1, y, rw - 4.3, 0.44, [para([run('约7.1万亿美元', 15, C['accentLt'], SERIF)], 'r')], 'ctr')
-    sh.text(rx, y + 0.52, rw, 0.2, [para([run('麦肯锡《Agents, robots, and us》（2025年11月）；IMF《世界经济展望》（2026年4月）；'
-                                              '美国以外按一半渗透率为推算假设', 7.5, C['grey'])])])
-    x = add_shapes(x, sh)
-    # the three steps underneath
-    x = plain(x, 525, '今天约85亿美元/年，50余家公司合计')
-    x = plain(x, 529, '训练层跟着算力走')
-    x = plain(x, 530, '2030年1,500–4,000亿美元/年：AI基础设施3–4万亿美元 × 训练层5–10%')
-    x = plain(x, 534, '自主经济')
-    x = plain(x, 535, '2030年约7万亿美元/年：每一份交给AI的工作，都要先在训练世界里练过')
-    x = set_text(x, 536, [[('实验室训练是切入点，', {}), ('自主经济', {'color': C['accent']}),
-                           ('是我们的目标市场：2030年约7万亿美元。', {})]])
-    return x
+    header_title(sh, '14', '市场', [('2030年：', False), ('7万亿美元', True), ('的AI经济，数千亿美元的训练市场', False)])
+    gap, top, ch = 0.3, 1.62, 4.0
+    cw = (12.13 - 2 * gap) / 3
+    xs = [0.6 + i * (cw + gap) for i in range(3)]
+    for i in range(2):
+        sh.text(xs[i] + cw, top + 0.4, gap, 0.6, [para([run('→', 14, C['grey'])], 'ctr')], 'ctr')
+
+    # 1 — today: labs already pay
+    x0 = xs[0]
+    sh.rect(x0, top, cw, 0.02, C['ink'])
+    sh.text(x0, top + 0.14, cw, 0.22, [para([run('今天 · 实验室已经在付费', 10, C['grey'], MONO)])])
+    sh.text(x0, top + 0.42, cw, 0.6, [para([run('85亿美元/年', 28, C['ink'], SERIF)])])
+    sh.text(x0, top + 1.08, cw, 0.5, [para([run('50余家公司向AI实验室出售训练数据和RL环境的年收入合计', 11, C['body'])], line=1.1)])
+    bars = [('Mercor', '年化毛营收，2026年7月', 2.0, '$2.0B', C['ink']),
+            ('Surge AI', '2024年收入', 1.2, '$1.2B', C['mid']),
+            ('Snorkel AI', '年化收入，2026年9月', 0.375, '$0.375B', C['mid'])]
+    by, rh, lw, maxw = top + 1.8, 0.56, 1.2, 1.85
+    for i, (co, sub, v, lab, col) in enumerate(bars):
+        y = by + i * rh
+        sh.text(x0, y + 0.04, lw, 0.26, [para([run(co, 12, C['ink'], SERIF)])])
+        sh.text(x0, y + 0.29, lw, 0.2, [para([run(sub, 7.5, C['grey'])])])
+        w = maxw * v / 2.0
+        sh.rect(x0 + lw, y + 0.1, w, 0.28, col)
+        sh.text(x0 + lw + w + 0.08, y + 0.1, 0.9, 0.28, [para([run(lab, 11, C['ink'])])], 'ctr')
+
+    # 2 — 2030: the training layer, our market
+    x1 = xs[1]
+    sh.rect(x1, top, cw, 0.03, C['accent'])
+    sh.text(x1, top + 0.14, cw, 0.22, [para([run('2030年 · 训练层：我们的市场', 10, C['accent'], MONO)])])
+    sh.text(x1, top + 0.42, cw, 0.6, [para([run('1,500–4,000亿美元/年', 24, C['accent'], SERIF)])], 'ctr')
+    sh.rect(x1, top + 1.12, cw, 1.02, C['tint'])
+    frows = [('全球AI基础设施支出', '3–4万亿美元/年'), ('× 训练数据与环境的占比', '5–10%')]
+    for i, (k, v) in enumerate(frows):
+        y = top + 1.2 + i * 0.36
+        sh.text(x1 + 0.2, y, cw - 1.9, 0.34, [para([run(k, 11, C['body'])])], 'ctr')
+        sh.text(x1 + cw - 1.75, y, 1.55, 0.34, [para([run(v, 13, C['ink'], SERIF)], 'r')], 'ctr')
+    sh.text(x1 + 0.2, top + 1.9, cw - 0.4, 0.2, [para([run('今天约1%：85亿美元对四大云厂商约7,000亿美元资本开支', 8.5, C['grey'])])])
+    sh.text(x1, top + 2.36, cw, 1.4, [
+        para([run('为什么占比会升', 11, C['ink'], SANS, True)]),
+        para([run('数据和算力是互补品：每个RL任务约2,400美元算力，任务质量差，算力就白烧（Mechanize）。'
+                  '算力投得越多，高质量训练世界越值钱。', 11, C['body'])], before=3, line=1.1)])
+
+    # 3 — 2030: the AI economy this layer serves
+    x2, pad = xs[2], 0.26
+    sh.rect(x2, top, cw, ch, C['ink'])
+    sh.text(x2 + pad, top + 0.14, cw - 2 * pad, 0.22, [para([run('2030年 · 训练层服务的AI经济', 10, C['accentLt'], MONO)])])
+    sh.text(x2 + pad, top + 0.42, cw - 2 * pad, 0.6, [para([run('约7万亿美元/年', 28, C['accentLt'], SERIF)])])
+    drows = [('美国：智能体与机器人每年释放的价值（麦肯锡）', '2.9万亿'),
+             ('÷ 美国占全球GDP（IMF）', '25.6%'),
+             ('= 按美国渗透率外推到全球', '11.3万亿'),
+             ('美国以外只按一半渗透率', '约7.1万亿')]
+    for i, (k, v) in enumerate(drows):
+        y = top + 1.12 + i * 0.4
+        last = i == len(drows) - 1
+        sh.text(x2 + pad, y, cw - 2 * pad - 1.0, 0.4, [para([run(k, 10, C['onDarkHi'] if last else C['onDark'], SANS, last)], line=1.05)], 'ctr')
+        sh.text(x2 + cw - pad - 1.0, y, 1.0, 0.4, [para([run(v, 13, C['accentLt'] if last else C['onDarkHi'], SERIF)], 'r')], 'ctr')
+        if not last:
+            sh.rect(x2 + pad, y + 0.4, cw - 2 * pad, 0.01, '3A3935')
+    sh.text(x2 + pad, top + 2.9, cw - 2 * pad, 0.8, [
+        para([run('训练层只相当于它创造价值的2–6%', 12, C['onDarkHi'], SANS, True)]),
+        para([run('每一份交给AI的工作，都要先在训练世界里练过', 10, C['onDark'])], before=4)])
+
+    sh.text(0.6, 5.86, 12.13, 0.44, [para([run('今天卖给实验室，2030年卖给', 20, C['ink'], SERIF),
+                                           run('整个AI经济的训练层', 20, C['accent'], SERIF),
+                                           run('：它只占AI创造价值的2–6%。', 20, C['ink'], SERIF)])], 'ctr')
+    sh.text(0.6, 6.42, 12.13, 0.36, [para([run('来源：Menlo Ventures（2026年7月）；黄仁勋，高盛Communacopia大会（2026年9月）；CNBC（2026年2月）；Mechanize；'
+                                               '麦肯锡《Agents, robots, and us》（2025年11月）；IMF《世界经济展望》（2026年4月）。'
+                                               '5–10%占比、美国以外按一半渗透率为推算假设。', 8, C['grey'])], line=1.1)])
+    return add_shapes(x, sh)
 
 
 def header_title(sh, num, label, title_parts):
