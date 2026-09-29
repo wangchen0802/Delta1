@@ -190,7 +190,7 @@ def p_insight(sh):
     for i, (lab, big, how, res) in enumerate(gens):
         x, dark = 0.6 + i * (cw + gap), i == 3
         sh.rect(x, y0, cw, ch, C['ink'] if dark else C['tint'])
-        sh.t(x + 0.25, y0 + 0.2, cw - 0.5, 0.22, lab, 9, C['accentLt'] if dark else C['grey'], MONO)
+        sh.t(x + 0.25, y0 + 0.2, cw - 0.5, 0.22, lab, 9, C['accentLt'] if dark else C['grey'], SANS)
         sh.t(x + 0.25, y0 + 0.48, cw - 0.5, 0.62, big, 30, C['onDarkHi'] if dark else C['ink'], SERIF)
         sh.t(x + 0.25, y0 + 1.16, cw - 0.5, 0.6, how, 11, C['onDark'] if dark else C['grey'], line=1.12)
         sh.rule(x + 0.25, y0 + 1.9, cw - 0.5, DARK_RULE if dark else C['mid'])
@@ -293,7 +293,7 @@ def p_products(sh):
         sh.t(10.4, y, 2.33, rh, [st], 11, anchor='ctr')
     sh.rule(0.6, y0 + len(rows) * rh, W)
     kicker(sh, 5.9, [('以上全部在', False), ('零外部融资', True), ('下完成。', False)], 18)
-    sh.t(6.6, 5.9, 6.13, 0.46, '合计400星标  ·  2026年9月29日', 10.5, C['grey'], MONO, algn='r', anchor='ctr')
+    sh.t(6.6, 5.9, 6.13, 0.46, '合计400星标  ·  2026年9月29日', 10.5, C['grey'], SANS, algn='r', anchor='ctr')
     footer(sh)
 
 
@@ -303,7 +303,7 @@ def p_data(sh):
               '按真实结果标注成败', '用于监督微调与强化学习'),
              ('02', '专家数据', '背靠20万+专家网络：真实工作里的示范、判断与评分标准',
               '覆盖各行业入门岗位与顶尖科研', '用于对齐、奖励模型与评分'),
-             ('03', '评测数据', '私有评测集与留出集：只用于检验，从不参与训练',
+             ('03', '评测数据', (R('私有评测集与留出集：', 11.5, C['body']), BR(11.5), R('只用于检验，从不参与训练', 11.5, C['body'])),
               '上线前经过攻防测试', '用于模型验收与持续评测')]
     cw, gap, y0, ch = (W - 2 * 0.3) / 3, 0.3, 1.72, 2.6
     for i, (n, name, what, edge, use) in enumerate(kinds):
@@ -417,7 +417,7 @@ def p_competition(sh):
     for i, (k, sub, d, dark) in enumerate(rows):
         y = y0 + i * (rh + gap)
         sh.rect(0.6, y, lw, rh, C['ink'] if dark else C['tint'])
-        sh.t(0.85, y + (0.08 if sub else 0.17), 2.6, 0.4, k, 17, C['onDarkHi'] if dark else C['ink'], SERIF)
+        sh.t(0.85, y + (0.08 if sub else 0.24), 2.6, 0.4, k, 17, C['onDarkHi'] if dark else C['ink'], SERIF)
         if sub:
             sh.t(0.85, y + 0.46, 2.7, 0.22, sub, 8.5, C['accentLt'] if dark else C['grey'], MONO)
         sh.t(3.6, y, lw - 3.2, rh, d, 12, C['onDarkHi'] if dark else C['body'], anchor='ctr', line=1.1)
@@ -680,12 +680,12 @@ def p_a1(sh):
 
 
 SOURCES_L = [
-    ('Mercor年化收入：', 'TechCrunch（2025年2月，7,500万美元）；Mercor CEO（2025年9月，5亿美元）；Sacra（2025年12月，7.6亿美元）；'
-                   'Mercor（2026年初，10亿美元）；Dealroom（2026年6月，20亿美元）。均为毛营收，专家拿走60–70%（彭博）'),
-    ('Mercor估值：', 'A轮2.5亿美元（2024年9月）、B轮20亿美元（2025年2月）、C轮100亿美元（2025年10月）；200亿美元估值轮次处于早期洽谈（彭博，2026年7月9日）'),
+    ('Mercor年化收入：', 'TechCrunch（2025年2月，7,500万美元）；CEO（2025年9月，5亿美元）；\nSacra（2025年12月，7.6亿美元）；Mercor（2026年初，10亿美元）；'
+                   '\nDealroom（2026年6月，20亿美元）。均为毛营收，专家拿走60–70%（彭博）'),
+    ('Mercor估值：', 'A轮2.5亿（2024年9月）、B轮20亿（2025年2月）、C轮100亿美元（2025年10月）；\n200亿美元估值轮次处于早期洽谈（彭博，2026年7月9日）'),
     ('Surge AI：', '2024年收入12亿美元（TechCrunch、福布斯）'),
-    ('Snorkel AI：', '公司公告及TechCrunch，2026年9月22日（以35亿美元估值融资3.5亿美元；年化收入3.75亿美元，一年增长18倍）'),
-    ('AfterQuery：', '2025年2月成立；福布斯，2026年9月1日（加入YC 18个月，估值32亿美元）；Business Wire（2026年4月，A轮估值3亿美元，年化收入1亿美元）；YC公司页（联合创始人曾在Citadel Securities实习）'),
+    ('Snorkel AI：', '公司公告及TechCrunch，2026年9月22日（以35亿美元估值融资3.5亿美元；\n年化收入3.75亿美元，一年增长18倍）'),
+    ('AfterQuery：', '2025年2月成立；福布斯，2026年9月1日（加入YC 18个月，估值32亿美元）；\nBusiness Wire（2026年4月，A轮估值3亿美元，年化收入1亿美元）；\nYC公司页（联合创始人曾在Citadel Securities实习）'),
     ('Scale AI：', '2016年由19岁的Alexandr Wang创立（福布斯）；Meta以143亿美元取得49%股份，估值约290亿美元（路透社，2025年6月）；近一半新训练项目涉及RL环境（Scale AI博客，2026年2月）'),
     ('UniPat：', '彭博，2026年9月10日（阿里领投3亿美元，据报道估值25亿美元，腾讯、红杉中国跟投；条款可能变化；阿里、字节、DeepSeek等向UniPat与Humanlaya采购）'),
     ('Humanlaya：', '2025年10月成立；2026年9月9日完成数亿元人民币Pre-A，鼎晖领投，红杉中国、今日资本、BAI参投（界面新闻、东方财富）'),
@@ -697,8 +697,8 @@ SOURCES_R = [
     ('训练市场推算：', '2030年AI经济 × 10%；\n10%参照大型科技公司研发占收入约10–15%，取下限，为推算假设'),
     ('AI智能体市场：', 'Precedence Research（2025年79.2亿美元；年复合增长45.82%），2028、2032年按此路径推算'),
     ('RL环境定价：', 'Epoch AI《An FAQ on RL environments》（2026年1月）'),
-    ('公开文本存量：', 'Epoch AI《Will we run out of data?》（2024）：预计2026–2032年间用尽（80%置信区间）'),
-    ('融资与估值：', 'Applied Compute：Upstarts（2025年6月，种子轮2,000万美元，投后1亿美元）、The Information（2026年8月，约30亿美元洽谈）'),
+    ('公开文本存量：', 'Epoch AI《Will we run out of data?》（2024）：\n预计2026–2032年间用尽（80%置信区间）'),
+    ('融资与估值：', 'Applied Compute：Upstarts（2025年6月，种子轮2,000万美元，投后1亿美元）；\nThe Information（2026年8月，约30亿美元洽谈）'),
 ]
 
 
@@ -724,7 +724,7 @@ def p_a3(sh):
              ('真实反馈', '世界对AI动作的反应：盈亏、账目、代码能否运行、事件是否发生'),
              ('自我进化（RSI）', 'AI用自己在真实环境中的结果训练自己，一轮比一轮强'),
              ('留出集', '只用于检验、从不参与训练的任务，防止模型背答案'),
-             ('攻防测试', '上线前模拟作弊与攻击，找出并修补评分漏洞'),
+             ('攻防测试', '上线前模拟作弊与攻击，修补评分漏洞'),
              ('受控实验', '只改一个条件（是否在Xitadel训练），比较前后表现'),
              ('年化毛营收', '按当前收入推算的全年收入，含付给专家的部分')]
     cw, gap = (W - 3 * 0.3) / 4, 0.3
@@ -796,6 +796,11 @@ def main(src, dst):
             for pic in logos + [shp for shp in s.shapes if shp.shape_id == 407]:
                 recolor(pic, C['ink'])
             build(sh, [(p, p.width, p.height) for p in logos])
+        elif build is p_closing:
+            for p in s.shapes:
+                if p.shape_id == 615:                  # corner orbit art: lift it clear of the logo mark
+                    p.top = int(-0.15 * 914400)
+            build(sh)
         elif build is p_team:
             pics = sorted([shp for shp in s.shapes if shp.shape_id in (78, 79, 81, 82, 83)], key=lambda p: p.left)
             for i, p in enumerate(pics):
