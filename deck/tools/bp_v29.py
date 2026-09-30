@@ -348,31 +348,27 @@ def flow(sh, top, boxes, bh, tsz, dsz):
 
 
 def p_agents(sh):
-    header(sh, '下一步 · 个人agent', 2, [('一个agent在替人做事之前，', False), ('需要先在足够真实的地方练过', True)])
-    sh.t(0.6, 1.64, 8, 0.22, '2026年9月：个人agent竞赛开打', 10, C['grey'], MONO)
-    cells = [('Meta · 9月8日', 'Muse', ['上线个人agent，替人订票、购物、', '约时间；两周后被亚马逊屏蔽']),
-             ('OpenAI · 9月29日', 'Dots', ['发布常驻个人agent：', '在后台持续替人做事']),
-             ('Instinct · 9月28日', '100亿美元', ['33天估值从25亿升至100亿美元', '红杉、Benchmark、Coatue投资']),
-             ('但还做不好', '16.1%', ['最强模型只完成16.1%的', '真实外包项目（Remote Labor Index）'])]
+    header(sh, '个人agent', 2, [('一个agent在替人做事之前，', False), ('需要先在足够真实的地方练过', True)])
+    sh.t(0.6, 1.64, 8, 0.22, '个人agent已经来了', 10, C['grey'], MONO)
+    cells = [('Muse', 'Meta，9月8日上线', False), ('Dots', 'OpenAI，9月29日发布', False),
+             ('100亿美元', 'Instinct估值，33天涨4倍', False), ('16.1%', ['但最强模型只做好', '16.1%的真实外包项目'], True)]
     cw, gap = (W - 3 * 0.3) / 4, 0.3
-    for i, (k, v, d) in enumerate(cells):
+    for i, (v, d, acc) in enumerate(cells):
         x = 0.6 + i * (cw + gap)
-        sh.rect(x, 1.92, cw, 0.02, C['ink'])
-        sh.t(x, 2.04, cw, 0.22, k, 9.5, C['grey'], MONO)
-        sh.t(x, 2.28, cw, 0.62, v, 32, C['accent'], SERIF)
-        sh.t(x, 2.96, cw, 0.5, d, 10.5, C['body'], line=1.1, gap=0)
-    sh.text(0.6, 3.56, 8.2, 0.36, [para(list(title_runs([('让这个循环持续转动的，是', False), ('个人agent', True)], 16)))], 'ctr')
-    sh.t(8.8, 3.56, 3.93, 0.36, '深色：Xitadel已跑通  ·  浅色：本轮计划', 9, C['grey'], algn='r', anchor='ctr')
-    flow(sh, 3.98, [('本轮计划', '进场练习', ['交易与事件预测先开放', '留出集不开放'], False),
-                    ('已跑通', '真实结果结算', ['市场结算每笔交易', '每次运行留下Agent轨迹'], True),
-                    ('已跑通', 'agent变强', ['Qwen3.8-27B训练后，', '交易表现最高提升12%'], True),
-                    ('本轮计划', '世界更真实', ['agent钻过的漏洞被补上，', '失败变成新任务与验证器'], False),
-                    ('本轮计划', '数据交给实验室', ['训练更强的模型，', '带来更多个人agent'], False)], 1.2, 15, 10)
-    sh.text(0.6, 5.54, W, 0.36, [para([R('数据规则   ', 10, C['accent'], MONO, True),
-                                       R('怎么用由合作方决定：可以保密、付费练习，也可以脱敏共享轨迹，换取练习额度和收益分成；'
-                                         '交给实验室的每条数据都带授权记录', 11.5, C['ink'])])], 'ctr')
-    kicker(sh, 5.98, [('沙盒让agent不闯祸，', False), ('我们让它做对', True), ('。', False)])
-    sh.t(0.6, 6.54, W, 0.24, '来源：Meta与OpenAI发布（2026年9月8日、29日）；彭博（2026年9月21日）；Instinct公告（2026年9月28日）；'
+        sh.rect(x, 1.92, cw, 0.02, C['accent'] if acc else C['ink'])
+        sh.t(x, 2.06, cw, 0.72, v, 40, C['accent'] if acc else C['ink'], SERIF)
+        sh.t(x, 2.84, cw, 0.5, d, 12, C['body'], line=1.1, gap=0)
+    sh.t(0.6, 3.86, 8, 0.22, '所以，先在我们的世界里练', 10, C['grey'], MONO)
+    steps = ['进场练习', '真实结果结算', 'agent变强', '数据交给实验室']
+    runs = []
+    for i, st in enumerate(steps):
+        if i:
+            runs.append(R('   →   ', 16, C['grey']))
+        runs.append(R(st, 22, C['accent'] if i == 3 else C['ink'], SERIF))
+    sh.text(0.6, 4.12, W, 0.5, [para(runs)], 'ctr')
+    sh.t(0.6, 4.7, W, 0.3, '交易世界已跑通这个循环：Qwen3.8-27B最高提升12%。本轮向个人agent开放交易与事件预测。', 12, C['grey'])
+    kicker(sh, 5.6, [('沙盒让agent不闯祸，', False), ('我们让它做对', True), ('。', False)], 24)
+    sh.t(0.6, 6.54, W, 0.24, '来源：Meta与OpenAI发布（2026年9月8日、29日）；Instinct公告（2026年9月28日）；'
                             'Remote Labor Index（Scale AI与CAIS，2026年7月）。详见A2。', 8, C['grey'])
     footer(sh)
 
@@ -548,8 +544,8 @@ def p_business(sh):
             sh.rule(0.6, y + rh, W)
     notes = [('开源 vs 付费', ['开源基准：公开，用来建立信任', '付费产品：私有任务、数据、留出集与验证器']),
              ('非独家 vs 独家', ['非独家：同一环境可授权给多家实验室', '独家：按领域与期限锁定，溢价较大（Epoch AI）']),
-             ('下一步 · 个人agent', ['同一个世界，两类客户：实验室与agent', 'agent开发者付费练习，默认保密'])]
-    by, bh, gap = 5.34, 1.12, 0.25
+             ('下一步 · 个人agent', ['同一个世界，两类客户：实验室与agent', 'agent付费练习，默认保密', '或脱敏共享轨迹，换练习额度与收益分成'])]
+    by, bh, gap = 5.34, 1.26, 0.25
     bw = (W - 2 * gap) / 3
     for i, (h, lines) in enumerate(notes):
         bx = 0.6 + i * (bw + gap)

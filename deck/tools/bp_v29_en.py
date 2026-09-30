@@ -282,31 +282,28 @@ def p_data(sh):
 
 
 def p_agents(sh):
-    header(sh, 'Next · Personal agents', 2, [('Before an agent acts for someone, ', False), ('it should practice somewhere real', True)])
-    sh.t(0.6, 1.64, 8, 0.22, 'September 2026: the personal-agent race is on', 10, C['grey'], MONO)
-    cells = [('Meta · Sep 8', 'Muse', ['Books, shops and schedules for you;', 'blocked by Amazon two weeks later']),
-             ('OpenAI · Sep 29', 'Dots', ['Always-on personal agents that', 'keep working in the background']),
-             ('Instinct · Sep 28', '$10B', ['Valuation: $2.5B to $10B in 33 days;', 'Sequoia, Benchmark, Coatue']),
-             ('Still falling short', '16.1%', ['The best model completes 16.1% of real', 'freelance projects (Remote Labor Index)'])]
+    header(sh, 'Personal agents', 2, [('Before an agent acts for someone, ', False), ('it should practice somewhere real', True)])
+    sh.t(0.6, 1.64, 8, 0.22, 'Personal agents are here', 10, C['grey'], MONO)
+    cells = [('Muse', 'Meta, launched Sep 8', False), ('Dots', 'OpenAI, unveiled Sep 29', False),
+             ('$10B', 'Instinct, up 4x in 33 days', False), ('16.1%', ['Yet the best model completes 16.1%', 'of real freelance projects'], True)]
     cw, gap = (W - 3 * 0.3) / 4, 0.3
-    for i, (k, v, d) in enumerate(cells):
+    for i, (v, d, acc) in enumerate(cells):
         x = 0.6 + i * (cw + gap)
-        sh.rect(x, 1.92, cw, 0.02, C['ink'])
-        sh.t(x, 2.04, cw, 0.22, k, 9.5, C['grey'], MONO)
-        sh.t(x, 2.28, cw, 0.62, v, 32, C['accent'], SERIF)
-        sh.t(x, 2.96, cw, 0.5, d, 10, C['body'], line=1.1, gap=0)
-    sh.text(0.6, 3.56, 8.2, 0.36, [para(list(title_runs([('What keeps the loop turning: ', False), ('personal agents', True)], 16)))], 'ctr')
-    sh.t(8.8, 3.56, 3.93, 0.36, 'Dark: proven in Xitadel  ·  Light: planned this round', 9, C['grey'], algn='r', anchor='ctr')
-    flow(sh, 3.98, [('Planned', 'Practice', ['Trading and prediction first;', 'held-out sets stay closed'], False),
-                    ('Proven', 'Outcomes settle', ['The market settles every', 'trade; trajectories kept'], True),
-                    ('Proven', 'Agents improve', ['After training, Qwen3.8-27B', 'traded up to 12% better'], True),
-                    ('Planned', 'Worlds get real', ['Exploits get patched;', 'failures become new tasks'], False),
-                    ('Planned', 'Data to labs', ['Labs train stronger models,', 'bringing more personal agents'], False)], 1.2, 15, 9.5)
-    sh.text(0.6, 5.54, W, 0.36, [para([R('Data rules   ', 10, C['accent'], MONO, True),
-                                       R('Partners decide: pay to practice in private, or share de-identified runs for credits and a revenue share. '
-                                         'Data reaches labs only with a license record.', 10.5, C['ink'])])], 'ctr')
-    kicker(sh, 5.98, [('Sandboxes keep agents out of trouble. ', False), ('We teach them to get it right', True), ('.', False)])
-    sh.t(0.6, 6.54, W, 0.24, 'Sources: Meta and OpenAI launches (Sep 8 and 29, 2026); Bloomberg (Sep 21, 2026); Instinct (Sep 28, 2026); '
+        sh.rect(x, 1.92, cw, 0.02, C['accent'] if acc else C['ink'])
+        sh.t(x, 2.06, cw, 0.72, v, 40, C['accent'] if acc else C['ink'], SERIF)
+        sh.t(x, 2.84, cw, 0.5, d, 11.5, C['body'], line=1.1, gap=0)
+    sh.t(0.6, 3.86, 8, 0.22, 'So they practice in our worlds first', 10, C['grey'], MONO)
+    steps = ['Practice', 'Real outcomes settle', 'Agents improve', 'Data goes to labs']
+    runs = []
+    for i, st in enumerate(steps):
+        if i:
+            runs.append(R('   →   ', 16, C['grey']))
+        runs.append(R(st, 22, C['accent'] if i == 3 else C['ink'], SERIF))
+    sh.text(0.6, 4.12, W, 0.5, [para(runs)], 'ctr')
+    sh.t(0.6, 4.7, W, 0.3, 'Our trading world already runs this loop: Qwen3.8-27B traded up to 12% better. '
+                           'This round we open trading and event prediction to personal agents.', 12, C['grey'])
+    kicker(sh, 5.6, [('Sandboxes keep agents out of trouble. ', False), ('We teach them to get it right', True), ('.', False)], 24)
+    sh.t(0.6, 6.54, W, 0.24, 'Sources: Meta and OpenAI launches (Sep 8 and 29, 2026); Instinct (Sep 28, 2026); '
                              'Remote Labor Index (Scale AI and CAIS, Jul 2026). See A2.', 8, C['grey'])
     footer(sh)
 
@@ -485,8 +482,8 @@ def p_business(sh):
             sh.rule(0.6, y + rh, W)
     notes = [('Open source vs. paid', ['Open benchmarks: public, to build trust', 'Paid: private tasks, data, held-out sets, verifiers']),
              ('Non-exclusive vs. exclusive', ['Non-exclusive: one environment, many labs', 'Exclusive: by domain and term, premium (Epoch AI)']),
-             ('Next · Personal agents', ['One world, two customers: labs and agents', 'Agent developers pay to practice; private by default'])]
-    by, bh, gap = 5.34, 1.12, 0.25
+             ('Next · Personal agents', ['One world, two customers: labs and agents', 'Agents pay to practice, private by default,', 'or share de-identified runs for credits and a cut'])]
+    by, bh, gap = 5.34, 1.26, 0.25
     bw = (W - 2 * gap) / 3
     for i, (h, lines) in enumerate(notes):
         bx = 0.6 + i * (bw + gap)
