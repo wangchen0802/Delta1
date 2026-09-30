@@ -1,7 +1,8 @@
 # SimReal 商业计划书（中文）
 
 - `SimReal-BP-v29.pptx` / `SimReal-BP-v29.pdf`：最新版（23页）：个人Agent写进标语、定义与概述；第10页用2026年9月的 Muse、Dots、Instinct 与 Remote Labor Index；全篇数据按2026年9月底最新公开信息复核更新（来源见A2）；由 `deck/tools/bp_v29.py` 生成；配套简介见 `SimReal-v29-intro.md`
-- `SimReal-BP-v29-EN.pptx` / `SimReal-BP-v29-EN.pdf`：v29 英文版（23页）；由 `deck/tools/bp_v29_en.py` 生成
+- `SimReal-BP-v29-EN.pptx` / `SimReal-BP-v29-EN.pdf`：v29 英文版（23页），面向海外机构：金额全部为美元（本轮600万美元，投后7,500万美元，按2026年9月约6.7的汇率取整），术语与格式为美国标准；由 `deck/tools/bp_v29_en.py` 生成；配套英文邮件见 `SimReal-email-EN.md`
+- `SimReal-BP-v29-no-terms.pptx` / `SimReal-BP-v29-no-terms.pdf`：v29 中文外发版（22页）：不含融资金额、估值、出让比例与资金金额，删去融资计划页，资金用途页改为“发展计划”；由 `python3 deck/tools/bp_v29.py SimReal-BP-v17.pptx SimReal-BP-v29-no-terms.pptx --no-terms` 生成
 - `SimReal-BP-v28.pptx` / `SimReal-BP-v28.pdf`：v28（23页）：按创始人新叙事“让AI在真实世界里自我进化”微调，新增第10页“下一步 · 个人agent”（需求信号、循环、数据规则），封面不放估值；由 `deck/tools/bp_v28.py` 基于 v17 生成
 - `SimReal-BP-v28-EN.pptx` / `SimReal-BP-v28-EN.pdf`：v28 英文版（23页，逐页对应）；由 `deck/tools/bp_v28_en.py` 生成
 - `SimReal-BP-v27.pptx` / `SimReal-BP-v27.pdf`：v27（22页）：在团队修改过的 v26 上加入数据业务（Agent轨迹、专家数据、评测数据，新增第9页并贯穿全篇），每页以版块名为大标题、原标题为副标题，全篇语言打磨；由 `deck/tools/bp_v27.py` 基于 v17 生成

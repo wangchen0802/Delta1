@@ -46,7 +46,7 @@ def p_cover(sh):
     sh.t(0.6, 3.42, 8.8, 0.46, 'Before a personal agent is trusted, it practices here', 21, C['ink'], SERIF)
     sh.t(0.6, 4.1, 9.4, 0.36, 'Real situations rebuilt from real data, for AI labs, enterprises and personal agents', 15, C['accent'])
     sh.rule(0.6, 4.95, 7.6)
-    cols = [('This round', 'RMB 40M (paid in USD)'), ('Business plan', 'September 2026')]
+    cols = [('This round', '$6M seed'), ('Business plan', 'September 2026')]
     for (k, v), x in zip(cols, [0.6, 4.6]):
         sh.t(x, 5.12, 3.2, 0.22, k, 9.5, C['grey'], MONO)
         sh.t(x, 5.4, 3.3, 0.36, v, 15, C['ink'])
@@ -62,7 +62,7 @@ def p_overview(sh):
         ('Team', 'Quant founders, born 2005', ['Math at Cambridge, LSE and Duke', 'Jane Street, Citadel, Optiver, Millennium'], False),
         ('Market', [(R('$8.5B ', 26, C['ink'], SERIF), R('→', 24, C['ink'], SANS), R(' $700B', 26, C['ink'], SERIF))],
          ['Data and RL-environment vendors earn ~$8.5B a year', 'The 2030 training market: ~$700B, 82x today'], False),
-        ('This round', 'RMB 40M', ['Paid in USD; RMB 500M post-money', 'RMB 20M each for the revenue and RSI engines'], True),
+        ('This round', '$6M', ['At a $75M post-money valuation', '$3M each for the revenue and RSI engines'], True),
     ]
     cw, gap = (W - 2 * 0.35) / 3, 0.35
     for i, (k, v, d, acc) in enumerate(cells):
@@ -84,15 +84,15 @@ def p_team(sh):
                             'Ran institutional relations; worked on partnerships with SIG, DRW and others',
                             'Sole intern on HSBC’s HKD stablecoin issuance; supported HKMA compliance end to end',
                             'X (Twitter) writer with millions of views', 'Hedge fund intern at Citadel, London'],
-         ['Born 2005 · LSE Mathematics · SCIE', 'USAMO qualifier']),
+         ['Born 2005 · LSE, Math · SCIE (Shenzhen)', 'USAMO qualifier']),
         ('Henry', 'CTO', ['Summer ML research at Cambridge with renowned statistician Po-Ling Loh (IMS Fellow)',
                           'Youngest undergraduate AI researcher at a Cambridge research center',
                           'Quant roles at Jane Street, Citadel, Optiver', 'Designed five benchmarks and RL environments'],
-         ['Born 2005 · Cambridge Math, First (Scholar) · SCIE', 'Top 30 worldwide, Cambridge math contest', 'UK Physics Olympiad Super Gold']),
+         ['Born 2005 · Cambridge Math, First-Class (Scholar)', 'Top 30 worldwide, Cambridge math contest', 'UK Physics Olympiad Super Gold · SCIE (Shenzhen)']),
         ('Amaris', 'COO', ['Data scientist at Millennium Hong Kong', 'The alt-data team’s first-ever graduate hire',
                            'Helped launch Plug and Play’s first Hong Kong event (with HK Science Park); hosted J&J MedTech’s tech summit (200+ attendees each)',
                            'Published author at 17; 100K+ engagements online'],
-         'Born 2005 · Duke Math & Statistics · YK Pao School'),
+         ['Born 2005 · Duke, Math & Statistics', 'YK Pao School (Shanghai)']),
     ]
     cw, gap, y0, ch = (W - 2 * 0.3) / 3, 0.3, 2.42, 3.55
     for i, (name, role, lines, edu) in enumerate(people):
@@ -415,8 +415,8 @@ def p_competition(sh):
         sh.t(rx, y + 0.1, rw, 0.38, k, 17, C['ink'], SERIF)
         sh.t(rx, y + 0.5, rw, 0.42, d, 10.5, C['body'], line=1.1)
     sh.text(0.6, 6.04, W, 0.44, [para([R('China today  ', 10, C['accent'], SANS, True),
-                                      R('Per Bloomberg, Alibaba is set to lead a $300M round in UniPat at a $2.5B valuation; Humanlaya closed a CDH-led Pre-A '
-                                        'of several hundred million RMB;', 10, C['body']), BR(10),
+                                      R('Per Bloomberg, Alibaba is set to lead a $300M round in UniPat at a $2.5B valuation; Humanlaya closed a CDH-led '
+                                        'pre-Series A reported at $30M+;', 10, C['body']), BR(10),
                                       R('Alibaba, ByteDance, DeepSeek and others have bought data or services from both.', 10, C['body'])], line=1.15)], 'ctr')
     footer(sh)
 
@@ -552,9 +552,9 @@ def p_network(sh):
 
 
 def p_raise(sh):
-    header(sh, 'The round', 5, [('Raising RMB 40M ', False), ('at RMB 500M post-money', True)])
-    tiles = [('Raising', 'RMB 40M', 'Paid in USD', True), ('Dilution', '8%', '', False),
-             ('Pre-money', 'RMB 460M', '', False), ('Post-money', 'RMB 500M', '', False)]
+    header(sh, 'The round', 5, [('Raising $6M ', False), ('at a $75M post-money valuation', True)])
+    tiles = [('Raising', '$6M', 'Seed round', True), ('Dilution', '8%', '', False),
+             ('Pre-money', '$69M', '', False), ('Post-money', '$75M', '', False)]
     tw, tg = (W - 3 * 0.25) / 4, 0.25
     for i, (k, v, n, dark) in enumerate(tiles):
         x = 0.6 + i * (tw + tg)
@@ -568,7 +568,7 @@ def p_raise(sh):
                                          11.5, C['ink'])])], 'ctr')
     sh.t(0.6, 3.54, 9, 0.22, 'Valuation references: top investors have already priced this space', 10, C['grey'], MONO)
     comps = [('China · UniPat', '$2.5B', 'Reported valuation (Sep 2026)', 'Alibaba to lead; Tencent, HSG in'),
-             ('China · Apex Intelligence', '~RMB 400M', 'RSI angel rounds (Sep 2026)', 'Led by IDG Capital and others'),
+             ('China · Apex Intelligence', '~$60M', 'RSI angel rounds (Sep 2026)', 'Led by IDG Capital and others'),
              ('Global · Applied Compute', '$100M → $3.25B', 'Seed → 15 months later (raising)', '$20M seed round'),
              ('Global · AfterQuery', '$300M → $3.2B', 'Series A → 5 months later (reported)', 'Series A at $100M run-rate')]
     for i, (tag, v, when, who) in enumerate(comps):
@@ -578,7 +578,7 @@ def p_raise(sh):
         sh.t(x + 0.26, 4.22, tw - 0.5, 0.42, v, 17, C['ink'], SERIF)
         sh.t(x + 0.26, 4.66, tw - 0.5, 0.24, when, 9.5, C['grey'])
         sh.t(x + 0.26, 4.92, tw - 0.5, 0.36, who, 9.5, C['body'], line=1.1)
-    kicker(sh, 5.54, [('HSG, CDH, Capital Today, BAI and IDG are in; Alibaba and Tencent are moving in: ', False), ('the category is validated', True), ('.', False)], 16)
+    kicker(sh, 5.54, [('In China, HSG, CDH, Capital Today, BAI and IDG are in; Alibaba and Tencent are moving in: ', False), ('the category is validated', True), ('.', False)], 16)
     sh.t(0.6, 6.12, W, 0.24, 'UniPat and AfterQuery $3.2B: reported valuations; Applied Compute $3.25B: round in progress; Apex: round size; others post-money. Sources in A2.',
          8.5, C['grey'])
     footer(sh)
@@ -593,14 +593,14 @@ def p_funds(sh):
           ('×', 12.5, 'main', SANS, False), (' licenses ', 12.5, 'main', SERIF, False), ('×', 12.5, 'main', SANS, False),
           (' price', 12.5, 'main', SERIF, False)]
     engines = [
-        dict(dark=False, label='01  Revenue engine  ·  RMB 20M', big='Environments & data', sub='Build once, license to many labs; data billed by volume',
-             uses=[('RMB 7M', 'Environments', 'Batch-build environments by industry'), ('RMB 4M', 'Data', 'Agent trajectories, expert and eval data'),
-                   ('RMB 6M', 'Delivery', 'Integration, acceptance, updates'), ('RMB 3M', 'Sales & ops', 'Labs, enterprises, agent developers')],
+        dict(dark=False, label='01  Revenue engine  ·  $3M', big='Environments & data', sub='Build once, license to many labs; data billed by volume',
+             uses=[('$1.05M', 'Environments', 'Batch-build environments by industry'), ('$600K', 'Data', 'Agent trajectories, expert and eval data'),
+                   ('$900K', 'Delivery', 'Integration, acceptance, updates'), ('$450K', 'Sales & ops', 'Labs, enterprises, agent developers')],
              block=[eq, [('Environment price $20K–$300K (Epoch AI)', 10, 'sub', SANS, False)]],
              ms=[('3 months', 'First paid pilot'), ('6 months', 'Licenses, renewals'), ('12 months', 'Update contracts')]),
-        dict(dark=True, label='02  RSI engine  ·  RMB 20M', big='Self-improvement', sub='The whole AI economy: in every industry, AI that improves itself',
-             uses=[('RMB 9M', 'Compute', 'Models train themselves, each round stronger'), ('RMB 7M', 'Research', 'From trading to 10 industries'),
-                   ('RMB 4M', 'Live trading', 'Real money and settlement; compliance')],
+        dict(dark=True, label='02  RSI engine  ·  $3M', big='Self-improvement', sub='The whole AI economy: in every industry, AI that improves itself',
+             uses=[('$1.35M', 'Compute', 'Models train themselves, each round stronger'), ('$1.05M', 'Research', 'From trading to 10 industries'),
+                   ('$600K', 'Live trading', 'Real money and settlement; compliance')],
              block=[[('Trading RSI  ·  Prediction RSI  ·  10 industries', 12.5, 'main', SERIF, False)],
                     [('A self-improving environment for every industry, in parallel', 10, 'sub', SANS, False)]],
              ms=[('3 months', 'Trading RSI live'), ('6 months', 'Prediction RSI live'), ('12 months', 'Across 10 industries')]),
@@ -677,8 +677,8 @@ SOURCES_L = [
     ('Mechanize: ', 'Business Insider (Aug and Sep 2026): Google talent and licensing deal, reportedly over $1.5B'),
     ('UniPat: ', 'Bloomberg, Sep 10, 2026 (Alibaba set to lead a $300M round at a reported $2.5B valuation, with Tencent and HSG; talks ongoing; '
                  'Alibaba, ByteDance, DeepSeek and others have bought data or services from UniPat and Humanlaya); 36Kr (Sep 24, 2026)'),
-    ('Humanlaya: ', 'Founded 2025; Pre-A of several hundred million RMB in Sep 2026, led by CDH with HSG, Capital Today and BAI (Jiemian, Eastmoney)'),
-    ('Apex Intelligence (超衍智能): ', '36Kr (Sep 16, 2026): self-improving (RSI) model company; angel and angel+ rounds of nearly RMB 400M, led by IDG Capital, Xinglian Capital and XtalPi'),
+    ('Humanlaya: ', 'Founded 2025; pre-Series A reported at several hundred million RMB ($30M+) in Sep 2026, led by CDH with HSG, Capital Today and BAI (Jiemian, Eastmoney)'),
+    ('Apex Intelligence (超衍智能): ', '36Kr (Sep 16, 2026): self-improving (RSI) model company; angel and angel+ rounds of nearly RMB 400M (~$60M), led by IDG Capital, Xinglian Capital and XtalPi'),
 ]
 SOURCES_R = [
     ('Training-data vendor revenue: ', 'Deedy Das, Menlo Ventures partner, AI training-data market map (Jul 2026): 50+ companies, ~$8.5B combined revenue (partly gross)'),

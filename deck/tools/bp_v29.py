@@ -23,7 +23,8 @@ from bp_v17 import C, MONO, SANS, SERIF, Shapes, e, para, run
 NS = ('xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" '
       'xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" '
       'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"')
-SECTIONS = ['我们是谁', '问题与机会', '我们的答案', '市场与竞争', '商业与进展', '计划与融资']
+NO_TERMS = '--no-terms' in sys.argv      # external version: no round size, valuation or use-of-funds amounts
+SECTIONS = ['我们是谁', '问题与机会', '我们的答案', '市场与竞争', '商业与进展', '发展计划' if NO_TERMS else '计划与融资']
 W = 12.13                       # content width, x 0.6 .. 12.73
 DARK_RULE = '3A3935'
 CONF = '机密  ·  仅供受邀投资机构内部评估使用  ·  2026年9月'
@@ -97,7 +98,8 @@ def p_cover(sh):
     sh.t(0.6, 3.42, 8.6, 0.46, '个人Agent被托付之前，先在这里练过', 22, C['ink'], SERIF)
     sh.t(0.6, 4.1, 9.2, 0.36, '用真实数据重建真实场景：面向AI实验室、企业与个人Agent的训练环境与AI数据', 16, C['accent'])
     sh.rule(0.6, 4.95, 7.6)
-    cols = [('本轮融资', '人民币4,000万元（等值美元）'), ('商业计划书', '2026年9月')]
+    cols = ([('联系', 'business@simreal.co'), ('商业计划书', '2026年9月')] if NO_TERMS else
+            [('本轮融资', '人民币4,000万元（等值美元）'), ('商业计划书', '2026年9月')])
     for (k, v), x in zip(cols, [0.6, 4.6]):
         sh.t(x, 5.12, 3.2, 0.22, k, 9.5, C['grey'], MONO)
         sh.t(x, 5.4, 3.3, 0.36, v, 15, C['ink'])
@@ -113,6 +115,7 @@ def p_overview(sh):
         ('团队', '05后量化创始团队', ['剑桥、LSE、杜克数学本科', 'Jane Street、Citadel、Optiver、Millennium经历'], False),
         ('市场', [(R('85亿 ', 26, C['ink'], SERIF), R('→', 24, C['ink'], SANS), R(' 7,000亿美元', 26, C['ink'], SERIF))],
          ['今天训练数据与RL环境供应商年收入约85亿美元', '2030年训练市场约7,000亿美元，是今天的82倍'], False),
+        ('进展', '2家前沿实验室在谈', ['7,000+专家候补名单；GitHub合计400星标', '5位天使投资人主动联系'], True) if NO_TERMS else
         ('本轮融资', '4,000万元', ['人民币（等值美元）；投后估值5亿元', '收入引擎与RSI引擎各2,000万元'], True),
     ]
     cw, gap = (W - 2 * 0.35) / 3, 0.35
@@ -367,7 +370,7 @@ def p_agents(sh):
             runs.append(R('   →   ', 16, C['grey']))
         runs.append(R(st, 22, C['accent'] if i == 3 else C['ink'], SERIF))
     sh.text(0.6, 4.12, W, 0.5, [para(runs)], 'ctr')
-    sh.t(0.6, 4.7, W, 0.3, '交易世界已跑通这个循环：Qwen3.8-27B最高提升12%。本轮向个人Agent开放交易与事件预测。', 12, C['grey'])
+    sh.t(0.6, 4.7, W, 0.3, '交易世界已跑通这个循环：Qwen3.8-27B最高提升12%。' + ('下一步' if NO_TERMS else '本轮') + '向个人Agent开放交易与事件预测。', 12, C['grey'])
     kicker(sh, 5.6, [('沙盒让Agent不闯祸，', False), ('我们让它做对', True), ('。', False)], 24)
     sh.t(0.6, 6.54, W, 0.24, '来源：Meta、OpenAI、千问、Manus发布（2026年9月）；TechCrunch（2026年9月25日）；Instinct（路透社，2026年9月28日）；'
                             'Remote Labor Index（Scale AI与CAIS，2026年7月）。详见A2。', 8, C['grey'])
@@ -644,7 +647,7 @@ def p_raise(sh):
 
 
 def p_funds(sh):
-    header(sh, '资金用途', 5, [('两台引擎：收入引擎赚今天的钱，', False), ('RSI引擎拿下每个行业', True)])
+    header(sh, '发展计划' if NO_TERMS else '资金用途', 5, [('两台引擎：收入引擎赚今天的钱，', False), ('RSI引擎拿下每个行业', True)])
     top, colh, gap, pad = 1.66, 4.5, 0.3, 0.32
     cw = (W - gap) / 2
     iw = cw - 2 * pad
@@ -652,12 +655,12 @@ def p_funds(sh):
           ('×', 13, 'main', SANS, False), (' 授权次数 ', 13, 'main', SERIF, False), ('×', 13, 'main', SANS, False),
           (' 单价', 13, 'main', SERIF, False)]
     engines = [
-        dict(dark=False, label='01  收入引擎  · 投入2,000万元', big='环境与数据', sub='环境一次搭建，授权给多家实验室；数据按交付量收费',
+        dict(dark=False, label='01  收入引擎' if NO_TERMS else '01  收入引擎  · 投入2,000万元', big='环境与数据', sub='环境一次搭建，授权给多家实验室；数据按交付量收费',
              uses=[('700万', '环境生产', '按行业批量搭建训练环境'), ('400万', '数据生产', 'Agent轨迹、专家数据、评测数据'),
                    ('600万', '交付', '接入、验收与持续更新'), ('300万', '销售与运营', '前沿实验室、企业与Agent开发者')],
              block=[eq, [('环境单价2万–30万美元（Epoch AI）', 10.5, 'sub', SANS, False)]],
              ms=[('3个月', '首个付费试点'), ('6个月', '环境授权与复购'), ('12个月', '持续更新合同')]),
-        dict(dark=True, label='02  RSI引擎  · 投入2,000万元', big='自我进化', sub='瞄准整个AI经济：每个行业，一个自己变强的AI',
+        dict(dark=True, label='02  RSI引擎' if NO_TERMS else '02  RSI引擎  · 投入2,000万元', big='自我进化', sub='瞄准整个AI经济：每个行业，一个自己变强的AI',
              uses=[('900万', '算力', '模型自己训练自己，一轮比一轮强'), ('700万', '研究团队', '从交易走向10个行业'),
                    ('400万', '实盘与合规', '真实资金、真实市场、真实结算')],
              block=[[('实盘交易RSI  ·  事件预测RSI  ·  10个行业', 13, 'main', SERIF, False)],
@@ -677,9 +680,13 @@ def p_funds(sh):
         sh.rect(ix, y0, iw, 0.01, col['rule'])
         for i, (amt, item, det) in enumerate(eng['uses']):
             y = y0 + i * rh
-            sh.t(ix, y, 0.95, rh, amt, 14, col['acc'], SERIF, anchor='ctr')
-            sh.t(ix + 1.0, y, 1.25, rh, item, 13, col['main'], SERIF, anchor='ctr')
-            sh.t(ix + 2.3, y, iw - 2.3, rh, det, 10, col['sub'], anchor='ctr')
+            if NO_TERMS:                                  # no amounts: item and detail only
+                sh.t(ix, y, 1.3, rh, item, 13, col['main'], SERIF, anchor='ctr')
+                sh.t(ix + 1.35, y, iw - 1.35, rh, det, 10, col['sub'], anchor='ctr')
+            else:
+                sh.t(ix, y, 0.95, rh, amt, 14, col['acc'], SERIF, anchor='ctr')
+                sh.t(ix + 1.0, y, 1.25, rh, item, 13, col['main'], SERIF, anchor='ctr')
+                sh.t(ix + 2.3, y, iw - 2.3, rh, det, 10, col['sub'], anchor='ctr')
             sh.rect(ix, y + rh, iw, 0.01, col['rule'])
         sh.text(ix, top + 3.0, iw, 0.7, [para([R(t, sz, col[c], f, bold) for t, sz, c, f, bold in line], before=0 if j == 0 else 4)
                                          for j, line in enumerate(eng['block'])])
@@ -689,7 +696,7 @@ def p_funds(sh):
         for i, (t, d) in enumerate(eng['ms']):
             sh.t(ix + i * mw, my, mw - 0.1, 0.2, t, 9.5, col['acc'], MONO)
             sh.t(ix + i * mw, my + 0.22, mw - 0.05, 0.34, d, 12, col['main'], SERIF)
-    sh.t(0.6, 6.3, W, 0.22, '里程碑为本轮目标。', 8.5, C['grey'])
+    sh.t(0.6, 6.3, W, 0.22, '里程碑为未来12个月目标。' if NO_TERMS else '里程碑为本轮目标。', 8.5, C['grey'])
     footer(sh)
 
 
@@ -750,6 +757,9 @@ SOURCES_R = [
     ('Remote Labor Index：', 'Scale AI与CAIS（2026年7月）：最强模型按付费客户标准完成16.1%的真实外包项目'),
     ('事件预测：', 'PolyBench（arXiv 2604.14199，2026年4月）：\n7个前沿模型在38,666个Polymarket市场模拟交易，仅2个取得正收益'),
 ]
+if NO_TERMS:                                     # the round page is gone, so are the sources only it cited
+    SOURCES_L = [e for e in SOURCES_L if not e[0].startswith('超衍智能')]
+    SOURCES_R = [e for e in SOURCES_R if not e[0].startswith('融资与估值')]
 
 
 def p_a2(sh):
@@ -829,10 +839,18 @@ def recolor(pic, color):
 
 
 def main(src, dst):
+    pages = PAGES
+    if NO_TERMS:
+        pages, k = [], 0
+        for build, idx, keep, n in PAGES:
+            if build is p_raise:
+                k = 1
+                continue
+            pages.append((build, idx, keep, n - k if isinstance(n, int) else n))
     prs = Presentation(src)
     slides = list(prs.slides)
     order = []
-    for build, idx, keep, n in PAGES:
+    for build, idx, keep, n in pages:
         CUR['n'] = n
         s = slides[idx]
         tree = s.shapes._spTree
