@@ -43,7 +43,7 @@ def kicker(sh, y, parts, sz=20, algn='l'):
 # ------------------------------------------------------------------ pages ---
 def p_cover(sh):
     sh.t(0.6, 1.7, 8.2, 1.9, ['AI that improves itself', 'in the real world'], 42, C['ink'], SERIF, line=1.05)
-    sh.t(0.6, 3.85, 8.4, 0.36, 'Real situations rebuilt from real data: environments and AI data for labs and enterprises', 15, C['accent'])
+    sh.t(0.6, 3.85, 9.4, 0.36, 'Real worlds rebuilt from real data, where AI labs, enterprises and personal agents train', 15, C['accent'])
     sh.rule(0.6, 4.95, 7.6)
     cols = [('This round', 'RMB 40M (paid in USD)'), ('Business plan', 'September 2026')]
     for (k, v), x in zip(cols, [0.6, 4.6]):
@@ -53,7 +53,7 @@ def p_cover(sh):
 
 
 def p_overview(sh):
-    header(sh, 'Overview', 0, [('Give AI a real place to work, and let it fail, learn and ', False), ('improve itself', True)])
+    header(sh, 'Overview', 0, [('Give AI and personal agents a real world to fail, learn and ', False), ('improve themselves', True)])
     cells = [
         ('What we do', 'Environments & AI data', ['For AI labs and enterprises: agent trajectories,', 'expert and eval data; exclusive environments for RSI', 'Next: practice worlds for personal agents'], False),
         ('Done so far', '7 products in 14 days', ['Three worlds live: trading, AI research,', 'event prediction; 5 public repos; no outside funding'], False),
@@ -283,30 +283,31 @@ def p_data(sh):
 
 def p_agents(sh):
     header(sh, 'Next · Personal agents', 2, [('Before an agent acts for someone, ', False), ('it should practice somewhere real', True)])
-    sh.t(0.6, 1.64, 6, 0.22, 'Demand signals', 10, C['grey'], MONO)
-    cells = [('Attention', '390K+', ['GitHub stars for OpenClaw, an open-source', 'personal agent started Nov 2025; now 6th on GitHub']),
-             ('Labs moving in', 'OpenAI', ['Hired OpenClaw’s creator in Feb 2026', '“to work on bringing agents to everyone”']),
-             ('Still falling short', '67.2%', ['WildClawBench real tasks: the best model scores', '67.2%; 29 of 34 models score under 60%'])]
-    cw, gap = (W - 2 * 0.35) / 3, 0.35
+    sh.t(0.6, 1.64, 8, 0.22, 'September 2026: the personal-agent race is on', 10, C['grey'], MONO)
+    cells = [('Meta · Sep 8', 'Muse', ['Books, shops and schedules for you;', 'blocked by Amazon two weeks later']),
+             ('OpenAI · Sep 29', 'Dots', ['Always-on personal agents that', 'keep working in the background']),
+             ('Instinct · Sep 28', '$10B', ['Valuation: $2.5B to $10B in 33 days;', 'Sequoia, Benchmark, Coatue']),
+             ('Still falling short', '16.1%', ['The best model completes 16.1% of real', 'freelance projects (Remote Labor Index)'])]
+    cw, gap = (W - 3 * 0.3) / 4, 0.3
     for i, (k, v, d) in enumerate(cells):
         x = 0.6 + i * (cw + gap)
         sh.rect(x, 1.92, cw, 0.02, C['ink'])
         sh.t(x, 2.04, cw, 0.22, k, 9.5, C['grey'], MONO)
-        sh.t(x, 2.26, cw, 0.66, v, 36, C['accent'], SERIF)
-        sh.t(x, 2.96, cw, 0.5, d, 10.5, C['body'], line=1.1, gap=0)
+        sh.t(x, 2.28, cw, 0.62, v, 32, C['accent'], SERIF)
+        sh.t(x, 2.96, cw, 0.5, d, 10, C['body'], line=1.1, gap=0)
     sh.text(0.6, 3.56, 8.2, 0.36, [para(list(title_runs([('What keeps the loop turning: ', False), ('personal agents', True)], 16)))], 'ctr')
     sh.t(8.8, 3.56, 3.93, 0.36, 'Dark: proven in Xitadel  ·  Light: planned this round', 9, C['grey'], algn='r', anchor='ctr')
     flow(sh, 3.98, [('Planned', 'Practice', ['Trading and prediction first;', 'held-out sets stay closed'], False),
-                    ('Proven', 'Outcomes settle', ['Markets and events settle', 'each run; trajectories kept'], True),
+                    ('Proven', 'Outcomes settle', ['The market settles every', 'trade; trajectories kept'], True),
                     ('Proven', 'Agents improve', ['After training, Qwen3.8-27B', 'traded up to 12% better'], True),
                     ('Planned', 'Worlds get real', ['Exploits get patched;', 'failures become new tasks'], False),
-                    ('Planned', 'Data to labs', ['Stronger models, and', 'more personal agents'], False)], 1.2, 15, 9.5)
+                    ('Planned', 'Data to labs', ['Labs train stronger models,', 'bringing more personal agents'], False)], 1.2, 15, 9.5)
     sh.text(0.6, 5.54, W, 0.36, [para([R('Data rules   ', 10, C['accent'], MONO, True),
                                        R('Partners decide: pay to practice in private, or share de-identified runs for credits and a revenue share. '
                                          'Data reaches labs only with a license record.', 10.5, C['ink'])])], 'ctr')
     kicker(sh, 5.98, [('Sandboxes keep agents out of trouble. ', False), ('We teach them to get it right', True), ('.', False)])
-    sh.t(0.6, 6.54, W, 0.24, 'Sources: OpenClaw (GitHub, Sep 30, 2026); OpenAI (Peter Steinberger’s blog, Feb 15, 2026); '
-                             'WildClawBench (InternLM leaderboard, Sep 2026). See A2.', 8, C['grey'])
+    sh.t(0.6, 6.54, W, 0.24, 'Sources: Meta and OpenAI launches (Sep 8 and 29, 2026); Bloomberg (Sep 21, 2026); Instinct (Sep 28, 2026); '
+                             'Remote Labor Index (Scale AI and CAIS, Jul 2026). See A2.', 8, C['grey'])
     footer(sh)
 
 
@@ -689,10 +690,9 @@ SOURCES_R = [
     ('RL environment pricing: ', 'Epoch AI, An FAQ on RL environments (Jan 2026)'),
     ('Public text stock: ', 'Epoch AI, Will we run out of data? (2024): exhausted 2026–2032 (80% CI)'),
     ('Rounds and valuations: ', 'Applied Compute: Upstarts (Jun 2025, $20M seed at $100M post); The Information (Aug 2026, ~$3B in talks)'),
-    ('OpenClaw: ', 'GitHub, accessed Sep 30, 2026: 390,837 stars, 6th on GitHub by stars; created Nov 24, 2025'),
-    ('OpenAI and OpenClaw: ', 'Peter Steinberger’s blog, Feb 15, 2026: joining OpenAI “to work on bringing agents to everyone”'),
-    ('WildClawBench: ', 'InternLM, GitHub README and leaderboard, accessed Sep 30, 2026: 60 hand-built real tasks in OpenClaw; '
-                       'top score 67.2% of 34 models, 29 under 60%'),
+    ('Personal agents: ', 'Meta Muse launch (Sep 8, 2026; Axios, CNBC); Bloomberg (Sep 21, 2026): Amazon blocks Muse; OpenAI unveils always-on Dots at DevDay (Sep 29, 2026; TechCrunch, CNBC)'),
+    ('Instinct: ', 'Business Wire, Sep 28, 2026: $1B Series C at a $10B valuation from Sequoia, Benchmark and Coatue; valued at $2.5B 33 days earlier'),
+    ('Remote Labor Index: ', 'Scale AI and CAIS, Jul 2026: the best model completes 16.1% of real freelance projects to a paying client’s standard'),
 ]
 
 

@@ -94,7 +94,7 @@ def kicker(sh, y, parts, sz=20, algn='l'):
 def p_cover(sh):
     sh.t(1.62, 0.55, 1.0, 0.25, '衍真', 13, C['ink'], SANS, True, anchor='ctr')
     sh.t(0.6, 1.7, 8.2, 1.9, ['让AI在真实世界里', '自我进化'], 44, C['ink'], SERIF, line=1.05)
-    sh.t(0.6, 3.85, 8.2, 0.36, '用真实数据重建真实场景：面向AI实验室与企业的训练环境与AI数据', 16, C['accent'])
+    sh.t(0.6, 3.85, 9.2, 0.36, '用真实数据重建真实世界：AI实验室、企业与个人agent的训练场', 16, C['accent'])
     sh.rule(0.6, 4.95, 7.6)
     cols = [('本轮融资', '人民币4,000万元（等值美元）'), ('商业计划书', '2026年9月')]
     for (k, v), x in zip(cols, [0.6, 4.6]):
@@ -104,7 +104,7 @@ def p_cover(sh):
 
 
 def p_overview(sh):
-    header(sh, '项目概述', 0, [('给AI真实的工作环境，让它反复犯错、学习、', False), ('自我进化', True)])
+    header(sh, '项目概述', 0, [('给AI和个人agent一个真实的世界，让它们反复犯错、学习、', False), ('自我进化', True)])
     cells = [
         ('做什么', '训练环境与AI数据', ['面向AI实验室与企业：Agent轨迹、专家与评测数据', '独家环境让AI自我进化（RSI）', '下一步：向个人agent开放练习'], False),
         ('已做到', '14天7款产品', ['3个世界已上线：交易、AI研究、事件预测', '5个公开仓库；零外部融资'], False),
@@ -349,31 +349,31 @@ def flow(sh, top, boxes, bh, tsz, dsz):
 
 def p_agents(sh):
     header(sh, '下一步 · 个人agent', 2, [('一个agent在替人做事之前，', False), ('需要先在足够真实的地方练过', True)])
-    sh.t(0.6, 1.64, 6, 0.22, '需求信号', 10, C['grey'], MONO)
-    cells = [('关注度', [(R('39万', 36, C['accent'], SERIF), R('+', 30, C['accent'], SANS))],
-              ['开源个人agent OpenClaw的GitHub星标', '2025年11月建仓，已居全站第6']),
-             ('头部实验室下场', 'OpenAI', ['2026年2月，OpenClaw作者加入OpenAI：', '“把agent带给每个人”']),
-             ('还做不好真实的事', '67.2%', ['WildClawBench真实任务评测：最强模型67.2%', '34个模型中，29个低于60%'])]
-    cw, gap = (W - 2 * 0.35) / 3, 0.35
+    sh.t(0.6, 1.64, 8, 0.22, '2026年9月：个人agent竞赛开打', 10, C['grey'], MONO)
+    cells = [('Meta · 9月8日', 'Muse', ['上线个人agent，替人订票、购物、', '约时间；两周后被亚马逊屏蔽']),
+             ('OpenAI · 9月29日', 'Dots', ['发布常驻个人agent：', '在后台持续替人做事']),
+             ('Instinct · 9月28日', '100亿美元', ['33天估值从25亿升至100亿美元', '红杉、Benchmark、Coatue投资']),
+             ('但还做不好', '16.1%', ['最强模型只完成16.1%的', '真实外包项目（Remote Labor Index）'])]
+    cw, gap = (W - 3 * 0.3) / 4, 0.3
     for i, (k, v, d) in enumerate(cells):
         x = 0.6 + i * (cw + gap)
         sh.rect(x, 1.92, cw, 0.02, C['ink'])
         sh.t(x, 2.04, cw, 0.22, k, 9.5, C['grey'], MONO)
-        sh.t(x, 2.26, cw, 0.66, v, 36, C['accent'], SERIF)
-        sh.t(x, 2.96, cw, 0.5, d, 11, C['body'], line=1.1, gap=0)
+        sh.t(x, 2.28, cw, 0.62, v, 32, C['accent'], SERIF)
+        sh.t(x, 2.96, cw, 0.5, d, 10.5, C['body'], line=1.1, gap=0)
     sh.text(0.6, 3.56, 8.2, 0.36, [para(list(title_runs([('让这个循环持续转动的，是', False), ('个人agent', True)], 16)))], 'ctr')
     sh.t(8.8, 3.56, 3.93, 0.36, '深色：Xitadel已跑通  ·  浅色：本轮计划', 9, C['grey'], algn='r', anchor='ctr')
     flow(sh, 3.98, [('本轮计划', '进场练习', ['交易与事件预测先开放', '留出集不开放'], False),
-                    ('已跑通', '真实结果结算', ['市场结算交易，现实揭晓事件', '每次练习留下轨迹'], True),
+                    ('已跑通', '真实结果结算', ['市场结算每笔交易', '每次运行留下Agent轨迹'], True),
                     ('已跑通', 'agent变强', ['Qwen3.8-27B训练后，', '交易表现最高提升12%'], True),
-                    ('本轮计划', '世界更真实', ['钻出的漏洞被修补，', '失败变成新任务与验证器'], False),
+                    ('本轮计划', '世界更真实', ['agent钻过的漏洞被补上，', '失败变成新任务与验证器'], False),
                     ('本轮计划', '数据交给实验室', ['训练更强的模型，', '带来更多个人agent'], False)], 1.2, 15, 10)
     sh.text(0.6, 5.54, W, 0.36, [para([R('数据规则   ', 10, C['accent'], MONO, True),
                                        R('怎么用由合作方决定：可以保密、付费练习，也可以脱敏共享轨迹，换取练习额度和收益分成；'
                                          '交给实验室的每条数据都带授权记录', 11.5, C['ink'])])], 'ctr')
     kicker(sh, 5.98, [('沙盒让agent不闯祸，', False), ('我们让它做对', True), ('。', False)])
-    sh.t(0.6, 6.54, W, 0.24, '来源：OpenClaw（GitHub，2026年9月30日）；OpenAI（Peter Steinberger博客，2026年2月15日）；'
-                            'WildClawBench（InternLM排行榜，2026年9月）。详见A2。', 8, C['grey'])
+    sh.t(0.6, 6.54, W, 0.24, '来源：Meta与OpenAI发布（2026年9月8日、29日）；彭博（2026年9月21日）；Instinct公告（2026年9月28日）；'
+                            'Remote Labor Index（Scale AI与CAIS，2026年7月）。详见A2。', 8, C['grey'])
     footer(sh)
 
 
@@ -747,9 +747,9 @@ SOURCES_R = [
     ('RL环境定价：', 'Epoch AI《An FAQ on RL environments》（2026年1月）'),
     ('公开文本存量：', 'Epoch AI《Will we run out of data?》（2024）：\n预计2026–2032年间用尽（80%置信区间）'),
     ('融资与估值：', 'Applied Compute：Upstarts（2025年6月，种子轮2,000万美元，投后1亿美元）；\nThe Information（2026年8月，约30亿美元洽谈）'),
-    ('OpenClaw：', 'GitHub（2026年9月30日查阅）：390,837星标，按星标居全站第6；2025年11月24日建仓'),
-    ('OpenAI与OpenClaw：', 'Peter Steinberger博客（2026年2月15日）：\n加入OpenAI，“把agent带给每个人”'),
-    ('WildClawBench：', 'InternLM，GitHub项目说明与排行榜（2026年9月30日查阅）：\nOpenClaw环境中60个人工原创真实任务；\n34个模型中最高67.2%，29个低于60%'),
+    ('个人agent：', 'Meta Muse上线（2026年9月8日，Axios、CNBC）；\n彭博（2026年9月21日）：亚马逊屏蔽Muse；\nOpenAI DevDay发布常驻agent Dots（2026年9月29日，TechCrunch、CNBC）'),
+    ('Instinct：', 'Business Wire（2026年9月28日）：10亿美元C轮，估值100亿美元；\n红杉、Benchmark、Coatue投资；33天前估值25亿美元'),
+    ('Remote Labor Index：', 'Scale AI与CAIS（2026年7月）：\n最强模型按付费客户标准完成16.1%的真实外包项目'),
 ]
 
 
