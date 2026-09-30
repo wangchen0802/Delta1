@@ -93,8 +93,9 @@ def kicker(sh, y, parts, sz=20, algn='l'):
 # ------------------------------------------------------------------ pages ---
 def p_cover(sh):
     sh.t(1.62, 0.55, 1.0, 0.25, '衍真', 13, C['ink'], SANS, True, anchor='ctr')
-    sh.t(0.6, 1.7, 8.2, 1.9, ['让AI在真实世界里', '自我进化'], 44, C['ink'], SERIF, line=1.05)
-    sh.t(0.6, 3.85, 9.2, 0.36, '用真实数据重建真实世界：AI实验室、企业与个人agent的训练场', 16, C['accent'])
+    sh.t(0.6, 1.35, 8.2, 1.9, ['让AI在真实世界里', '自我进化'], 44, C['ink'], SERIF, line=1.05)
+    sh.t(0.6, 3.42, 8.6, 0.46, '个人Agent被托付之前，先在这里练过', 22, C['ink'], SERIF)
+    sh.t(0.6, 4.1, 9.2, 0.36, '用真实数据重建真实场景：面向AI实验室、企业与个人Agent的训练环境与AI数据', 16, C['accent'])
     sh.rule(0.6, 4.95, 7.6)
     cols = [('本轮融资', '人民币4,000万元（等值美元）'), ('商业计划书', '2026年9月')]
     for (k, v), x in zip(cols, [0.6, 4.6]):
@@ -104,14 +105,14 @@ def p_cover(sh):
 
 
 def p_overview(sh):
-    header(sh, '项目概述', 0, [('给AI和个人agent一个真实的世界，让它们反复犯错、学习、', False), ('自我进化', True)])
+    header(sh, '项目概述', 0, [('给AI和个人Agent一个真实的世界，让它们反复犯错、学习、', False), ('自我进化', True)])
     cells = [
-        ('做什么', '训练环境与AI数据', ['面向AI实验室与企业：Agent轨迹、专家与评测数据', '独家环境让AI自我进化（RSI）', '下一步：向个人agent开放练习'], False),
+        ('做什么', '训练环境与AI数据', ['面向AI实验室与企业：Agent轨迹、专家与评测数据', '独家环境让AI自我进化（RSI）', '下一步：向个人Agent开放练习'], False),
         ('已做到', '14天7款产品', ['3个世界已上线：交易、AI研究、事件预测', '5个公开仓库；零外部融资'], False),
         ('核心成果', '+12%', ['Qwen3.8-27B经Xitadel训练，在未见过的真实行情上', '交易表现最高提升12%，多次独立复现'], True),
         ('团队', '05后量化创始团队', ['剑桥、LSE、杜克数学本科', 'Jane Street、Citadel、Optiver、Millennium经历'], False),
         ('市场', [(R('85亿 ', 26, C['ink'], SERIF), R('→', 24, C['ink'], SANS), R(' 7,000亿美元', 26, C['ink'], SERIF))],
-         ['今天实验室每年采购85亿美元训练数据与RL环境', '2030年训练市场约7,000亿美元，是今天的82倍'], False),
+         ['今天训练数据与RL环境供应商年收入约85亿美元', '2030年训练市场约7,000亿美元，是今天的82倍'], False),
         ('本轮融资', '4,000万元', ['人民币（等值美元）；投后估值5亿元', '收入引擎与RSI引擎各2,000万元'], True),
     ]
     cw, gap = (W - 2 * 0.35) / 3, 0.35
@@ -162,7 +163,7 @@ def p_problem(sh):
     rows = [('交易', '历史回测一路上涨', '进入未见过的真实行情就亏钱'),
             ('软件工程', '测试全部通过', '上线后出错'),
             ('财务', '账看起来已经做完', '月结对不平'),
-            ('事件预测', '分析头头是道', '结果一出就落空')]
+            ('事件预测', '分析头头是道', '照着下注却亏钱')]
     y0, rh = 2.38, 0.66
     sh.rect(7.35, y0 - 0.36, 5.38, 0.36 + rh * len(rows), C['tint'])
     sh.t(2.4, y0 - 0.32, 4, 0.26, '表面检查：通过', 9.5, C['grey'], MONO, anchor='ctr')
@@ -184,7 +185,7 @@ def p_insight(sh):
     gens = [('第一代 · 互联网数据', '模仿', '模型学会抄', '会说话的AI'),
             ('第二代 · 人类偏好', '对齐', '人来打分', '好用的AI助手'),
             ('第三代 · 标准答案', '验证', '按答案判对错', '推理模型'),
-            ('第四代 · 真实世界的反馈', '实践', 'AI在真实场景中行动，真实结果为每个动作结算', '自主运行与自我进化')]
+            ('第四代 · 真实世界的反馈', '实践', 'AI在真实场景中行动，真实结果为每个动作结算', '真实结果驱动的自我进化')]
     cw, gap, y0, ch = (W - 3 * 0.25) / 4, 0.25, 1.75, 3.1
     for i, (lab, big, how, res) in enumerate(gens):
         x, dark = 0.6 + i * (cw + gap), i == 3
@@ -196,7 +197,7 @@ def p_insight(sh):
         sh.t(x + 0.25, y0 + 2.02, cw - 0.5, 0.36, res, 14, C['accentLt'] if dark else C['ink'], SERIF)
         if dark:
             sh.t(x + 0.25, y0 + 2.5, cw - 0.5, 0.26, '刚刚起步', 9.5, C['accentLt'], MONO, True)
-    kicker(sh, 5.3, [('考满分的AI，未必能放心交付。下一代AI的进步，', False), ('要靠真实世界的反应', True), ('。', False)], 22, 'ctr')
+    kicker(sh, 5.3, [('考满分的AI，未必能放心托付。下一代AI的进步，', False), ('要靠真实世界的反应', True), ('。', False)], 22, 'ctr')
     footer(sh)
 
 
@@ -248,7 +249,7 @@ def p_xitadel(sh):
     sh.rect(px, py, pw, ph, C['tint'])
     sh.t(px + 0.3, py + 0.22, pw - 0.6, 0.22, 'Xitadel公开预览版', 9.5, C['grey'], MONO)
     sh.t(px + 0.3, py + 0.48, pw - 0.6, 0.36, '尚无模型越过人类水平线', 16, C['ink'], SERIF)
-    models = [('GPT 6', 77.28), ('GLM 5.3', 30.12), ('Kimi K3', 27.68), ('DeepSeek V4 Pro', 24.58)]
+    models = [('GPT-6', 77.28), ('GLM 5.3', 30.12), ('Kimi K3', 27.68), ('DeepSeek V4 Pro', 24.58)]
     bx, scale, by = px + 1.65, 0.031, py + 1.45
     human_x = bx + 80 * scale
     sh.rect(human_x, by - 0.2, 0.015, len(models) * 0.46 + 0.1, C['accent'])
@@ -324,7 +325,7 @@ def p_data(sh):
         sh.rule(x, 4.8, dw, C['ink'])
         sh.t(x, 4.88, 1.0, 0.4, k, 16, C['accent'], SERIF, anchor='ctr')
         sh.t(x + 1.0, 4.88, dw - 1.0, 0.4, d, 11, C['body'], anchor='ctr')
-    kicker(sh, 5.72, [('今天实验室每年花85亿美元买训练数据与RL环境：', False), ('这两样，我们都做', True), ('。', False)], 18)
+    kicker(sh, 5.72, [('训练数据与RL环境，今天已是年收入约85亿美元的生意：', False), ('这两样，我们都做', True), ('。', False)], 18)
     footer(sh)
 
 
@@ -348,10 +349,10 @@ def flow(sh, top, boxes, bh, tsz, dsz):
 
 
 def p_agents(sh):
-    header(sh, '个人agent', 2, [('一个agent在替人做事之前，', False), ('需要先在足够真实的地方练过', True)])
-    sh.t(0.6, 1.64, 8, 0.22, '个人agent已经来了', 10, C['grey'], MONO)
-    cells = [('Muse', 'Meta，9月8日上线', False), ('Dots', 'OpenAI，9月29日发布', False),
-             ('100亿美元', 'Instinct估值，33天涨4倍', False), ('16.1%', ['但最强模型只做好', '16.1%的真实外包项目'], True)]
+    header(sh, '个人Agent', 2, [('一个Agent在替人做事之前，', False), ('需要先在足够真实的地方练过', True)])
+    sh.t(0.6, 1.64, 9, 0.22, '2026年9月，个人Agent集体入场；国内千问、Manus同月跟进', 10, C['grey'], MONO)
+    cells = [('Muse', ['Meta，9月8日上线', '10天登顶美国App Store'], False), ('Dots', ['OpenAI，9月29日发布', '常驻云端，替人持续做事'], False),
+             ('100亿美元', ['Instinct估值，33天涨4倍', '红杉、Benchmark、Coatue投资'], False), ('16.1%', ['但最强模型只做好', '16.1%的真实外包项目'], True)]
     cw, gap = (W - 3 * 0.3) / 4, 0.3
     for i, (v, d, acc) in enumerate(cells):
         x = 0.6 + i * (cw + gap)
@@ -359,25 +360,25 @@ def p_agents(sh):
         sh.t(x, 2.06, cw, 0.72, v, 40, C['accent'] if acc else C['ink'], SERIF)
         sh.t(x, 2.84, cw, 0.5, d, 12, C['body'], line=1.1, gap=0)
     sh.t(0.6, 3.86, 8, 0.22, '所以，先在我们的世界里练', 10, C['grey'], MONO)
-    steps = ['进场练习', '真实结果结算', 'agent变强', '数据交给实验室']
+    steps = ['进场练习', '真实结果结算', 'Agent变强', '数据交给实验室']
     runs = []
     for i, st in enumerate(steps):
         if i:
             runs.append(R('   →   ', 16, C['grey']))
         runs.append(R(st, 22, C['accent'] if i == 3 else C['ink'], SERIF))
     sh.text(0.6, 4.12, W, 0.5, [para(runs)], 'ctr')
-    sh.t(0.6, 4.7, W, 0.3, '交易世界已跑通这个循环：Qwen3.8-27B最高提升12%。本轮向个人agent开放交易与事件预测。', 12, C['grey'])
-    kicker(sh, 5.6, [('沙盒让agent不闯祸，', False), ('我们让它做对', True), ('。', False)], 24)
-    sh.t(0.6, 6.54, W, 0.24, '来源：Meta与OpenAI发布（2026年9月8日、29日）；Instinct公告（2026年9月28日）；'
+    sh.t(0.6, 4.7, W, 0.3, '交易世界已跑通这个循环：Qwen3.8-27B最高提升12%。本轮向个人Agent开放交易与事件预测。', 12, C['grey'])
+    kicker(sh, 5.6, [('沙盒让Agent不闯祸，', False), ('我们让它做对', True), ('。', False)], 24)
+    sh.t(0.6, 6.54, W, 0.24, '来源：Meta、OpenAI、千问、Manus发布（2026年9月）；TechCrunch（2026年9月25日）；Instinct（路透社，2026年9月28日）；'
                             'Remote Labor Index（Scale AI与CAIS，2026年7月）。详见A2。', 8, C['grey'])
     footer(sh)
 
 
 def p_why_now(sh):
-    header(sh, '为什么是现在', 3, [('Mercor 18个月内收入涨27倍、估值涨10倍：', False), ('赛道才刚开始', True)])
+    header(sh, '为什么是现在', 3, [('Mercor 16个月收入涨27倍，估值洽谈至200亿美元：', False), ('赛道才刚开始', True)])
     tops = [('收入增长', '27倍', 'Mercor年化毛营收：16个月，7,500万→20亿美元'),
             ('估值增长', '10倍', 'Mercor估值：17个月，20亿→200亿美元（洽谈中）'),
-            ('需求增长', '14倍', 'AI智能体市场预测：7年，79亿→约1,110亿美元')]
+            ('Agent替人花钱', '3–5万亿美元', '2030年全球由AI Agent完成的消费交易（麦肯锡）')]
     cw, gap = (W - 2 * 0.35) / 3, 0.35
     for i, (k, v, d) in enumerate(tops):
         x = 0.6 + i * (cw + gap)
@@ -386,8 +387,8 @@ def p_why_now(sh):
         sh.t(x, 2.06, cw, 0.8, v, 44, C['accent'], SERIF)
         sh.t(x, 2.9, cw, 0.5, d, 11, C['body'], line=1.1)
     facts = [('18倍', 'Snorkel AI年化收入一年增至3.75亿美元'), ('290亿美元', 'Scale AI估值，Meta以143亿美元入股49%'),
-             ('14个月', 'AfterQuery从成立到年化收入1亿美元'), ('近一半', 'Scale AI新训练项目已涉及RL环境'),
-             ('5个月', 'AfterQuery估值：3亿→32亿美元'), ('2032年前', '公开的人类文本预计被用尽')]
+             ('14个月', 'AfterQuery从成立到年化收入1亿美元'), ('15亿美元+', '谷歌与RL环境公司Mechanize的交易（据报道）'),
+             ('5个月', 'AfterQuery估值：3亿→32亿美元（据报道）'), ('2026–2032', '年间，公开的人类文本预计被用尽')]
     fw, fg, fy, fh = (W - 0.5) / 2, 0.5, 3.78, 0.56
     for i, (v, d) in enumerate(facts):
         x, y = 0.6 + (i % 2) * (fw + fg), fy + (i // 2) * fh
@@ -396,8 +397,8 @@ def p_why_now(sh):
         sh.t(x + 1.6, y, fw - 1.6, fh, d, 11.5, C['body'], anchor='ctr')
     sh.rule(0.6, fy + 3 * fh, fw)
     sh.rule(0.6 + fw + fg, fy + 3 * fh, fw)
-    sh.t(0.6, 5.76, W, 0.5, '来源：Mercor（TechCrunch、Sacra、Dealroom、彭博）；AfterQuery（Business Wire、福布斯）；Snorkel AI（公司公告）；'
-                            'Scale AI（路透社、公司博客）；AI智能体（Precedence Research）；文本存量（Epoch AI）。详见A2。', 8, C['grey'], line=1.1)
+    sh.t(0.6, 5.76, W, 0.5, '来源：Mercor（TechCrunch、Sacra、Dealroom、彭博、The Information）；AfterQuery（Business Wire、福布斯）；Snorkel AI（路透社）；'
+                            'Scale AI（路透社）；Mechanize（Business Insider）；Agent消费交易（麦肯锡，经CNBC）；文本存量（Epoch AI）。详见A2。', 8, C['grey'], line=1.1)
     footer(sh)
 
 
@@ -421,12 +422,12 @@ def p_market(sh):
 
     x0 = xs[0]
     sh.rect(x0, top, cw, 0.02, C['ink'])
-    sh.t(x0, top + 0.14, cw, 0.22, '今天 · 实验室在买', 10, C['grey'], MONO)
+    sh.t(x0, top + 0.14, cw, 0.22, '今天 · 供应商收入', 10, C['grey'], MONO)
     sh.t(x0, top + 0.42, cw, 0.6, '85亿美元/年', 28, C['ink'], SERIF)
-    sh.t(x0, top + 1.1, cw, 0.3, '训练数据与RL环境，50余家供应商合计', 11, C['body'])
-    sh.t(x0, top + 1.5, cw, 0.22, '头部三家收入（Surge为2024年，其余为年化）', 9, C['grey'])
+    sh.t(x0, top + 1.1, cw, 0.3, '50余家训练数据与RL环境供应商合计', 11, C['body'])
+    sh.t(x0, top + 1.5, cw, 0.22, '头部公司收入（Surge为2024年，其余为年化毛营收）', 9, C['grey'])
     for i, (co, v, lab, col) in enumerate([('Mercor', 2.0, '20亿美元', C['ink']), ('Surge AI', 1.2, '12亿美元', C['mid']),
-                                           ('Snorkel AI', 0.375, '3.75亿美元', C['mid'])]):
+                                           ('Handshake', 1.0, '约10亿美元', C['mid'])]):
         y, w = top + 1.82 + i * 0.44, 1.5 * v / 2.0
         sh.t(x0, y, 1.15, 0.3, co, 12, C['ink'], SERIF, anchor='ctr')
         sh.rect(x0 + 1.15, y + 0.03, w, 0.24, col)
@@ -445,15 +446,15 @@ def p_market(sh):
     sh.t(x2 + pad, top + 2.42, cw - 2 * pad, 0.5, '今天的82倍', 22, C['onDarkHi'], SERIF, anchor='ctr')
     sh.t(x2 + pad, top + 3.0, cw - 2 * pad, 0.5, (R('训练是AI经济的研发预算。', 10, C['onDark']), BR(10), R('大型科技公司研发约占收入10–15%，取下限。', 10, C['onDark'])), 10, C['onDark'], line=1.1)
     kicker(sh, 5.62, [('今天卖给实验室，2030年卖给', False), ('整个AI经济', True), ('。', False)], 20, 'ctr')
-    sh.t(0.6, 6.32, W, 0.4, '来源：Menlo Ventures（2026.7）；Mercor年化毛营收（2026.6）、Surge收入（2024）、Snorkel年化收入（2026.9）；'
+    sh.t(0.6, 6.32, W, 0.4, '来源：Menlo Ventures合伙人Deedy Das（2026.7）；Mercor年化毛营收（2026.6）、Handshake AI训练业务（2026.4）、Surge收入（2024）；'
                             '麦肯锡（2025.11）；IMF（2026.4）；科技公司年报。训练占比、美国以外渗透率为假设，详见A2。', 8, C['grey'], line=1.1)
     footer(sh)
 
 
 def p_competition(sh):
     header(sh, '竞争格局', 3, [('别人做一环，我们做让AI持续进步的', False), ('完整闭环', True)])
-    rows = [('专家数据平台', 'Mercor、Surge、AfterQuery', ['专家示范与判断，按人工意见打分'], False),
-            ('中国同行', 'UniPat、Humanlaya', ['主要服务国内实验室：专家数据与评测'], False),
+    rows = [('专家数据平台', 'Mercor、Surge、Handshake、AfterQuery', ['专家示范与判断，按人工意见打分', '正进入RL环境：Mercor收购Deeptune'], False),
+            ('中国同行', 'UniPat、Humanlaya', ['专家数据、评测环境与基准；主要服务国内实验室'], False),
             ('AI评测公司', '', ['测今天的水平，分数就是产品'], False),
             ('实验室自建', '', ['只做自己熟悉的领域'], False),
             ('SimReal 衍真', '环境、数据、评分、自我进化', ['同一套环境打通数据、评分与训练', '每次结果都进入下一轮，AI越练越强'], True)]
@@ -477,15 +478,15 @@ def p_competition(sh):
         sh.t(rx, y + 0.1, rw, 0.38, k, 17, C['ink'], SERIF)
         sh.t(rx, y + 0.5, rw, 0.42, d, 11, C['body'], line=1.1)
     sh.text(0.6, 6.1, W, 0.4, [para([R('国内现状  ', 10, C['accent'], SANS, True),
-                                     R('据彭博报道，UniPat获阿里领投3亿美元（估值25亿美元）；Humanlaya完成鼎晖领投的数亿元Pre-A；'
-                                       '阿里、字节、DeepSeek都已向两家采购。', 10, C['body'])], line=1.15)], 'ctr')
+                                     R('据彭博报道，阿里拟领投UniPat 3亿美元（估值25亿美元）；Humanlaya完成鼎晖领投的数亿元Pre-A；'
+                                       '阿里、字节、DeepSeek等都买过两家的数据或服务。', 10, C['body'])], line=1.15)], 'ctr')
     footer(sh)
 
 
 def p_why_us(sh):
     header(sh, '为什么是我们', 3, [('热点变得越快，', False), ('我们越有利', True)])
     xs, cw = [0.6 + i * (2.88 + 0.2) for i in range(4)], 2.88
-    sh.t(0.6, 1.64, 9, 0.22, '每一波热点，都由跑得最快的年轻团队拿下', 10, C['grey'], MONO)
+    sh.t(0.6, 1.64, 11, 0.22, '每一波热点，都由跑得最快的年轻团队拿下；个人Agent这一波，Instinct创始人23岁', 10, C['grey'], MONO)
     for i, (bx, h) in enumerate(zip(xs, ['数据标注', '专家数据', 'RL环境', '自我进化'])):
         dark = i == 3
         sh.rect(bx, 1.9, cw, 0.46, C['ink'] if dark else C['tint'])
@@ -494,7 +495,7 @@ def p_why_us(sh):
             sh.t(bx + cw, 1.9, 0.2, 0.46, '→', 11, C['grey'], algn='ctr', anchor='ctr')
     cards = [('Scale AI', '290亿', '美元估值，2025年', ['19岁的Alexandr Wang创立', 'MIT辍学，出自Y Combinator', '曾是最年轻的白手起家亿万富翁']),
              ('Mercor', '100亿', '美元估值，2025年', ['三位高中同学创立', '22岁成最年轻白手起家亿万富翁', '13个月估值上涨约40倍']),
-             ('AfterQuery', '32亿', '美元估值，加入YC 18个月', ['两位约21岁的在校大学生创立', '创始人曾在Citadel Securities实习', 'YC史上最快的独角兽']),
+             ('AfterQuery', '32亿', ['美元估值（据报道）', '加入YC 18个月'], ['两位高中好友创立，现22、23岁', '创始人曾在Citadel Securities实习', 'YC史上最快的独角兽']),
              ('SimReal 衍真', '14天', ['7款产品', '全球首个自我进化做市环境'], ['05后量化创始团队', '剑桥、LSE、杜克最后一年在读',
                                                                   '放弃顶级量化机构的转正offer'])]
     top, chh = 2.48, 3.4
@@ -544,7 +545,7 @@ def p_business(sh):
             sh.rule(0.6, y + rh, W)
     notes = [('开源 vs 付费', ['开源基准：公开，用来建立信任', '付费产品：私有任务、数据、留出集与验证器']),
              ('非独家 vs 独家', ['非独家：同一环境可授权给多家实验室', '独家：按领域与期限锁定，溢价较大（Epoch AI）']),
-             ('下一步 · 个人agent', ['同一个世界，两类客户：实验室与agent', 'agent付费练习，默认保密', '或脱敏共享轨迹，换练习额度与收益分成'])]
+             ('下一步 · 个人Agent', ['同一个世界，两类客户：实验室与Agent', 'Agent付费练习，默认保密', '或脱敏共享轨迹，换练习额度与收益分成'])]
     by, bh, gap = 5.34, 1.26, 0.25
     bw = (W - 2 * gap) / 3
     for i, (h, lines) in enumerate(notes):
@@ -624,12 +625,12 @@ def p_raise(sh):
         if n:
             sh.t(x + 0.26, 2.52, tw - 0.5, 0.22, n, 9.5, C['onDark'] if dark else C['grey'])
     sh.text(0.6, 2.94, W, 0.36, [para([R('本轮目标   ', 10, C['accent'], MONO, True),
-                                       R('环境从付费试点推进到授权与复购；AI数据批量交付；RSI在实盘交易与事件预测上线；向个人agent开放练习', 12, C['ink'])])], 'ctr')
+                                       R('环境从付费试点推进到授权与复购；AI数据批量交付；RSI在实盘交易与事件预测上线；向个人Agent开放练习', 12, C['ink'])])], 'ctr')
     sh.t(0.6, 3.54, 8, 0.22, '估值参照：同赛道公司已由头部机构定价', 10, C['grey'], MONO)
-    comps = [('国内 · UniPat', '25亿美元', '据报道估值（2026年9月）', '阿里领投，腾讯、红杉中国跟投'),
-             ('国内 · Humanlaya', '数亿元人民币', 'Pre-A融资额（2026年9月）', '鼎晖领投，红杉中国等参投'),
-             ('海外 · Applied Compute', '1亿 → 约30亿美元', '种子轮投后 → 14个月后（洽谈中）', '种子轮2,000万美元'),
-             ('海外 · AfterQuery', '3亿 → 32亿美元', 'A轮 → 5个月后', 'A轮时年化收入1亿美元')]
+    comps = [('国内 · UniPat', '25亿美元', '据报道估值（2026年9月）', '阿里拟领投，腾讯、红杉中国参与'),
+             ('国内 · 超衍智能', '近4亿元人民币', '自进化（RSI）天使轮（2026年9月）', 'IDG资本等领投'),
+             ('海外 · Applied Compute', '1亿 → 32.5亿美元', '种子轮 → 15个月（融资中）', '种子轮2,000万美元'),
+             ('海外 · AfterQuery', '3亿 → 32亿美元', 'A轮 → 5个月后（据报道）', 'A轮时年化收入1亿美元')]
     for i, (tag, v, when, who) in enumerate(comps):
         x = 0.6 + i * (tw + tg)
         sh.rect(x, 3.82, tw, 1.5, C['tint'])
@@ -637,8 +638,8 @@ def p_raise(sh):
         sh.t(x + 0.26, 4.22, tw - 0.5, 0.42, v, 18, C['ink'], SERIF)
         sh.t(x + 0.26, 4.66, tw - 0.5, 0.24, when, 10, C['grey'])
         sh.t(x + 0.26, 4.92, tw - 0.5, 0.36, who, 10, C['body'], line=1.1)
-    kicker(sh, 5.54, [('国内同赛道已获红杉中国、鼎晖、今日资本、BAI投资，阿里、腾讯也已入局：', False), ('赛道已被验证', True), ('。', False)], 17)
-    sh.t(0.6, 6.12, W, 0.24, 'UniPat为据报道估值，Applied Compute约30亿美元为洽谈中估值，Humanlaya为融资额；其余为投后估值。来源见A2。', 8.5, C['grey'])
+    kicker(sh, 5.54, [('国内同赛道已获红杉中国、鼎晖、今日资本、BAI、IDG投资，阿里、腾讯正在入局：', False), ('赛道已被验证', True), ('。', False)], 17)
+    sh.t(0.6, 6.12, W, 0.24, 'UniPat与AfterQuery 32亿为据报道估值，Applied Compute 32.5亿为融资中估值，超衍智能为融资额；其余为投后估值。来源见A2。', 8.5, C['grey'])
     footer(sh)
 
 
@@ -653,7 +654,7 @@ def p_funds(sh):
     engines = [
         dict(dark=False, label='01  收入引擎  · 投入2,000万元', big='环境与数据', sub='环境一次搭建，授权给多家实验室；数据按交付量收费',
              uses=[('700万', '环境生产', '按行业批量搭建训练环境'), ('400万', '数据生产', 'Agent轨迹、专家数据、评测数据'),
-                   ('600万', '交付', '接入、验收与持续更新'), ('300万', '销售与运营', '前沿实验室、企业与agent开发者')],
+                   ('600万', '交付', '接入、验收与持续更新'), ('300万', '销售与运营', '前沿实验室、企业与Agent开发者')],
              block=[eq, [('环境单价2万–30万美元（Epoch AI）', 10.5, 'sub', SANS, False)]],
              ms=[('3个月', '首个付费试点'), ('6个月', '环境授权与复购'), ('12个月', '持续更新合同')]),
         dict(dark=True, label='02  RSI引擎  · 投入2,000万元', big='自我进化', sub='瞄准整个AI经济：每个行业，一个自己变强的AI',
@@ -712,7 +713,7 @@ def p_a1(sh):
             ('模型', '开源模型Qwen3.8-27B，比较训练前后表现'),
             ('测试数据', '模型未见过的真实交易日'),
             ('结果', '交易表现较基础模型最高提升12%，多次独立复现（受控实验）'),
-            ('公开基准', 'Xitadel公开预览版：人类参考分80，前沿模型最高77.28（GPT 6），尚无模型越过人类水平线'),
+            ('公开基准', 'Xitadel公开预览版：人类参考分80，前沿模型最高77.28（GPT-6），尚无模型越过人类水平线'),
             ('尽调材料', '运行记录、指标定义与脚本')]
     for i, (k, d) in enumerate(rows):
         y = 1.7 + i * 0.62
@@ -724,28 +725,30 @@ def p_a1(sh):
 
 
 SOURCES_L = [
-    ('Mercor年化收入：', 'TechCrunch（2025年2月，7,500万美元）；CEO（2025年9月，5亿美元）；\nSacra（2025年12月，7.6亿美元）；Mercor（2026年初，10亿美元）；'
-                   '\nDealroom（2026年6月，20亿美元）。均为毛营收，专家拿走60–70%（彭博）'),
-    ('Mercor估值：', 'A轮2.5亿（2024年9月）、B轮20亿（2025年2月）、C轮100亿美元（2025年10月）；\n200亿美元估值轮次处于早期洽谈（彭博，2026年7月9日）'),
+    ('Mercor年化收入：', 'TechCrunch（2025年2月，7,500万美元）；Sacra（2025年12月，7.6亿美元）；\nDealroom、福布斯（2026年6月，20亿美元）。均为毛营收，专家拿走60–70%（彭博）'),
+    ('Mercor估值与收购：', 'C轮100亿美元（2025年10月）；200亿美元估值仍在洽谈（彭博，2026年7月9日；\nThe Information，2026年8月）；2026年7月9日宣布收购RL环境公司Deeptune（福布斯）'),
     ('Surge AI：', '2024年收入12亿美元（TechCrunch、福布斯）'),
-    ('Snorkel AI：', '公司公告及TechCrunch，2026年9月22日（以35亿美元估值融资3.5亿美元；\n年化收入3.75亿美元，一年增长18倍）'),
-    ('AfterQuery：', '2025年2月成立；福布斯，2026年9月1日（加入YC 18个月，估值32亿美元）；\nBusiness Wire（2026年4月，A轮估值3亿美元，年化收入1亿美元）；\nYC公司页（联合创始人曾在Citadel Securities实习）'),
-    ('Scale AI：', '2016年由19岁的Alexandr Wang创立（福布斯）；\nMeta以143亿美元取得49%股份，估值约290亿美元（路透社，2025年6月）；\n近一半新训练项目涉及RL环境（Scale AI博客，2026年2月）'),
-    ('UniPat：', '彭博，2026年9月10日（阿里领投3亿美元，据报道估值25亿美元，腾讯、红杉中国跟投；条款可能变化；阿里、字节、DeepSeek等向UniPat与Humanlaya采购）'),
-    ('Humanlaya：', '2025年10月成立；2026年9月9日完成数亿元人民币Pre-A，鼎晖领投，\n红杉中国、今日资本、BAI参投（界面新闻、东方财富）'),
+    ('Handshake：', 'AI训练业务年化毛营收近10亿美元（The Information，2026年4月）'),
+    ('Snorkel AI：', '路透社、TechCrunch，2026年9月22日（以35亿美元估值融资3.5亿美元；\n年化收入3.75亿美元，一年增长约18倍）'),
+    ('AfterQuery：', '2025年2月成立；Business Wire（2026年4月，A轮估值3亿美元，年化收入1亿美元）；\n福布斯、TechCrunch（2026年9月1日，据报道估值32亿美元；创始人为高中好友，现22、23岁）；\nYC公司页（联合创始人曾在Citadel Securities实习）'),
+    ('Scale AI：', '2016年由19岁的Alexandr Wang创立（福布斯）；\nMeta以143亿美元取得49%股份，估值约290亿美元（路透社，2025年6月）'),
+    ('Mechanize：', 'Business Insider（2026年8月、9月）：谷歌人才与技术授权交易，据报道逾15亿美元'),
+    ('UniPat：', '彭博，2026年9月10日（阿里拟领投3亿美元，据报道估值25亿美元，\n腾讯、红杉中国参与，谈判仍在进行；阿里、字节、DeepSeek等\n买过UniPat与Humanlaya的数据或服务）；36氪（2026年9月24日）'),
+    ('Humanlaya：', '2025年成立；2026年9月完成数亿元人民币Pre-A，鼎晖领投，\n红杉中国、今日资本、BAI参投（界面新闻、东方财富）'),
+    ('超衍智能：', '36氪（2026年9月16日）：自进化（RSI）模型公司，天使与天使+轮合计近4亿元，\nIDG资本、星连资本、晶泰科技领投'),
 ]
 SOURCES_R = [
-    ('今天的训练数据采购：', 'Menlo Ventures（2026年7月）：50余家供应商合计约85亿美元'),
-    ('2030年AI经济推算：', '麦肯锡《Agents, robots, and us》（2025年11月）：美国约2.9万亿美元；IMF（2026年4月）：美国GDP 32.4万亿、'
-                     '全球126.3万亿美元；美国以外按一半渗透率推算'),
-    ('训练市场推算：', '2030年AI经济 × 10%；\n10%参照大型科技公司研发占收入约10–15%，取下限，为推算假设'),
-    ('AI智能体市场：', 'Precedence Research（2025年79.2亿美元；年复合增长45.82%），2028、2032年按此路径推算'),
-    ('RL环境定价：', 'Epoch AI《An FAQ on RL environments》（2026年1月）'),
-    ('公开文本存量：', 'Epoch AI《Will we run out of data?》（2024）：\n预计2026–2032年间用尽（80%置信区间）'),
-    ('融资与估值：', 'Applied Compute：Upstarts（2025年6月，种子轮2,000万美元，投后1亿美元）；\nThe Information（2026年8月，约30亿美元洽谈）'),
-    ('个人agent：', 'Meta Muse上线（2026年9月8日，Axios、CNBC）；\n彭博（2026年9月21日）：亚马逊屏蔽Muse；\nOpenAI DevDay发布常驻agent Dots（2026年9月29日，TechCrunch、CNBC）'),
-    ('Instinct：', 'Business Wire（2026年9月28日）：10亿美元C轮，估值100亿美元；\n红杉、Benchmark、Coatue投资；33天前估值25亿美元'),
-    ('Remote Labor Index：', 'Scale AI与CAIS（2026年7月）：\n最强模型按付费客户标准完成16.1%的真实外包项目'),
+    ('训练数据供应商收入：', 'Menlo Ventures合伙人Deedy Das，AI训练数据全景图（2026年7月）：\n50余家公司合计收入约85亿美元（部分为毛营收）'),
+    ('2030年AI经济推算：', '麦肯锡《Agents, robots, and us》（2025年11月）：\n美国约2.9万亿美元（可释放的经济价值）；IMF（2026年4月）：\n美国GDP 32.4万亿、全球126.3万亿美元；美国以外按一半渗透率推算'),
+    ('训练市场推算：', '2030年AI经济 × 10%；10%参照大型科技公司研发占收入约10–15%，取下限，为推算假设'),
+    ('Agent消费交易：', '麦肯锡（2025年10月）：2030年全球由AI Agent完成的消费交易最高3–5万亿美元；\n蚂蚁国际、万事达、Visa引用（CNBC，2026年9月10日）'),
+    ('RL环境定价：', 'Epoch AI《An FAQ on RL environments》（2026年）'),
+    ('公开文本存量：', 'Epoch AI《Will we run out of data?》（2024）：预计2026–2032年间用尽（80%置信区间）'),
+    ('融资与估值：', 'Applied Compute：Upstarts（2025年6月，种子轮投后1亿美元）；\n福布斯（2026年9月1日，以32.5亿美元估值融资3.5亿美元，融资中）'),
+    ('个人Agent：', 'Meta Muse（2026年9月8日上线，9月18日登顶美国App Store；\nTechCrunch、Business Insider）；OpenAI Dots（DevDay，2026年9月29日）；\n千问Personal Agent（云栖大会，2026年9月22日）；Manus Cue（2026年9月28日，彭博）'),
+    ('Instinct：', '路透社、TechCrunch（2026年9月28日）：融资10亿美元，估值100亿美元；\n红杉、Benchmark、Coatue投资；8月26日估值25亿美元；创始人23岁'),
+    ('Remote Labor Index：', 'Scale AI与CAIS（2026年7月）：最强模型按付费客户标准完成16.1%的真实外包项目'),
+    ('事件预测：', 'PolyBench（arXiv 2604.14199，2026年4月）：\n7个前沿模型在38,666个Polymarket市场模拟交易，仅2个取得正收益'),
 ]
 
 
@@ -756,10 +759,10 @@ def p_a2(sh):
         sh.rule(x, 1.92, 5.78, C['ink'])
         ps = []
         for i, (k, v) in enumerate(items):
-            runs = [R(k, 9, C['ink'], SANS, True)]
+            runs = [R(k, 8.5, C['ink'], SANS, True)]
             for j, piece in enumerate(v.split('\n')):
-                runs += ([BR(9)] if j else []) + [R(piece, 9, C['body'])]
-            ps.append(para(runs, before=0 if i == 0 else 5, line=1.12))
+                runs += ([BR(8.5)] if j else []) + [R(piece, 8.5, C['body'])]
+            ps.append(para(runs, before=0 if i == 0 else 4, line=1.1))
         sh.text(x, 2.04, 5.78, 4.7, ps)
     footer(sh)
 
@@ -769,7 +772,7 @@ def p_a3(sh):
     terms = [('训练环境', (R('让AI反复做真实工作、', 11, C['body']), BR(11), R('从结果中学习的系统，即RL环境', 11, C['body']))),
              ('Agent轨迹', 'AI完成一项任务的全过程：每一步动作、世界的反馈与最终结果'),
              ('真实反馈', (R('真实发生的结果为AI的每个动作结算：', 11, C['body']), BR(11), R('盈亏、账目、代码能否运行、', 11, C['body']), BR(11), R('事件是否发生', 11, C['body']))),
-             ('自我进化（RSI）', 'AI用自己在真实环境中的结果训练自己，一轮比一轮强'),
+             ('自我进化（RSI）', (R('递归式自我改进：AI参与改进下一代AI；', 11, C['body']), BR(11), R('每轮真实结果都成为下一轮的训练数据', 11, C['body']))),
              ('留出集', '只用于检验、从不参与训练的任务，防止模型背答案'),
              ('攻防测试', '上线前模拟作弊与攻击，修补评分漏洞'),
              ('受控实验', (R('只改一个条件（是否在Xitadel训练），', 11, C['body']), BR(11), R('比较前后表现', 11, C['body']))),

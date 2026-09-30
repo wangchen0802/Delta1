@@ -42,8 +42,9 @@ def kicker(sh, y, parts, sz=20, algn='l'):
 
 # ------------------------------------------------------------------ pages ---
 def p_cover(sh):
-    sh.t(0.6, 1.7, 8.2, 1.9, ['AI that improves itself', 'in the real world'], 42, C['ink'], SERIF, line=1.05)
-    sh.t(0.6, 3.85, 9.4, 0.36, 'Real worlds rebuilt from real data, where AI labs, enterprises and personal agents train', 15, C['accent'])
+    sh.t(0.6, 1.35, 8.2, 1.9, ['AI that improves itself', 'in the real world'], 42, C['ink'], SERIF, line=1.05)
+    sh.t(0.6, 3.42, 8.8, 0.46, 'Before a personal agent is trusted, it practices here', 21, C['ink'], SERIF)
+    sh.t(0.6, 4.1, 9.4, 0.36, 'Real situations rebuilt from real data, for AI labs, enterprises and personal agents', 15, C['accent'])
     sh.rule(0.6, 4.95, 7.6)
     cols = [('This round', 'RMB 40M (paid in USD)'), ('Business plan', 'September 2026')]
     for (k, v), x in zip(cols, [0.6, 4.6]):
@@ -60,7 +61,7 @@ def p_overview(sh):
         ('Key result', '+12%', ['Trained in Xitadel, Qwen3.8-27B traded up to', '12% better on unseen trading days; replicated'], True),
         ('Team', 'Quant founders, born 2005', ['Math at Cambridge, LSE and Duke', 'Jane Street, Citadel, Optiver, Millennium'], False),
         ('Market', [(R('$8.5B ', 26, C['ink'], SERIF), R('→', 24, C['ink'], SANS), R(' $700B', 26, C['ink'], SERIF))],
-         ['Labs buy $8.5B a year of data and RL environments', 'The 2030 training market: ~$700B, 82x today'], False),
+         ['Data and RL-environment vendors earn ~$8.5B a year', 'The 2030 training market: ~$700B, 82x today'], False),
         ('This round', 'RMB 40M', ['Paid in USD; RMB 500M post-money', 'RMB 20M each for the revenue and RSI engines'], True),
     ]
     cw, gap = (W - 2 * 0.35) / 3, 0.35
@@ -112,7 +113,7 @@ def p_problem(sh):
     rows = [('Trading', 'The backtest only goes up', 'Loses money on unseen live markets'),
             ('Software', 'All tests pass', 'Breaks in production'),
             ('Finance', 'The books look finished', 'Month-end won’t reconcile'),
-            ('Prediction', 'The analysis sounds convincing', 'Wrong once the result is in')]
+            ('Prediction', 'The analysis sounds convincing', 'Bets placed on it lose money')]
     y0, rh = 2.38, 0.66
     sh.rect(7.35, y0 - 0.36, 5.38, 0.36 + rh * len(rows), C['tint'])
     sh.t(2.4, y0 - 0.32, 4, 0.26, 'Surface check: passed', 9.5, C['grey'], MONO, anchor='ctr')
@@ -134,7 +135,7 @@ def p_insight(sh):
     gens = [('Gen 1 · Internet data', 'Imitation', 'Models learn to copy', 'AI that can talk'),
             ('Gen 2 · Human preference', 'Alignment', 'People rate the output', 'Useful assistants'),
             ('Gen 3 · Answer keys', 'Verification', 'Checked against answers', 'Reasoning models'),
-            ('Gen 4 · Real-world feedback', 'Practice', 'AI acts in real situations; real outcomes settle every move', ['Autonomy and', 'self-improvement'])]
+            ('Gen 4 · Real-world feedback', 'Practice', 'AI acts in real situations; real outcomes settle every move', ['Self-improvement', 'settled by real outcomes'])]
     cw, gap, y0, ch = (W - 3 * 0.25) / 4, 0.25, 1.75, 3.1
     for i, (lab, big, how, res) in enumerate(gens):
         x, dark = 0.6 + i * (cw + gap), i == 3
@@ -146,7 +147,7 @@ def p_insight(sh):
         sh.t(x + 0.25, y0 + 2.02, cw - 0.5, 0.5, res, 14, C['accentLt'] if dark else C['ink'], SERIF, line=1.05, gap=0)
         if dark:
             sh.t(x + 0.25, y0 + 2.62, cw - 0.5, 0.26, 'Just beginning', 9.5, C['accentLt'], MONO, True)
-    kicker(sh, 5.3, [('Acing tests isn’t doing the job. AI’s next leap ', False), ('comes from the real world’s reaction', True), ('.', False)], 21, 'ctr')
+    kicker(sh, 5.3, [('A perfect test score doesn’t earn trust. AI’s next leap ', False), ('comes from the real world’s reaction', True), ('.', False)], 21, 'ctr')
     footer(sh)
 
 
@@ -201,7 +202,7 @@ def p_xitadel(sh):
     sh.rect(px, py, pw, ph, C['tint'])
     sh.t(px + 0.3, py + 0.22, pw - 0.6, 0.22, 'Xitadel public preview', 9.5, C['grey'], MONO)
     sh.t(px + 0.3, py + 0.48, pw - 0.6, 0.36, 'No model has passed the human baseline yet', 15, C['ink'], SERIF)
-    models = [('GPT 6', 77.28), ('GLM 5.3', 30.12), ('Kimi K3', 27.68), ('DeepSeek V4 Pro', 24.58)]
+    models = [('GPT-6', 77.28), ('GLM 5.3', 30.12), ('Kimi K3', 27.68), ('DeepSeek V4 Pro', 24.58)]
     bx, scale, by = px + 1.65, 0.031, py + 1.45
     human_x = bx + 80 * scale
     sh.rect(human_x, by - 0.2, 0.015, len(models) * 0.46 + 0.1, C['accent'])
@@ -277,15 +278,15 @@ def p_data(sh):
         sh.rule(x, 4.8, dw, C['ink'])
         sh.t(x, 4.86, 1.5, 0.44, k, 15, C['accent'], SERIF, anchor='ctr')
         sh.t(x + 1.5, 4.86, dw - 1.5, 0.44, d, 10, C['body'], anchor='ctr', line=1.05)
-    kicker(sh, 5.72, [('Labs spend $8.5B a year on training data and RL environments: ', False), ('we sell both', True), ('.', False)], 18)
+    kicker(sh, 5.72, [('Training data and RL environments are already a ~$8.5B-a-year business: ', False), ('we sell both', True), ('.', False)], 18)
     footer(sh)
 
 
 def p_agents(sh):
     header(sh, 'Personal agents', 2, [('Before an agent acts for someone, ', False), ('it should practice somewhere real', True)])
-    sh.t(0.6, 1.64, 8, 0.22, 'Personal agents are here', 10, C['grey'], MONO)
-    cells = [('Muse', 'Meta, launched Sep 8', False), ('Dots', 'OpenAI, unveiled Sep 29', False),
-             ('$10B', 'Instinct, up 4x in 33 days', False), ('16.1%', ['Yet the best model completes 16.1%', 'of real freelance projects'], True)]
+    sh.t(0.6, 1.64, 11, 0.22, 'September 2026: personal agents arrive; in China, Qwen and Manus follow the same month', 10, C['grey'], MONO)
+    cells = [('Muse', ['Meta, launched Sep 8;', 'No. 1 on the US App Store in 10 days'], False), ('Dots', ['OpenAI, unveiled Sep 29;', 'always-on in the cloud'], False),
+             ('$10B', ['Instinct’s valuation, up 4x in 33 days;', 'Sequoia, Benchmark, Coatue'], False), ('16.1%', ['Yet the best model completes 16.1%', 'of real freelance projects'], True)]
     cw, gap = (W - 3 * 0.3) / 4, 0.3
     for i, (v, d, acc) in enumerate(cells):
         x = 0.6 + i * (cw + gap)
@@ -303,16 +304,16 @@ def p_agents(sh):
     sh.t(0.6, 4.7, W, 0.3, 'Our trading world already runs this loop: Qwen3.8-27B traded up to 12% better. '
                            'This round we open trading and event prediction to personal agents.', 12, C['grey'])
     kicker(sh, 5.6, [('Sandboxes keep agents out of trouble. ', False), ('We teach them to get it right', True), ('.', False)], 24)
-    sh.t(0.6, 6.54, W, 0.24, 'Sources: Meta and OpenAI launches (Sep 8 and 29, 2026); Instinct (Sep 28, 2026); '
+    sh.t(0.6, 6.54, W, 0.24, 'Sources: Meta, OpenAI, Qwen and Manus launches (Sep 2026); TechCrunch (Sep 25, 2026); Instinct (Reuters, Sep 28, 2026); '
                              'Remote Labor Index (Scale AI and CAIS, Jul 2026). See A2.', 8, C['grey'])
     footer(sh)
 
 
 def p_why_now(sh):
-    header(sh, 'Why now', 3, [('Mercor grew revenue 27x and valuation 10x within 18 months: ', False), ('the market is just starting', True)])
+    header(sh, 'Why now', 3, [('Mercor grew revenue 27x in 16 months and is in talks at $20B: ', False), ('the market is just starting', True)])
     tops = [('Revenue growth', '27x', 'Mercor gross run-rate: $75M → $2B in 16 months'),
             ('Valuation growth', '10x', 'Mercor valuation: $2B → $20B in 17 months (in talks)'),
-            ('Demand growth', '14x', 'AI agent market forecast: $7.9B → ~$111B over 7 years')]
+            ('Agents spending for people', '$3–5T', 'Global consumer commerce AI agents could handle by 2030 (McKinsey)')]
     cw, gap = (W - 2 * 0.35) / 3, 0.35
     for i, (k, v, d) in enumerate(tops):
         x = 0.6 + i * (cw + gap)
@@ -321,8 +322,8 @@ def p_why_now(sh):
         sh.t(x, 2.06, cw, 0.8, v, 44, C['accent'], SERIF)
         sh.t(x, 2.9, cw, 0.5, d, 10.5, C['body'], line=1.1)
     facts = [('18x', 'Snorkel AI run-rate revenue in a year, now $375M'), ('$29B', 'Scale AI valuation; Meta bought 49% for $14.3B'),
-             ('14 months', 'AfterQuery: from founding to $100M run-rate'), ('Nearly half', 'of Scale AI’s new training projects use RL environments'),
-             ('5 months', 'AfterQuery valuation: $300M → $3.2B'), ('Before 2032', 'Public human text is projected to run out')]
+             ('14 months', 'AfterQuery: from founding to $100M run-rate'), ('$1.5B+', 'Google’s reported deal with RL-environment startup Mechanize'),
+             ('5 months', 'AfterQuery valuation: $300M → $3.2B (reported)'), ('2026–2032', 'Public human text is projected to run out')]
     fw, fg, fy, fh = (W - 0.5) / 2, 0.5, 3.78, 0.56
     for i, (v, d) in enumerate(facts):
         x, y = 0.6 + (i % 2) * (fw + fg), fy + (i // 2) * fh
@@ -331,8 +332,8 @@ def p_why_now(sh):
         sh.t(x + 1.65, y, fw - 1.65, fh, d, 11, C['body'], anchor='ctr')
     sh.rule(0.6, fy + 3 * fh, fw)
     sh.rule(0.6 + fw + fg, fy + 3 * fh, fw)
-    sh.t(0.6, 5.76, W, 0.5, 'Sources: Mercor (TechCrunch, Sacra, Dealroom, Bloomberg); AfterQuery (Business Wire, Forbes); Snorkel AI (company); '
-                            'Scale AI (Reuters, company blog); AI agents (Precedence Research); text stock (Epoch AI). See A2.', 8, C['grey'], line=1.1)
+    sh.t(0.6, 5.76, W, 0.5, 'Sources: Mercor (TechCrunch, Sacra, Dealroom, Bloomberg, The Information); AfterQuery (Business Wire, Forbes); Snorkel AI (Reuters); '
+                            'Scale AI (Reuters); Mechanize (Business Insider); agentic commerce (McKinsey, via CNBC); text stock (Epoch AI). See A2.', 8, C['grey'], line=1.1)
     footer(sh)
 
 
@@ -356,12 +357,12 @@ def p_market(sh):
 
     x0 = xs[0]
     sh.rect(x0, top, cw, 0.02, C['ink'])
-    sh.t(x0, top + 0.14, cw, 0.22, 'Today · what labs buy', 10, C['grey'], MONO)
+    sh.t(x0, top + 0.14, cw, 0.22, 'Today · vendor revenue', 10, C['grey'], MONO)
     sh.t(x0, top + 0.42, cw, 0.6, '$8.5B / year', 28, C['ink'], SERIF)
-    sh.t(x0, top + 1.1, cw, 0.3, 'Training data and RL environments, 50+ vendors', 10.5, C['body'])
-    sh.t(x0, top + 1.5, cw, 0.22, 'Top three by revenue (Surge: 2024; others run-rate)', 9, C['grey'])
+    sh.t(x0, top + 1.1, cw, 0.3, '50+ training-data and RL-environment vendors', 10.5, C['body'])
+    sh.t(x0, top + 1.5, cw, 0.22, 'Leading vendors (Surge: 2024; others gross run-rate)', 9, C['grey'])
     for i, (co, v, lab, col) in enumerate([('Mercor', 2.0, '$2.0B', C['ink']), ('Surge AI', 1.2, '$1.2B', C['mid']),
-                                           ('Snorkel AI', 0.375, '$375M', C['mid'])]):
+                                           ('Handshake', 1.0, '~$1.0B', C['mid'])]):
         y, w = top + 1.82 + i * 0.44, 1.5 * v / 2.0
         sh.t(x0, y, 1.15, 0.3, co, 12, C['ink'], SERIF, anchor='ctr')
         sh.rect(x0 + 1.15, y + 0.03, w, 0.24, col)
@@ -381,7 +382,7 @@ def p_market(sh):
     sh.t(x2 + pad, top + 3.0, cw - 2 * pad, 0.5, 'Training is the AI economy’s R&D budget. Big tech spends 10–15% of revenue on R&D; we use 10%.',
          9.5, C['onDark'], line=1.1)
     kicker(sh, 5.62, [('Today we sell to labs. By 2030, to ', False), ('the whole AI economy', True), ('.', False)], 20, 'ctr')
-    sh.t(0.6, 6.32, W, 0.4, ['Sources: Menlo Ventures (Jul 2026); Mercor gross run-rate (Jun 2026), Surge revenue (2024), Snorkel run-rate (Sep 2026); '
+    sh.t(0.6, 6.32, W, 0.4, ['Sources: Deedy Das, Menlo Ventures (Jul 2026); Mercor gross run-rate (Jun 2026), Handshake AI training (Apr 2026), Surge revenue (2024); '
                              'McKinsey (Nov 2025); IMF (Apr 2026); company filings.',
                              'Training share and non-US penetration are assumptions; see A2.'], 8, C['grey'], line=1.1, gap=0)
     footer(sh)
@@ -389,8 +390,8 @@ def p_market(sh):
 
 def p_competition(sh):
     header(sh, 'Competition', 3, [('Others do one piece. We run ', False), ('the whole loop that keeps AI improving', True)])
-    rows = [('Expert data platforms', 'Mercor, Surge, AfterQuery', ['Expert demos and judgments, human-graded'], False),
-            ('China peers', 'UniPat, Humanlaya', ['Mainly serve Chinese labs: expert data and evals'], False),
+    rows = [('Expert data platforms', 'Mercor, Surge, Handshake, AfterQuery', ['Expert demos and judgments, human-graded', 'Mercor bought RL-environment maker Deeptune'], False),
+            ('China peers', 'UniPat, Humanlaya', ['Expert data, eval environments and benchmarks;', 'mainly for Chinese labs'], False),
             ('AI eval companies', '', ['Measure today’s level; the score is the product'], False),
             ('Labs in-house', '', ['Build only for work they already know'], False),
             ('SimReal', 'Environments, data, grading, RSI', ['One environment for data, grading and training', 'Every result feeds the next round'], True)]
@@ -414,16 +415,16 @@ def p_competition(sh):
         sh.t(rx, y + 0.1, rw, 0.38, k, 17, C['ink'], SERIF)
         sh.t(rx, y + 0.5, rw, 0.42, d, 10.5, C['body'], line=1.1)
     sh.text(0.6, 6.04, W, 0.44, [para([R('China today  ', 10, C['accent'], SANS, True),
-                                      R('Per Bloomberg, Alibaba led a $300M round in UniPat at a $2.5B valuation; Humanlaya closed a CDH-led Pre-A '
+                                      R('Per Bloomberg, Alibaba is set to lead a $300M round in UniPat at a $2.5B valuation; Humanlaya closed a CDH-led Pre-A '
                                         'of several hundred million RMB;', 10, C['body']), BR(10),
-                                      R('Alibaba, ByteDance and DeepSeek already buy from both.', 10, C['body'])], line=1.15)], 'ctr')
+                                      R('Alibaba, ByteDance, DeepSeek and others have bought data or services from both.', 10, C['body'])], line=1.15)], 'ctr')
     footer(sh)
 
 
 def p_why_us(sh):
     header(sh, 'Why us', 3, [('The faster the frontier shifts, ', False), ('the better for us', True)])
     xs, cw = [0.6 + i * (2.88 + 0.2) for i in range(4)], 2.88
-    sh.t(0.6, 1.64, 9, 0.22, 'Every wave was won by the fastest young team', 10, C['grey'], MONO)
+    sh.t(0.6, 1.64, 11, 0.22, 'Every wave was won by the fastest young team; in personal agents, Instinct’s founder is 23', 10, C['grey'], MONO)
     for i, (bx, h) in enumerate(zip(xs, ['Data labeling', 'Expert data', 'RL environments', 'Self-improvement'])):
         dark = i == 3
         sh.rect(bx, 1.9, cw, 0.46, C['ink'] if dark else C['tint'])
@@ -432,7 +433,7 @@ def p_why_us(sh):
             sh.t(bx + cw, 1.9, 0.2, 0.46, '→', 11, C['grey'], algn='ctr', anchor='ctr')
     cards = [('Scale AI', '$29B', 'Valuation, 2025', ['Founded by Alexandr Wang at 19', 'MIT dropout, Y Combinator alum', ['Once the youngest', 'self-made billionaire']]),
              ('Mercor', '$10B', 'Valuation, 2025', [['Founded by three', 'high-school friends'], 'Youngest self-made billionaires at 22', 'Valuation up ~40x in 13 months']),
-             ('AfterQuery', '$3.2B', 'Valuation, 18 months after YC', ['Founded by two students around 21', ['A founder interned at', 'Citadel Securities'], 'Fastest unicorn in YC history']),
+             ('AfterQuery', '$3.2B', ['Reported valuation,', '18 months after YC'], [['Founded by two high-school', 'friends, now 22 and 23'], ['A founder interned at', 'Citadel Securities'], 'Fastest unicorn in YC history']),
              ('SimReal', '14 days', '7 products shipped', ['Quant founders, born 2005', 'Final year at Cambridge, LSE, Duke',
                                                          ['Turned down return offers', 'from top quant firms']])]
     top, chh = 2.48, 3.4
@@ -566,10 +567,10 @@ def p_raise(sh):
                                        R('Environments: pilot → license → renewals; AI data at scale; RSI live in trading and prediction; worlds open to personal agents',
                                          11.5, C['ink'])])], 'ctr')
     sh.t(0.6, 3.54, 9, 0.22, 'Valuation references: top investors have already priced this space', 10, C['grey'], MONO)
-    comps = [('China · UniPat', '$2.5B', 'Reported valuation (Sep 2026)', 'Alibaba led; Tencent, HongShan joined'),
-             ('China · Humanlaya', 'Hundreds of millions', 'Pre-A round size in RMB (Sep 2026)', 'CDH led; HongShan and others joined'),
-             ('Global · Applied Compute', '$100M → ~$3B', 'Seed post → 14 months later (in talks)', '$20M seed round'),
-             ('Global · AfterQuery', '$300M → $3.2B', 'Series A → 5 months later', 'Series A at $100M run-rate')]
+    comps = [('China · UniPat', '$2.5B', 'Reported valuation (Sep 2026)', 'Alibaba to lead; Tencent, HSG in'),
+             ('China · Apex Intelligence', '~RMB 400M', 'RSI angel rounds (Sep 2026)', 'Led by IDG Capital and others'),
+             ('Global · Applied Compute', '$100M → $3.25B', 'Seed → 15 months later (raising)', '$20M seed round'),
+             ('Global · AfterQuery', '$300M → $3.2B', 'Series A → 5 months later (reported)', 'Series A at $100M run-rate')]
     for i, (tag, v, when, who) in enumerate(comps):
         x = 0.6 + i * (tw + tg)
         sh.rect(x, 3.82, tw, 1.5, C['tint'])
@@ -577,8 +578,8 @@ def p_raise(sh):
         sh.t(x + 0.26, 4.22, tw - 0.5, 0.42, v, 17, C['ink'], SERIF)
         sh.t(x + 0.26, 4.66, tw - 0.5, 0.24, when, 9.5, C['grey'])
         sh.t(x + 0.26, 4.92, tw - 0.5, 0.36, who, 9.5, C['body'], line=1.1)
-    kicker(sh, 5.54, [('HongShan, CDH, Capital Today, BAI, Alibaba and Tencent are already in: ', False), ('the category is validated', True), ('.', False)], 16)
-    sh.t(0.6, 6.12, W, 0.24, 'UniPat: reported valuation; Applied Compute ~$3B: valuation in talks; Humanlaya: round size; others post-money. Sources in A2.',
+    kicker(sh, 5.54, [('HSG, CDH, Capital Today, BAI and IDG are in; Alibaba and Tencent are moving in: ', False), ('the category is validated', True), ('.', False)], 16)
+    sh.t(0.6, 6.12, W, 0.24, 'UniPat and AfterQuery $3.2B: reported valuations; Applied Compute $3.25B: round in progress; Apex: round size; others post-money. Sources in A2.',
          8.5, C['grey'])
     footer(sh)
 
@@ -653,7 +654,7 @@ def p_a1(sh):
             ('Model', 'Open-source Qwen3.8-27B, before vs. after training'),
             ('Test data', 'Real trading days the model had never seen'),
             ('Result', 'Up to 12% better trading than the base model, replicated across independent runs (controlled experiment)'),
-            ('Public benchmark', 'Xitadel public preview: human baseline 80; best frontier model 77.28 (GPT 6); no model has passed the human baseline yet'),
+            ('Public benchmark', 'Xitadel public preview: human baseline 80; best frontier model 77.28 (GPT-6); no model has passed the human baseline yet'),
             ('Diligence', 'Run logs, metric definitions and scripts')]
     for i, (k, d) in enumerate(rows):
         y = 1.7 + i * 0.62
@@ -665,31 +666,34 @@ def p_a1(sh):
 
 
 SOURCES_L = [
-    ('Mercor run-rate: ', 'TechCrunch (Feb 2025, $75M); CEO (Sep 2025, $500M); Sacra (Dec 2025, $760M); Mercor (early 2026, $1B); '
-                          'Dealroom (Jun 2026, $2B). All gross; experts take 60–70% (Bloomberg)'),
-    ('Mercor valuation: ', 'Series A $250M (Sep 2024), Series B $2B (Feb 2025), Series C $10B (Oct 2025); a $20B round in early talks (Bloomberg, Jul 9, 2026)'),
+    ('Mercor run-rate: ', 'TechCrunch (Feb 2025, $75M); Sacra (Dec 2025, $760M); Dealroom and Forbes (Jun 2026, $2B). All gross; experts take 60–70% (Bloomberg)'),
+    ('Mercor valuation and M&A: ', 'Series C $10B (Oct 2025); a $20B round still in talks (Bloomberg, Jul 9, 2026; The Information, Aug 2026); bought RL-environment startup Deeptune on Jul 9, 2026 (Forbes)'),
     ('Surge AI: ', '2024 revenue $1.2B (TechCrunch, Forbes)'),
-    ('Snorkel AI: ', 'Company and TechCrunch, Sep 22, 2026 ($350M raised at a $3.5B valuation; $375M run-rate, up 18x in a year)'),
-    ('AfterQuery: ', 'Founded Feb 2025; Forbes, Sep 1, 2026 (18 months after YC, $3.2B valuation); Business Wire (Apr 2026, Series A at $300M, $100M run-rate); '
+    ('Handshake: ', 'AI-training business at nearly $1B gross run-rate (The Information, Apr 2026)'),
+    ('Snorkel AI: ', 'Reuters and TechCrunch, Sep 22, 2026 ($350M raised at a $3.5B valuation; $375M run-rate, up ~18x in a year)'),
+    ('AfterQuery: ', 'Founded Feb 2025; Business Wire (Apr 2026, Series A at $300M, $100M run-rate); Forbes and TechCrunch (Sep 1, 2026, reported $3.2B valuation; founders are high-school friends, now 22 and 23); '
                      'YC profile (co-founder interned at Citadel Securities)'),
-    ('Scale AI: ', 'Founded in 2016 by Alexandr Wang, then 19 (Forbes); Meta bought 49% for $14.3B, ~$29B valuation (Reuters, Jun 2025); '
-                   'nearly half of new training projects involve RL environments (Scale AI blog, Feb 2026)'),
-    ('UniPat: ', 'Bloomberg, Sep 10, 2026 (Alibaba-led $300M round, reported $2.5B valuation, with Tencent and HongShan; terms may change; '
-                 'Alibaba, ByteDance, DeepSeek and others buy from UniPat and Humanlaya)'),
-    ('Humanlaya: ', 'Founded Oct 2025; Pre-A of several hundred million RMB on Sep 9, 2026, led by CDH with HongShan, Capital Today and BAI (Jiemian, Eastmoney)'),
+    ('Scale AI: ', 'Founded in 2016 by Alexandr Wang, then 19 (Forbes); Meta bought 49% for $14.3B, ~$29B valuation (Reuters, Jun 2025)'),
+    ('Mechanize: ', 'Business Insider (Aug and Sep 2026): Google talent and licensing deal, reportedly over $1.5B'),
+    ('UniPat: ', 'Bloomberg, Sep 10, 2026 (Alibaba set to lead a $300M round at a reported $2.5B valuation, with Tencent and HSG; talks ongoing; '
+                 'Alibaba, ByteDance, DeepSeek and others have bought data or services from UniPat and Humanlaya); 36Kr (Sep 24, 2026)'),
+    ('Humanlaya: ', 'Founded 2025; Pre-A of several hundred million RMB in Sep 2026, led by CDH with HSG, Capital Today and BAI (Jiemian, Eastmoney)'),
+    ('Apex Intelligence (超衍智能): ', '36Kr (Sep 16, 2026): self-improving (RSI) model company; angel and angel+ rounds of nearly RMB 400M, led by IDG Capital, Xinglian Capital and XtalPi'),
 ]
 SOURCES_R = [
-    ('Training data spend today: ', 'Menlo Ventures (Jul 2026): 50+ vendors, ~$8.5B combined'),
-    ('2030 AI economy: ', 'McKinsey, Agents, robots, and us (Nov 2025): US ~$2.9T; IMF WEO (Apr 2026): US GDP $32.4T, world $126.3T; '
+    ('Training-data vendor revenue: ', 'Deedy Das, Menlo Ventures partner, AI training-data market map (Jul 2026): 50+ companies, ~$8.5B combined revenue (partly gross)'),
+    ('2030 AI economy: ', 'McKinsey, Agents, robots, and us (Nov 2025): US ~$2.9T of unlockable value; IMF WEO (Apr 2026): US GDP $32.4T, world $126.3T; '
                           'half the US penetration assumed elsewhere'),
     ('Training market: ', '2030 AI economy × 10% (an assumption; big tech spends 10–15% of revenue on R&D)'),
-    ('AI agent market: ', 'Precedence Research ($7.92B in 2025; 45.82% CAGR); 2028 and 2032 extrapolated'),
-    ('RL environment pricing: ', 'Epoch AI, An FAQ on RL environments (Jan 2026)'),
+    ('Agentic commerce: ', 'McKinsey (Oct 2025): AI agents could handle $3–5T of global consumer commerce by 2030; cited by Ant International, Mastercard and Visa (CNBC, Sep 10, 2026)'),
+    ('RL environment pricing: ', 'Epoch AI, An FAQ on RL environments (2026)'),
     ('Public text stock: ', 'Epoch AI, Will we run out of data? (2024): exhausted 2026–2032 (80% CI)'),
-    ('Rounds and valuations: ', 'Applied Compute: Upstarts (Jun 2025, $20M seed at $100M post); The Information (Aug 2026, ~$3B in talks)'),
-    ('Personal agents: ', 'Meta Muse launch (Sep 8, 2026; Axios, CNBC); Bloomberg (Sep 21, 2026): Amazon blocks Muse; OpenAI unveils always-on Dots at DevDay (Sep 29, 2026; TechCrunch, CNBC)'),
-    ('Instinct: ', 'Business Wire, Sep 28, 2026: $1B Series C at a $10B valuation from Sequoia, Benchmark and Coatue; valued at $2.5B 33 days earlier'),
+    ('Rounds and valuations: ', 'Applied Compute: Upstarts (Jun 2025, seed at $100M post); Forbes (Sep 1, 2026, raising $350M at $3.25B)'),
+    ('Personal agents: ', 'Meta Muse (launched Sep 8, 2026; No. 1 on the US App Store Sep 18; TechCrunch, Business Insider); OpenAI Dots (DevDay, Sep 29, 2026; The Verge, CNBC); '
+                          'Qwen Personal Agent (Apsara, Sep 22, 2026); Manus Cue (Sep 28, 2026; Bloomberg)'),
+    ('Instinct: ', 'Reuters and TechCrunch, Sep 28, 2026: $1B at a $10B valuation from Sequoia, Benchmark and Coatue; valued at $2.5B on Aug 26, 2026; founder Noah Shinn is 23'),
     ('Remote Labor Index: ', 'Scale AI and CAIS, Jul 2026: the best model completes 16.1% of real freelance projects to a paying client’s standard'),
+    ('Event prediction: ', 'PolyBench (arXiv 2604.14199, Apr 2026): 7 frontier models simulated trading on 38,666 Polymarket markets; only 2 made money'),
 ]
 
 
@@ -698,7 +702,7 @@ def p_a2(sh):
     for x, head, items in [(0.6, 'Companies', SOURCES_L), (6.95, 'Market and research', SOURCES_R)]:
         sh.t(x, 1.62, 5.78, 0.24, head, 10, C['accent'])
         sh.rule(x, 1.92, 5.78, C['ink'])
-        sh.text(x, 2.04, 5.78, 4.7, [para([R(k, 8.5, C['ink'], SANS, True), R(v, 8.5, C['body'])], before=0 if i == 0 else 5, line=1.1)
+        sh.text(x, 2.04, 5.78, 4.7, [para([R(k, 8.5, C['ink'], SANS, True), R(v, 8.5, C['body'])], before=0 if i == 0 else 3, line=1.08)
                                       for i, (k, v) in enumerate(items)])
     footer(sh)
 
@@ -708,7 +712,7 @@ def p_a3(sh):
     terms = [('Training environment', 'A system where AI does real work again and again and learns from the results; an RL environment'),
              ('Agent trajectory', 'The full record of AI doing a task: every action, the world’s response, the result'),
              ('Real feedback', 'Real outcomes settle each AI action: P&L, the books, whether code runs, whether an event happens'),
-             ('Self-improvement (RSI)', 'Recursive self-improvement: AI trains on its own results in real environments, stronger each round'),
+             ('Self-improvement (RSI)', 'Recursive self-improvement: AI helps build the next, better AI; we turn each round’s real outcomes into the next round’s training data'),
              ('Held-out set', 'Test-only tasks, never used in training, so models can’t memorize answers'),
              ('Red-teaming', 'Simulated cheating and attacks before launch, to find and fix grading loopholes'),
              ('Controlled experiment', 'Change one thing (training in Xitadel or not) and compare before and after'),

@@ -1,6 +1,6 @@
 # SimReal 商业计划书（中文）
 
-- `SimReal-BP-v29.pptx` / `SimReal-BP-v29.pdf`：最新版（23页，中间版）：个人agent写进定义与概述；第10页改用2026年9月的 Muse、Dots、Instinct 与 Remote Labor Index；并入 v28 审查修正；由 `deck/tools/bp_v29.py` 生成
+- `SimReal-BP-v29.pptx` / `SimReal-BP-v29.pdf`：最新版（23页）：个人Agent写进标语、定义与概述；第10页用2026年9月的 Muse、Dots、Instinct 与 Remote Labor Index；全篇数据按2026年9月底最新公开信息复核更新（来源见A2）；由 `deck/tools/bp_v29.py` 生成；配套简介见 `SimReal-v29-intro.md`
 - `SimReal-BP-v29-EN.pptx` / `SimReal-BP-v29-EN.pdf`：v29 英文版（23页）；由 `deck/tools/bp_v29_en.py` 生成
 - `SimReal-BP-v28.pptx` / `SimReal-BP-v28.pdf`：v28（23页）：按创始人新叙事“让AI在真实世界里自我进化”微调，新增第10页“下一步 · 个人agent”（需求信号、循环、数据规则），封面不放估值；由 `deck/tools/bp_v28.py` 基于 v17 生成
 - `SimReal-BP-v28-EN.pptx` / `SimReal-BP-v28-EN.pdf`：v28 英文版（23页，逐页对应）；由 `deck/tools/bp_v28_en.py` 生成
