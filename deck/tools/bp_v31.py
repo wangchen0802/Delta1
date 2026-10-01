@@ -102,8 +102,8 @@ def kicker(sh, y, parts, sz=20, algn='l'):
 def p_cover(sh):
     sh.t(1.62, 0.55, 1.0, 0.25, '衍真', 13, C['ink'], SANS, True, anchor='ctr')
     sh.t(0.6, 1.35, 8.2, 1.9, ['让AI在真实世界里', '自我进化'], 44, C['ink'], SERIF, line=1.05)
-    sh.t(0.6, 3.42, 8.6, 0.46, '从交易开始：用可复现的结算给Agent打分、训练', 22, C['ink'], SERIF)
-    sh.t(0.6, 4.1, 9.2, 0.36, '面向AI实验室的金融与专业领域训练环境与数据', 16, C['accent'])
+    sh.t(0.6, 3.42, 8.6, 0.46, '个人Agent被托付之前，先在这里练过', 22, C['ink'], SERIF)
+    sh.t(0.6, 4.1, 9.2, 0.36, '从交易开始：面向AI实验室与个人Agent的训练环境与数据', 16, C['accent'])
     sh.rule(0.6, 4.95, 7.6)
     cols = ([('联系', 'business@simreal.co'), ('商业计划书', '2026年9月')] if NO_TERMS else
             [('本轮融资', '人民币4,000万元（等值美元）'), ('商业计划书', '2026年9月')])
@@ -116,7 +116,7 @@ def p_cover(sh):
 def p_overview(sh):
     header(sh, '项目概述', 0, [('把交易等专业工作做成AI的训练环境：', False), ('可计分、可复现、可训练', True)])
     cells = [
-        ('做什么', '金融领域训练环境', ['把交易等专业工作做成可计分、可复现的环境', '卖给实验室：环境授权、Agent轨迹、评测数据'], False),
+        ('做什么', '金融领域训练环境', ['把交易等专业工作做成可计分、可复现的环境', '卖给实验室：环境授权、Agent轨迹、评测数据', '下一步：向个人Agent开放练习'], False),
         ('已做到', '7个基准与环境', ['交易、事件预测、AI研究、数学、推理、财务、软件', '5个公开仓库；零外部融资'], False),
         ('初步证据', '+12%', ['Qwen3.8-27B在未见过的竞赛交易日上最高提升12%', '【待补：N次运行均值与95%置信区间】'], True),
         ('团队', '量化背景创始团队', ['剑桥、LSE、杜克数学；2005年生', 'Jane Street、Citadel、Optiver、Millennium经历'], False),
@@ -460,6 +460,35 @@ def p_risk(sh):
         sh.t(10.3, y, 2.43, rh, when, 11, C['accent'], SANS, True, anchor='ctr', line=1.05)
     sh.rule(0.6, y0 + len(rows) * rh, W)
     kicker(sh, 5.85, [('不过度美化：', False), ('每个数字都能在尽调里复现', True), ('。', False)], 20)
+    footer(sh)
+
+
+def p_agents_next(sh):
+    header(sh, '下一步 · 个人Agent', 2, [('一个Agent在替人做事之前，', False), ('需要先在足够真实的地方练过', True)])
+    sh.t(0.6, 1.64, 9, 0.22, '2026年9月：个人Agent开始替人花钱，也开始替人出错', 10, C['grey'], MONO)
+    cells = [('Muse', ['Meta，9月8日上线', '10天登顶美国App Store'], False),
+             ('Dots', ['OpenAI，9月29日发布', '常驻云端，替人持续做事'], False),
+             ('100亿美元', ['Instinct估值，33天涨4倍', '红杉、Benchmark、Coatue投资'], False),
+             ('200美元', ['Instinct擅自替用户订位，', '用户被收的取消费'], True)]
+    cw, gap = (W - 3 * 0.3) / 4, 0.3
+    for i, (v, d, acc) in enumerate(cells):
+        x = 0.6 + i * (cw + gap)
+        sh.rect(x, 1.92, cw, 0.02, C['accent'] if acc else C['ink'])
+        sh.t(x, 2.04, cw, 0.66, v, 36, C['accent'] if acc else C['ink'], SERIF)
+        sh.t(x, 2.76, cw, 0.5, d, 11.5, C['body'], line=1.1, gap=0)
+    sh.t(0.6, 3.5, 9, 0.22, '我们怎么接：同一批环境，第二类客户', 10, C['grey'], MONO)
+    rows = [('开放什么', '交易与事件预测两个环境；留出集不开放练习'),
+            ('怎么收费', '按练习回合计费，默认保密【待补：单价】'),
+            ('数据规则', '脱敏共享轨迹，可换练习额度与收益分成；交给实验室的数据附授权记录'),
+            ('验证节点', '【6个月】首批【X】个Agent团队接入')]
+    sh.rule(0.6, 3.78, W, C['ink'])
+    for i, (k, d) in enumerate(rows):
+        y = 3.78 + i * 0.42
+        sh.t(0.6, y, 1.6, 0.42, k, 12, C['accent'], SANS, True, anchor='ctr')
+        sh.t(2.3, y, W - 1.7, 0.42, d, 12, C['ink'], anchor='ctr')
+        sh.rule(0.6, y + 0.42, W)
+    kicker(sh, 5.72, [('沙盒让Agent不闯祸，', False), ('我们让它做对', True), ('。', False)], 22)
+    sh.t(0.6, 6.4, W, 0.24, '来源：Meta与OpenAI发布（2026年9月）；TechCrunch（2026年9月25日）；Instinct（路透社，2026年9月28日；《大西洋月刊》、CNN，2026年9月）。详见A2。', 8, C['grey'])
     footer(sh)
 
 
@@ -828,7 +857,8 @@ SOURCES_R = [
     ('RL环境定价：', 'Epoch AI《An FAQ on RL environments》（2026年）：网站复刻环境约2万美元，\nSlack级产品约30万美元；单个任务200–2,000美元；合同通常每季度六到七位数美元'),
     ('潜在买家（约20家）：', 'OpenAI、Google DeepMind、Meta、xAI、微软、亚马逊、英伟达、\nThinking Machines、Reflection AI、Applied Compute；\n阿里、字节、DeepSeek、月之暗面、智谱、MiniMax、阶跃星辰、\n腾讯、小米、百度（我们按公开信息统计）'),
     ('英伟达与Mercor：', 'The Information（2026年8月）：英伟达上季度向Mercor支付数千万美元专家数据费用'),
-    ('Instinct：', '创始人Noah Shinn（Invest Like the Best播客，2026年9月）：\n年交易额10亿美元以上，约一半为旅行；路透社（2026年9月28日）：估值100亿美元'),
+    ('个人Agent：', 'Meta Muse（2026年9月8日上线，9月18日登顶美国App Store；\nTechCrunch、Business Insider）；OpenAI Dots（DevDay，2026年9月29日；The Verge、CNBC）'),
+    ('Instinct：', '创始人Noah Shinn（Invest Like the Best播客，2026年9月）：年交易额10亿美元以上；\n路透社（2026年9月28日）：估值100亿美元，8月26日为25亿美元；\n《大西洋月刊》、CNN（2026年9月）：擅自订位致用户被收200美元取消费'),
     ('Alpha Arena：', 'Nof1（2026年5月融资公告）：前沿模型实盘交易32轮仅6轮盈利，整体资金亏约三分之一'),
     ('事件预测：', 'PolyBench（arXiv 2604.14199，2026年4月）：\n7个前沿模型在38,666个Polymarket市场模拟交易，仅2个取得正收益'),
     ('Xitadel数据与结果：', 'IMC Prosperity 3、4竞赛回测资源，MIT许可\n（GitHub：jmerle/imc-prosperity-3-backtester等）；\n人类基准取自已公开的竞赛提交（6支队伍）；逐任务得分见公开报告REPORT.md'),
@@ -888,16 +918,17 @@ PAGES = [
     (p_evidence, 20, {666}, 8),                      # was the personal-agent page
     (p_products, 8, {300}, 9),
     (p_data, 9, {336}, 10),
-    (p_why_now, 3, {126}, 11),
-    (p_market, 13, {470}, 12),
-    (p_competition, 14, {511}, 13),
-    (p_why_us, 15, {562}, 14),
-    (p_business, 10, {376}, 15),
-    (p_progress, 11, {401, 402, 403, 404, 407}, 16),
-    (p_network, 12, set(range(429, 441)) | {442}, 17),
-    (p_raise, 16, {607}, 18),
-    (p_funds, 17, {607}, 19),
-    (p_risk, ('clone', 9), {336}, 20),               # a fresh slide carrying the data page's logo
+    (p_agents_next, ('clone', 9), {336}, 11),        # personal agents: the second customer, as a plan
+    (p_why_now, 3, {126}, 12),
+    (p_market, 13, {470}, 13),
+    (p_competition, 14, {511}, 14),
+    (p_why_us, 15, {562}, 15),
+    (p_business, 10, {376}, 16),
+    (p_progress, 11, {401, 402, 403, 404, 407}, 17),
+    (p_network, 12, set(range(429, 441)) | {442}, 18),
+    (p_raise, 16, {607}, 19),
+    (p_funds, 17, {607}, 20),
+    (p_risk, ('clone', 9), {336}, 21),               # a fresh slide carrying the data page's logo
     (p_closing, 18, {615, 616, 617, 623}, None),
     (p_a1, 19, {654}, 'A1'),
     (p_a2, 21, {682}, 'A2'),
@@ -931,19 +962,24 @@ def main(src, dst):
     lst = prs.slides._sldIdLst
     ids = list(lst)
     order = []
+    clone_src = {}                                      # read clone sources before any page is rebuilt
+    for build, idx, keep, n in pages:
+        if isinstance(idx, tuple) and idx not in clone_src:
+            base = slides[idx[1]]
+            bg = base._element.cSld.bg
+            pics = [(shp.image.blob, shp.left, shp.top, shp.width, shp.height) for shp in base.shapes if shp.shape_id in keep]
+            clone_src[idx] = (base.slide_layout, None if bg is None else copy.deepcopy(bg), pics)
     for build, idx, keep, n in pages:
         CUR['n'] = n
         if isinstance(idx, tuple):                      # ('clone', i): new slide with container i's background and logo
-            base = slides[idx[1]]
-            s = prs.slides.add_slide(base.slide_layout)
+            layout, bg, pics = clone_src[idx]
+            s = prs.slides.add_slide(layout)
             for shp in list(s.shapes):
                 shp._element.getparent().remove(shp._element)
-            bg = base._element.cSld.bg
             if bg is not None:
                 s._element.cSld.insert(0, copy.deepcopy(bg))
-            for shp in base.shapes:
-                if shp.shape_id in keep:
-                    s.shapes.add_picture(io.BytesIO(shp.image.blob), shp.left, shp.top, shp.width, shp.height)
+            for blob, left, top, width, height in pics:
+                s.shapes.add_picture(io.BytesIO(blob), left, top, width, height)
             sid = list(lst)[-1]
         else:
             s = slides[idx]
