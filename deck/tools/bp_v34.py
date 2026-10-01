@@ -133,7 +133,7 @@ def p_overview(sh):
         ('团队', '量化背景创始团队', ['剑桥、LSE、杜克数学；2005年生', 'Jane Street、Citadel、Optiver、Millennium经历'], False),
         (V34['market']['overview_cell']['label'], V34['market']['overview_cell']['big'], V34['market']['overview_cell']['lines'], False),
         ('进展', '2家前沿实验室在谈', ['付费试点报价5万–15万美元', '7,000+专家候补名单'], True) if NO_TERMS else
-        ('本轮融资', '4,000万元', ['人民币（等值美元）；投后估值5亿元', '12个月目标：2–3家付费实验室'], True),
+        ('本轮融资', '4,000万元', ['人民币（等值美元）；投后估值5亿元'], True),
     ]
     cw, gap = (W - 2 * 0.35) / 3, 0.35
     for i, (k, v, d, acc) in enumerate(cells):
@@ -172,7 +172,7 @@ def p_team(sh):
         sh.t(x + 0.3, y0 + 0.76, cw - 0.6, 2.0, lines, sz, b, line=1.1, gap=4)
         sh.rule(x + 0.3, y0 + 2.84, cw - 0.6, C['mid'])
         sh.t(x + 0.3, y0 + 2.92, cw - 0.6, 0.55, edu, 9.5, C['grey'], line=1.12, gap=0)
-    kicker(sh, 6.12, [('放弃顶级量化机构的转正offer来做这件事；', False), ('14天上线7个基准与环境，零外部融资', True)], 15)
+    kicker(sh, 6.12, [('放弃顶级量化机构的转正offer，', False), ('来做这件事', True), ('。', False)], 18)
     footer(sh)
 
 
@@ -480,7 +480,7 @@ def p_risk(sh):
 
 def p_agents_next(sh):
     header(sh, '下一步 · 个人Agent', 2, [('一个Agent在替人做事之前，', False), ('需要先在足够真实的地方练过', True)])
-    sh.t(0.6, 1.64, 9, 0.22, '2026年9月：个人Agent开始替人花钱，也开始替人出错', 10, C['grey'], MONO)
+    sh.t(0.6, 1.64, W, 0.22, '2026年9月：个人Agent开始替人花钱（Instinct创始人披露年交易额10亿美元+，约一半是旅行），也开始替人出错', 10, C['grey'], MONO)
     cells = [('Muse', ['Meta，9月8日上线', '10天登顶美国App Store'], False),
              ('Dots', ['OpenAI，9月29日发布', '常驻云端，替人持续做事'], False),
              ('100亿美元', ['Instinct估值，33天涨4倍', '红杉、Benchmark、Coatue投资'], False),
@@ -503,7 +503,7 @@ def p_agents_next(sh):
         sh.t(2.3, y, W - 1.7, 0.42, d, 12, C['ink'], anchor='ctr')
         sh.rule(0.6, y + 0.42, W)
     kicker(sh, 5.72, [('沙盒让Agent不闯祸，', False), ('我们让它做对', True), ('。', False)], 22)
-    sh.t(0.6, 6.4, W, 0.24, '来源：Meta与OpenAI发布（2026年9月）；TechCrunch（2026年9月25日）；Instinct（路透社，2026年9月28日；《大西洋月刊》、CNN，2026年9月）。详见A2。', 8, C['grey'])
+    sh.t(0.6, 6.4, W, 0.24, '来源：Meta与OpenAI发布（2026年9月）；TechCrunch（2026年9月25日）；Instinct（创始人播客，2026年9月；路透社，2026年9月28日；《大西洋月刊》、CNN，2026年9月）。', 8, C['grey'])
     footer(sh)
 
 
@@ -571,17 +571,17 @@ def p_market(sh):
         runs += ([BR(10)] if i else []) + [R(line, 10, C['accentLt'] if i == len(note) - 1 else C['onDark'])]
     sh.t(x2 + pad, top + 1.12 + 0.42 * len(M['c3_rows']) + 0.16, cw - 2 * pad, 1.3, tuple(runs), 10, C['onDark'], line=1.2)
     kicker(sh, 5.62, [(M['kicker_a'], False), (M['kicker_b'], True), ('。', False)], 20, 'ctr')
-    sh.t(0.6, 6.32, W, 0.4, M['source_lines'], 8, C['grey'], line=1.1, gap=0)
+    sh.t(0.6, 6.24, W, 0.56, M['source_lines'], 8, C['grey'], line=1.1, gap=0)
     footer(sh)
 
 
 def p_competition(sh):
     header(sh, '竞争格局', 3, [('别人做一环，我们做让AI持续进步的', False), ('完整闭环', True)])
-    rows = [('专家数据平台', 'Mercor、Surge、Handshake、AfterQuery', ['专家示范与判断，按人工意见打分', '正进入RL环境：Mercor收购Deeptune'], False),
+    rows = [('专家数据平台', 'Mercor、Surge、Handshake、AfterQuery', ['专家示范与判断，按人工意见打分', '正进入RL环境'], False),
             ('中国同行', 'UniPat、Humanlaya', ['专家数据、评测环境与基准；主要服务国内实验室'], False),
-            ('AI交易评测', 'Nof1（Alpha Arena）', ['实盘对战榜单：只评测，不训练', '2026年5月融资1,500万美元'], False),
+            ('AI交易评测', 'Nof1（Alpha Arena）', ['实盘对战榜单：只评测，不训练'], False),
             ('实验室自建', '', ['只做自己熟悉的领域'], False),
-            ('SimReal 衍真', '环境、数据、评分、迭代训练', ['同一套环境打通数据、评分与训练', '每次结果都进入下一轮，AI越练越强'], True)]
+            ('SimReal 衍真', '环境、数据、评分、迭代训练', ['每次结果都进入下一轮，AI越练越强'], True)]
     lw, rh, gap, y0 = 7.0, 0.74, 0.1, 1.66
     for i, (k, sub, d, dark) in enumerate(rows):
         y = y0 + i * (rh + gap)
@@ -702,7 +702,7 @@ def p_progress(sh, logos):
 
 
 def p_network(sh):
-    header(sh, '专家网络', 4, [('7,000+专家已报名候补，来自21所顶尖大学的学生和校友：', False), ('专家数据的源头', True)])
+    header(sh, '专家网络', 2, [('7,000+专家已报名候补，来自21所顶尖大学的学生和校友：', False), ('专家数据的源头', True)])
     for x, v, k in [(0.6, '7,000+', '已报名候补（可触达20万+）'), (2.85, '21所', '顶尖大学')]:
         sh.t(x, 1.72, 2.2, 0.8, v, 40, C['ink'], SERIF)
         sh.t(x, 2.52, 2.2, 0.26, k, 10.5, C['grey'])
@@ -907,34 +907,275 @@ def p_a3(sh):
     footer(sh)
 
 
+
+# ----------------------------------------------------------- v34: 15 pages ---
+def p_problem_solution(sh):
+    header(sh, '问题与解决方案', 1, [('AI已经学会推理，却还做不好真实世界里的事：', False), ('让真实结果成为下一轮训练信号', True)])
+    sh.t(0.6, 1.64, 6, 0.3, '真实工作没有标准答案，只有世界的反应', 12, C['grey'])
+    rows = [('交易', '历史回测一路上涨', '进入未见过的真实行情就亏钱'), ('软件工程', '测试全部通过', '上线后出错'),
+            ('财务', '账看起来已经做完', '月结对不平'), ('事件预测', '分析头头是道', '照着下注却亏钱')]
+    sh.rect(3.75, 1.98, 2.85, 0.32 + 0.55 * 4, C['tint'])
+    sh.t(1.45, 2.0, 2.0, 0.28, '表面检查：通过', 9.5, C['grey'], MONO, anchor='ctr')
+    sh.t(3.9, 2.0, 2.6, 0.28, '真实世界：失手', 9.5, C['accent'], MONO, anchor='ctr')
+    y0, rh = 2.3, 0.55
+    sh.rule(0.6, y0, 6.0, C['ink'])
+    for i, (k, a, b) in enumerate(rows):
+        y = y0 + i * rh
+        sh.t(0.6, y, 0.85, rh, k, 10, C['grey'], MONO, anchor='ctr')
+        sh.t(1.45, y, 2.0, rh, a, 13.5, C['ink'], SERIF, anchor='ctr')
+        sh.t(3.45, y, 0.3, rh, '→', 12, C['grey'], algn='ctr', anchor='ctr')
+        sh.t(3.9, y, 2.7, rh, b, 13.5, C['ink'], SERIF, anchor='ctr')
+        sh.rule(0.6, y + rh, 6.0)
+    sh.text(7.1, 1.6, 5.63, 0.36, [para(list(title_runs([('AI要学会做事，需要一个', False), ('用真实结果结算每个动作的世界', True)], 14)))], 'ctr')
+    steps = [('AI行动', False), ('环境按规则作出反应，结果可复现', False), ('按真实结果结算，留下Agent轨迹', False), ('下一轮训练：用成功轨迹迭代', True)]
+    bx, bw, bh = 7.1, 5.3, 0.5
+    tops = [2.05, 2.77, 3.49, 4.21]
+    for (k, last), y in zip(steps, tops):
+        sh.rect(bx, y, bw, bh, C['accent'] if last else C['tint'])
+        sh.t(bx + 0.25, y, bw - 0.5, bh, k, 13, C['onDarkHi'] if last else C['ink'], SERIF, anchor='ctr')
+    for y in tops[:3]:
+        sh.t(bx, y + bh, bw, 0.22, '↓', 10, C['grey'], algn='ctr', anchor='ctr')
+    rx = 12.56
+    sh.rect(bx + bw, tops[3] + bh / 2, rx - bx - bw, 0.012, C['mid'])
+    sh.rect(rx, tops[0] + bh / 2, 0.012, tops[3] - tops[0], C['mid'])
+    sh.rect(bx + bw, tops[0] + bh / 2, rx - bx - bw, 0.012, C['mid'])
+    sh.t(rx - 0.12, tops[1] + 0.1, 0.25, 0.3, '↑', 10, C['grey'], algn='ctr', anchor='ctr')
+    cells = [('01 训练环境', '按真实规则重建专业场景', False), ('02 结果评分', '按真实结果打分，不靠AI主观判断', False),
+             ('03 专家反馈', '提供专业判断与评分标准', False), ('SimReal', '同一套环境，打通评测、数据与训练', True)]
+    cw, gap, top, ch = (W - 3 * 0.2) / 4, 0.2, 4.85, 0.72
+    for i, (k, d, dark) in enumerate(cells):
+        x = 0.6 + i * (cw + gap)
+        sh.rect(x, top, cw, ch, C['ink'] if dark else C['tint'])
+        sh.t(x + 0.2, top + 0.06, cw - 0.4, 0.3, k, 13, C['accentLt'] if dark else C['ink'], SERIF, anchor='ctr')
+        sh.t(x + 0.2, top + 0.36, cw - 0.4, 0.32, d, 9.5, C['onDarkHi'] if dark else C['body'], line=1.05)
+    kicker(sh, 5.72, [('每一轮用真实结果筛出成功轨迹再训练：', False), ('今天是专家迭代，长期目标是RSI', True), ('。', False)], 18)
+    sh.t(0.6, 6.3, W, 0.22, 'RSI：递归式自我改进，AI参与改进下一代AI；每轮真实结果都成为下一轮的训练数据', 9, C['grey'])
+    footer(sh)
+
+
+def p_why_now15(sh):
+    header(sh, '为什么是现在', 1, [('实验室已经在为环境和专家数据付费；', False), ('前沿模型在交易里却还会亏', True)])
+    cols = [('实验室在买环境', '15亿美元+', '谷歌与RL环境公司Mechanize的交易（据报道）', [('2026年7月', 'Mercor收购RL环境公司Deeptune')], False),
+            ('专家数据在放量', '27倍', 'Mercor年化毛营收：16个月，7,500万→20亿美元',
+             [('数千万美元', '英伟达一个季度付给Mercor的专家数据费用'), ('18倍', 'Snorkel AI年化收入一年增至3.75亿美元')], False),
+            ('在交易里还会亏', '6/32', 'Alpha Arena：前沿模型实盘交易，32轮只有6轮赚钱', [('2/7', 'PolyBench：7个前沿模型在Polymarket上只有2个盈利')], True)]
+    cw, gap = (W - 2 * 0.35) / 3, 0.35
+    for i, (k, v, d, more, acc) in enumerate(cols):
+        x = 0.6 + i * (cw + gap)
+        sh.rect(x, 1.66, cw, 0.02, C['accent'] if acc else C['ink'])
+        sh.t(x, 1.8, cw, 0.22, k, 9.5, C['grey'], MONO)
+        sh.t(x, 2.06, cw, 0.8, v, 40, C['accent'], SERIF)
+        sh.t(x, 2.86, cw, 0.5, d, 11, C['body'], line=1.1)
+        for j, (mv, md) in enumerate(more):
+            y = 3.62 + j * 0.8
+            sh.rule(x, y, cw)
+            sh.t(x, y + 0.08, cw, 0.36, mv, 19, C['ink'], SERIF)
+            sh.t(x, y + 0.44, cw, 0.3, md, 10.5, C['body'])
+    sh.t(0.6, 6.2, W, 0.24, '来源：Mechanize（Business Insider）；Mercor（TechCrunch、Dealroom、The Information、福布斯）；Snorkel AI（路透社）；Alpha Arena（Nof1）；PolyBench（arXiv）。', 8, C['grey'])
+    footer(sh)
+
+
+def p_xitadel15(sh):
+    header(sh, '旗舰实证 · Xitadel', 2, [('两周，我们跑通了', False), ('做市交易的迭代训练闭环', True)])
+    rows = [('一个回合', '拿到历史订单簿与产品规则，用受限工具研究6或12小时；写出Trader.run(state)，确认后不可撤回'),
+            ('竞赛级市场', '回放IMC Prosperity交易竞赛订单簿，逐笔撮合，成交按下单时的订单簿归因'),
+            ('模拟器当裁判', '按盈亏、回撤与夏普计分，计分公式见第12页'),
+            ('对标人类', '同一留出交易日上的最佳人类竞赛策略记80分')]
+    lw = 6.4
+    sh.rule(0.6, 1.66, lw, C['ink'])
+    for i, (k, d) in enumerate(rows):
+        y = 1.66 + i * 0.46
+        sh.t(0.6, y, 1.35, 0.46, k, 11, C['ink'], SANS, True, anchor='ctr')
+        sh.t(2.0, y, lw - 1.4, 0.46, d, 10.5, C['body'], anchor='ctr', line=1.05)
+        sh.rule(0.6, y + 0.46, lw)
+    sh.t(0.6, 3.6, 2.2, 0.8, '+12%', 44, C['accent'], SERIF, anchor='ctr')
+    sh.t(2.75, 3.62, lw - 2.15, 0.8, [(R('开源模型Qwen3.8-27B训练后，', 12, C['ink']), BR(12), R('在未见过的竞赛交易日上表现最高提升12%', 12, C['ink'])),
+                                      (R('这是最高值，不是均值', 10.5, C['accent']),)], 12, anchor='ctr', line=1.1, gap=2)
+    sh.rect(0.6, 4.5, lw, 0.88, C['ink'])
+    sh.t(0.85, 4.58, lw - 0.5, 0.22, '3个月内报告', 9.5, C['accentLt'], MONO, True)
+    sh.t(0.85, 4.8, lw - 0.5, 0.56, '每个任务×10个随机种子，训练前后配对：均值、95%置信区间、配对检验p值、逐任务增减；'
+                                    '储备任务做第二组留出；FuturePredict用真实事件结算，报告训练前后的Brier分数', 10, C['onDarkHi'], line=1.1)
+    px, pw, py, ph = 7.45, 5.28, 1.66, 3.72
+    sh.rect(px, py, pw, ph, C['tint'])
+    sh.t(px + 0.3, py + 0.2, pw - 0.6, 0.22, 'Xitadel公开预览版 · 7个任务', 9.5, C['grey'], MONO)
+    sh.t(px + 0.3, py + 0.46, pw - 0.6, 0.36, 'GPT-6在5/7个任务追平人类；多资产仅51分', 15, C['ink'], SERIF)
+    models = [('GPT-6', 77.28), ('GLM 5.3', 30.12), ('Kimi K3', 27.68), ('DeepSeek V4 Pro', 24.58)]
+    bx, scale, by = px + 1.65, 0.031, py + 1.4
+    human_x = bx + 80 * scale
+    sh.rect(human_x, by - 0.2, 0.015, len(models) * 0.42 + 0.1, C['accent'])
+    sh.t(human_x - 0.8, by - 0.44, 1.6, 0.2, '人类最佳 80', 9, C['accent'], MONO, algn='ctr')
+    for i, (m, v) in enumerate(models):
+        y, end = by + i * 0.42, bx + v * scale
+        sh.t(px + 0.3, y, 1.35, 0.3, m, 11, C['ink'], anchor='ctr')
+        sh.rect(bx, y + 0.05, v * scale, 0.2, C['ink'])
+        if end + 0.66 > human_x:
+            sh.t(end - 0.66, y, 0.6, 0.3, f'{v:.2f}', 10, C['onDarkHi'], MONO, algn='r', anchor='ctr')
+        else:
+            sh.t(end + 0.06, y, 0.7, 0.3, f'{v:.2f}', 10, C['ink'], MONO, anchor='ctr')
+    sh.t(px + 0.3, py + ph - 0.62, pw - 0.6, 0.5, ['task_04：GLM 5.3得96.03、GPT 6得89.53，Kimi K3、DeepSeek V4 Pro为0',
+                                                   '总分为7个任务均分；公开结果用2/4小时试点时长（标准6/12小时）'], 8.5, C['grey'], line=1.1, gap=0)
+    sh.t(0.6, 5.44, W, 0.4, '局限：竞赛市场由交易机器人构成，不等于交易所真实行情；回放不计我方订单对价格的冲击，下一步接真实行情数据。'
+                           '数据：IMC Prosperity 3、4开源回测资源（MIT许可）。', 8.5, C['grey'], line=1.1)
+    kicker(sh, 5.86, [('只报能复现的数字：', False), ('原始记录、指标定义、脚本与结果哈希在尽调时提供', True), ('。', False)], 18)
+    sh.t(0.6, 6.42, W, 0.22, '来源：Xitadel-QuantBench公开仓库（README、REPORT、SCORING）。', 8, C['grey'])
+    footer(sh)
+
+
+def p_products_data(sh):
+    header(sh, '产品与数据', 2, [('14天上线7个基准与环境，已有5个公开仓库；', False), ('零外部融资', True)])
+    rows = [('Xitadel', 'Xitadel-QuantBench', '交易', '回放竞赛订单簿，按盈亏、回撤与夏普计分；已跑通迭代训练', '开源', '102星标'),
+            ('SimReal-MLBench', 'Simreal-MLBench', 'AI研究', '60个研究任务、7类数据，参照OpenAI的MLE-bench', '开源', '178星标'),
+            ('FuturePredict Bench', 'future-prediction-bench', '事件预测', '预测真实事件，揭晓后按结果训练；数据实时接入', '部分开源', ''),
+            ('MathmoBench', 'MathmoBench', '数学证明', '让AI证明答案，而不是猜答案', '开源', '102星标'),
+            ('Puzzle Benchmark', 'hard-puzzle-benchmark', '逻辑推理', '749道人工编写的推理谜题', '开源', '17星标'),
+            ('Month-End Close', '', '财务结账', '让AI零差错完成月结', '', ''),
+            ('SWE-Forward', '', '软件工程', '检验AI写的代码能否挺过下一个版本', '', '')]
+    sh.rule(0.6, 1.66, W, C['ink'])
+    for x, h in [(0.6, '产品'), (3.55, '领域'), (4.85, '做什么'), (10.4, '状态')]:
+        sh.t(x, 1.7, 2.5, 0.26, h, 9.5, C['grey'], MONO, anchor='ctr')
+    y0, rh = 1.98, 0.42
+    for i, (name, repo, dom, what, status, stars) in enumerate(rows):
+        y = y0 + i * rh
+        sh.rule(0.6, y, W)
+        sh.text(0.6, y, 2.9, rh, [para([R(name, 13, C['ink'], SERIF)])] + ([para([R(repo, 8, C['grey'], MONO)])] if repo else []), 'ctr')
+        sh.t(3.55, y, 1.25, rh, dom, 10, C['grey'], anchor='ctr')
+        sh.t(4.85, y, 5.45, rh, what, 11, C['body'], anchor='ctr')
+        st = ((R(status, 10.5, C['accent'], SANS, True),) + ((R(f'  ·  {stars}', 10.5, C['grey']),) if stars else ())
+              if status else (R('已上线  ·  非公开', 10.5, C['grey']),))
+        sh.t(10.4, y, 2.33, rh, [st], 10.5, anchor='ctr')
+    sh.rule(0.6, y0 + len(rows) * rh, W)
+    sh.t(0.6, 5.04, 5, 0.22, '每个环境产出三类数据', 10, C['grey'], MONO)
+    sh.t(5.6, 5.0, 7.13, 0.28, '会生长：模型错在哪，下一批数据就补到哪', 10.5, C['accent'], algn='r', anchor='ctr')
+    kinds = [('Agent轨迹', '每一步动作、世界的反馈与最终结果，按真实结果标注成败', '用于监督微调与强化学习'),
+             ('专家数据', '真实工作里的示范、判断与评分标准，覆盖各行业入门岗位与顶尖科研', '用于对齐、奖励模型与评分'),
+             ('评测数据', '私有评测集与留出集，只用于检验、从不参与训练；上线前经过攻防测试', '用于模型验收与持续评测')]
+    cw, gap = (W - 2 * 0.3) / 3, 0.3
+    for i, (k, d, u) in enumerate(kinds):
+        x = 0.6 + i * (cw + gap)
+        sh.rule(x, 5.32, cw, C['ink'])
+        sh.t(x, 5.36, cw, 0.32, k, 15, C['ink'], SERIF)
+        sh.t(x, 5.7, cw, 0.36, d, 10, C['body'], line=1.08)
+        sh.t(x, 6.08, cw, 0.22, u, 10, C['grey'])
+    sh.t(6.0, 6.42, 6.73, 0.22, '星标数截至2026年9月29日', 8, C['grey'], algn='r')
+    footer(sh)
+
+
+def p_business_progress(sh, logos):
+    header(sh, '商业模式与进展', 4, [('产品已公开；商业化从付费试点开始：', False), ('合作越深，收入越高', True)])
+    sh.t(0.6, 1.58, 1.9, 0.6, '2家', 36, C['accent'], SERIF)
+    sh.t(0.6, 2.14, 2.2, 0.26, '前沿实验室在谈', 10.5, C['ink'], SANS, True)
+    sh.text(2.8, 1.62, 9.93, 0.34, [para([R('三条产品线   ', 10, C['grey'], MONO),
+                                          R('训练环境  ·  AI数据（Agent轨迹、专家、评测）  ·  迭代训练服务', 14, C['ink'], SERIF)])], 'ctr')
+    sh.t(2.8, 2.02, 9.93, 0.28, '同一模式：AfterQuery 14个月做到年化1亿美元', 10.5, C['accent'], anchor='ctr')
+    cols = [(0.6, 1.45, '阶段'), (2.1, 4.0, '客户买什么'), (6.2, 1.15, '周期'), (7.4, 1.35, '价格（美元）'), (8.85, 3.88, '为什么继续买')]
+    sh.rule(0.6, 2.5, W, C['ink'])
+    for x, w, h in cols:
+        sh.t(x, 2.52, w, 0.28, h, 9.5, C['grey'], MONO, anchor='ctr')
+    rows = [('免费评测', '公开预览版7个任务跑分、训练数据、SDK、计分规则', '1–2周', '免费', '跑分即获客；报告对标人类最佳'),
+            ('付费试点', '定制任务、留出交易日、奖励接口；自有或授权数据，交付附授权链', '8–12周', '5万–15万', '训练前后对比，按约定指标验收'),
+            ('年度授权', '全套环境、撮合引擎、对手方模型、储备任务、Agent轨迹与专家数据', '12个月', '40万–200万', '每季度更新任务与留出集：旧任务会饱和'),
+            ('联合训练', '训练实验、消融分析、迁移验证、托管运行', '项目或持续服务合同', None, '解决客户下一阶段的能力缺口')]
+    y0, rh = 2.8, 0.52
+    sh.rule(0.6, y0, W)
+    for i, (name, buy, period, price, why) in enumerate(rows):
+        y, dark = y0 + i * rh, i == 3
+        if dark:
+            sh.rect(0.6, y, W, rh, C['ink'])
+        main, sub, acc = (C['onDarkHi'], C['onDark'], C['accentLt']) if dark else (C['ink'], C['body'], C['accent'])
+        sh.t(0.6 + (0.15 if dark else 0), y, 1.45, rh, name, 14, main, SERIF, anchor='ctr')
+        sh.t(2.1, y, 4.0, rh, buy, 10.5, sub, anchor='ctr', line=1.05)
+        if price is None:
+            sh.t(6.2, y, 2.55, rh, period, 10.5, sub, anchor='ctr')
+        else:
+            sh.t(6.2, y, 1.15, rh, period, 10.5, sub, anchor='ctr')
+            sh.t(7.4, y, 1.35, rh, price, 12, acc, SERIF, anchor='ctr')
+        sh.t(8.85, y, 3.8, rh, why, 10.5, acc if dark else main, SANS, True, anchor='ctr', line=1.05)
+        if not dark:
+            sh.rule(0.6, y + rh, W)
+    sh.t(0.6, 4.96, W, 0.28, '单位经济（估算）：公开版环境平均约6人·天；第2家复用同一环境。买家集中：同一环境授权多家，延伸到交易机构。', 10.5, C['body'], anchor='ctr')
+    sh.t(0.6, 5.34, 6, 0.22, '支持我们研发的交易机构从业者', 10, C['grey'], MONO)
+    slots = [0.6 + (i + 0.5) * W / 5 for i in range(5)]
+    for (pic, _w, _h), cx in zip(logos, slots[:4]):
+        if pic.shape_id == 403:
+            pic.width, pic.height = int(pic.width * 1.45), int(pic.height * 1.45)
+        pic.left, pic.top = int((cx - pic.width / 914400 / 2) * 914400), int((5.88 - pic.height / 914400 / 2) * 914400)
+    sh.t(slots[4] - 1.0, 5.68, 2.0, 0.4, 'Polymarket', 16, C['ink'], SANS, True, algn='ctr', anchor='ctr')
+    sh.t(0.6, 6.3, W, 0.24, '标识仅表示支持者任职机构，不代表机构背书', 8.5, C['grey'])
+    footer(sh)
+
+
+def p_raise_funds(sh):
+    header(sh, '融资与资金用途', 5, [('两台引擎：收入引擎赚今天的钱，', False), ('研发引擎把训练增益做实', True)])
+    tiles = [('本轮融资（人民币，等值美元）', '4,000万元', True), ('本轮出让', '8%', False), ('投前估值', '4.6亿元', False),
+             ('投后估值（约7,400万美元）', '5亿元', False)]
+    tw, tg = (W - 3 * 0.25) / 4, 0.25
+    for i, (k, v, dark) in enumerate(tiles):
+        x = 0.6 + i * (tw + tg)
+        sh.rect(x, 1.6, tw, 0.78, C['ink'] if dark else C['tint'])
+        sh.t(x + 0.22, 1.66, tw - 0.4, 0.2, k, 9, C['accentLt'] if dark else C['grey'], MONO)
+        sh.t(x + 0.22, 1.86, tw - 0.4, 0.46, v, 24, C['accentLt'] if dark else C['ink'], SERIF, anchor='ctr')
+    engines = [
+        dict(dark=False, label='01  收入引擎  · 投入2,000万元', big='环境与数据', sub='环境一次搭建，授权给多家实验室；数据按交付量收费',
+             uses=[('700万', '环境生产'), ('400万', '数据生产'), ('600万', '交付'), ('300万', '销售与运营')],
+             team='5名环境工程师 · 3名交付 · 2名商务；跑道24个月',
+             ms=[('3个月', '首个付费试点'), ('6个月', '第2家授权'), ('12个月', '2–3家付费实验室，年化100万–300万美元')]),
+        dict(dark=True, label='02  研发引擎  · 投入2,000万元', big='迭代训练', sub='交易 → 事件预测 → 财务结账：每个领域先证明增益，再规模化',
+             uses=[('900万', '算力'), ('700万', '研究团队'), ('400万', '实盘与合规')],
+             team='3名研究员 · 约60万GPU小时',
+             ms=[('3个月', '交易增益显著性检验'), ('6个月', '事件预测验证增益'), ('12个月', '小资金实盘验证')]),
+    ]
+    top, colh, gap, pad = 2.5, 2.8, 0.3, 0.3
+    cw = (W - gap) / 2
+    for k, eng in enumerate(engines):
+        x0, dark = 0.6 + k * (cw + gap), eng['dark']
+        main, sub, acc = (C['onDarkHi'], C['onDark'], C['accentLt']) if dark else (C['ink'], C['body'], C['accent'])
+        sh.rect(x0, top, cw, colh, C['ink'] if dark else C['tint'])
+        ix, iw = x0 + pad, cw - 2 * pad
+        sh.t(ix, top + 0.14, iw, 0.22, eng['label'], 10, acc, MONO, True)
+        sh.t(ix, top + 0.38, iw, 0.4, eng['big'], 20, acc, SERIF)
+        sh.t(ix, top + 0.8, iw, 0.26, eng['sub'], 10.5, main)
+        for j, (amt, item) in enumerate(eng['uses']):
+            x, y = ix + (j % 2) * iw / 2, top + 1.12 + (j // 2) * 0.32
+            sh.t(x, y, 0.85, 0.3, amt, 13, acc, SERIF, anchor='ctr')
+            sh.t(x + 0.85, y, iw / 2 - 0.9, 0.3, item, 12, main, SERIF, anchor='ctr')
+        sh.t(ix, top + 1.8, iw, 0.26, eng['team'], 11, main)
+        sh.rect(ix, top + 2.12, iw, 0.01, DARK_RULE if dark else C['rule'])
+        mw = iw / 3
+        for j, (t, d) in enumerate(eng['ms']):
+            mx = ix + j * mw
+            sh.t(mx, top + 2.18, mw - 0.1, 0.18, t, 9, acc, MONO)
+            sh.t(mx, top + 2.36, mw - 0.12, 0.42, d, 11, main, SERIF, line=1.05)
+    sh.t(0.6, 5.38, 8, 0.22, '估值参照：同类公司种子轮投后1亿–10亿美元', 9.5, C['grey'], MONO)
+    comps = [('Applied Compute', '1亿美元', '种子轮投后 · 2025年6月'), ('Mirendil', '10亿美元', '种子轮投后 · 2026年6月'),
+             ('Nof1', '1,500万美元', '融资额 · 2026年5月'), ('超衍智能', '近4亿元人民币', '天使轮 · 2026年9月')]
+    for i, (name, v, when) in enumerate(comps):
+        x = 0.6 + i * (tw + tg)
+        sh.rect(x, 5.62, tw, 0.6, C['tint'])
+        sh.text(x + 0.2, 5.64, tw - 0.3, 0.32, [para([R(name + '  ', 9, C['accent'], MONO), R(v, 14, C['ink'], SERIF)])], 'ctr')
+        sh.t(x + 0.2, 5.96, tw - 0.3, 0.22, when, 9, C['grey'], anchor='ctr')
+    sh.t(0.6, 6.3, W, 0.22, 'Applied Compute、Mirendil为投后估值；Nof1、超衍智能为融资额；美元按2026年9月30日中间价6.7351折算；'
+                           '数据按客户所在地区分开存储与交付，开曼—香港—境内架构于本轮交割前搭建。', 8, C['grey'])
+    footer(sh)
+
+
 # ---------------------------------------------------------------- assembly ---
 # (builder, v17 slide index used as the container, picture shape ids kept, page number)
-PAGES = [
+PAGES = [                                            # v34: 15 slides, v32's story with repeats removed
     (p_cover, 0, {16, 17}, None),
     (p_overview, 1, {64}, 2),
     (p_team, 2, {74, 78, 79, 81, 82, 83}, 3),
-    (p_problem, 4, {160}, 4),
-    (p_solution, 6, {237}, 5),
-    (p_episode, 5, {169}, 6),                        # was the generations page
-    (p_xitadel, 7, {266}, 7),
-    (p_evidence, 20, {666}, 8),                      # was the personal-agent page
-    (p_products, 8, {300}, 9),
-    (p_data, 9, {336}, 10),
-    (p_agents_next, ('clone', 9), {336}, 11),        # personal agents: the second customer, as a plan
-    (p_why_now, 3, {126}, 12),
-    (p_market, 13, {470}, 13),
-    (p_competition, 14, {511}, 14),
-    (p_why_us, 15, {562}, 15),
-    (p_business, 10, {376}, 16),
-    (p_progress, 11, {401, 402, 403, 404, 407}, 17),
-    (p_network, 12, set(range(429, 441)) | {442}, 18),
-    (p_raise, 16, {607}, 19),
-    (p_funds, 17, {607}, 20),
-    (p_risk, ('clone', 9), {336}, 21),               # a fresh slide carrying the data page's logo
+    (p_problem_solution, 4, {160}, 4),
+    (p_why_now15, 3, {126}, 5),
+    (p_xitadel15, 7, {266}, 6),
+    (p_products_data, 8, {300}, 7),
+    (p_network, 12, set(range(429, 441)) | {442}, 8),
+    (p_agents_next, ('clone', 9), {336}, 9),
+    (p_market, 13, {470}, 10),
+    (p_competition, 14, {511}, 11),
+    (p_why_us, 15, {562}, 12),
+    (p_business_progress, 11, {401, 402, 403, 404, 407}, 13),
+    (p_raise_funds, 16, {607}, 14),
     (p_closing, 18, {615, 616, 617, 623}, None),
-    (p_a1, 19, {654}, 'A1'),
-    (p_a2, 21, {682}, 'A2'),
-    (p_a3, 22, {716}, 'A3'),
 ]
 
 
@@ -991,7 +1232,7 @@ def main(src, dst):
                     s.shapes._spTree.remove(shp._element)
         tree = s.shapes._spTree
         sh = S(5000)
-        if build is p_progress:
+        if build in (p_progress, p_business_progress):
             for clr in s._element.cSld.bg.iter('{http://schemas.openxmlformats.org/drawingml/2006/main}srgbClr'):
                 clr.set('val', C['paper'])                   # this page was dark in v17
             logos = [shp for shp in s.shapes if shp.shape_id in (401, 402, 403, 404)]
