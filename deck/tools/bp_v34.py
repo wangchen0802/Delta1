@@ -127,7 +127,7 @@ def p_cover(sh):
 def p_overview(sh):
     header(sh, '项目概述', 0, [('把交易等专业工作做成AI的训练环境：', False), ('可计分、可复现、可训练', True)])
     cells = [
-        ('做什么', '金融领域训练环境', ['把交易等专业工作做成可计分、可复现的环境', '卖给实验室：环境授权、Agent轨迹、评测数据', '下一步：向个人Agent开放练习'], False),
+        ('做什么', '金融领域训练环境', ['从交易起步：回放竞赛订单簿，模拟器计分', '卖给实验室：环境授权、Agent轨迹、评测数据', '下一步：向个人Agent开放练习'], False),
         ('已做到', '7个基准与环境', ['交易、事件预测、AI研究、数学、推理、财务、软件', '5个公开仓库；零外部融资'], False),
         ('初步证据', '+12%', ['Qwen3.8-27B在未见过的竞赛交易日上最高提升12%', '这是最高值；均值与置信区间3个月内报告'], True),
         ('团队', '量化背景创始团队', ['剑桥、LSE、杜克数学；2005年生', 'Jane Street、Citadel、Optiver、Millennium经历'], False),
@@ -152,7 +152,7 @@ def p_team(sh):
     people = [
         ('Charles', 'CEO', ['United Stables首位员工：帮助U稳定币一年内从0做到14亿美元，一个月上线Binance',
                             '负责机构关系，参与SIG、DRW等合作',
-                            '汇丰港元稳定币发行项目唯一实习生，全程协助推进香港金管局（HKMA）合规项目',
+                            (R('汇丰港元稳定币发行项目唯一实习生，', sz, b), BR(sz), R('全程协助推进香港金管局（HKMA）合规项目', sz, b)),
                             'X（Twitter）博主，内容数百万浏览', '伦敦Citadel对冲基金实习'],
          ['2005年生 · LSE数学本科 · 深国交', '美国数学奥林匹克（USAMO）入围']),
         ('Henry', 'CTO', [(R('剑桥机器学习暑研，师从著名统计学教授', sz, b), BR(sz), R('Po-Ling Loh（国际数理统计学会会士）', sz, b)),
@@ -160,7 +160,7 @@ def p_team(sh):
                           '设计五大Benchmark与强化学习环境'],
          ['2005年生 · 剑桥数学一等荣誉（奖学金） · 深国交', '剑桥数学竞赛全球前30 · 英国物理竞赛超级金奖']),
         ('Amaris', 'COO', ['Millennium香港数据科学家', 'Millennium另类数据团队史上首位应届招聘',
-                           (R('参与落地Plug and Play香港首场活动（联合', sz, b), BR(sz), R('香港科技园）；担任强生MedTech科技峰会', sz, b), BR(sz), R('主持人（均200+人规模）', sz, b)),
+                           (R('参与落地Plug and Play香港首场活动', sz, b), BR(sz), R('（联合香港科技园；200+人规模）', sz, b)), '主持强生MedTech科技峰会（200+人规模）',
                            '17岁成为出版作家；全网原创内容获10万+互动'],
          '2005年生 · 杜克数学与统计本科 · 上海包玉刚'),
     ]
@@ -568,9 +568,9 @@ def p_market(sh):
     note = M['c3_note']
     runs = []
     for i, line in enumerate(note):
-        runs += ([BR(10)] if i else []) + [R(line, 10, C['accentLt'] if i == len(note) - 1 else C['onDark'])]
+        runs += ([BR(10)] if i else []) + [R(line, 10, C['onDark'])]
     sh.t(x2 + pad, top + 1.12 + 0.42 * len(M['c3_rows']) + 0.16, cw - 2 * pad, 1.3, tuple(runs), 10, C['onDark'], line=1.2)
-    kicker(sh, 5.62, [(M['kicker_a'], False), (M['kicker_b'], True), ('。', False)], 20, 'ctr')
+    kicker(sh, 5.62, [(M['kicker_a'], False), (M['kicker_b'], True), ('。', False)], 20)
     sh.t(0.6, 6.24, W, 0.56, M['source_lines'], 8, C['grey'], line=1.1, gap=0)
     footer(sh)
 
@@ -949,7 +949,7 @@ def p_problem_solution(sh):
         sh.t(x + 0.2, top + 0.06, cw - 0.4, 0.3, k, 13, C['accentLt'] if dark else C['ink'], SERIF, anchor='ctr')
         sh.t(x + 0.2, top + 0.36, cw - 0.4, 0.32, d, 9.5, C['onDarkHi'] if dark else C['body'], line=1.05)
     kicker(sh, 5.72, [('每一轮用真实结果筛出成功轨迹再训练：', False), ('今天是专家迭代，长期目标是RSI', True), ('。', False)], 18)
-    sh.t(0.6, 6.3, W, 0.22, 'RSI：递归式自我改进，AI参与改进下一代AI；每轮真实结果都成为下一轮的训练数据', 9, C['grey'])
+    sh.t(0.6, 6.3, W, 0.22, 'RSI：递归式自我改进，AI参与改进下一代AI', 9, C['grey'])
     footer(sh)
 
 
@@ -977,8 +977,8 @@ def p_why_now15(sh):
 
 def p_xitadel15(sh):
     header(sh, '旗舰实证 · Xitadel', 2, [('两周，我们跑通了', False), ('做市交易的迭代训练闭环', True)])
-    rows = [('一个回合', '拿到历史订单簿与产品规则，用受限工具研究6或12小时；写出Trader.run(state)，确认后不可撤回'),
-            ('竞赛级市场', '回放IMC Prosperity交易竞赛订单簿，逐笔撮合，成交按下单时的订单簿归因'),
+    rows = [('一个回合', '用受限工具研究订单簿6或12小时，写出Trader.run(state)，提交不可撤回'),
+            ('竞赛级市场', '回放IMC Prosperity交易竞赛订单簿，逐笔撮合（规则见第12页）'),
             ('模拟器当裁判', '按盈亏、回撤与夏普计分，计分公式见第12页'),
             ('对标人类', '同一留出交易日上的最佳人类竞赛策略记80分')]
     lw = 6.4
@@ -993,13 +993,13 @@ def p_xitadel15(sh):
                                       (R('这是最高值，不是均值', 10.5, C['accent']),)], 12, anchor='ctr', line=1.1, gap=2)
     sh.rect(0.6, 4.5, lw, 0.88, C['ink'])
     sh.t(0.85, 4.58, lw - 0.5, 0.22, '3个月内报告', 9.5, C['accentLt'], MONO, True)
-    sh.t(0.85, 4.8, lw - 0.5, 0.56, '每个任务×10个随机种子，训练前后配对：均值、95%置信区间、配对检验p值、逐任务增减；'
-                                    '储备任务做第二组留出；FuturePredict用真实事件结算，报告训练前后的Brier分数', 10, C['onDarkHi'], line=1.1)
+    sh.t(0.85, 4.8, lw - 0.5, 0.56, ['每个任务×10个随机种子，训练前后配对：均值、95%置信区间、配对检验p值、逐任务增减；',
+                                    '储备任务做第二组留出；FuturePredict用真实事件结算，报告训练前后的Brier分数'], 10, C['onDarkHi'], line=1.1, gap=0)
     px, pw, py, ph = 7.45, 5.28, 1.66, 3.72
     sh.rect(px, py, pw, ph, C['tint'])
     sh.t(px + 0.3, py + 0.2, pw - 0.6, 0.22, 'Xitadel公开预览版 · 7个任务', 9.5, C['grey'], MONO)
-    sh.t(px + 0.3, py + 0.46, pw - 0.6, 0.36, 'GPT-6在5/7个任务追平人类；多资产仅51分', 15, C['ink'], SERIF)
-    models = [('GPT-6', 77.28), ('GLM 5.3', 30.12), ('Kimi K3', 27.68), ('DeepSeek V4 Pro', 24.58)]
+    sh.t(px + 0.3, py + 0.46, pw - 0.6, 0.36, 'GPT 6在5/7个任务追平人类；多资产仅51分', 15, C['ink'], SERIF)
+    models = [('GPT 6', 77.28), ('GLM 5.3', 30.12), ('Kimi K3', 27.68), ('DeepSeek V4 Pro', 24.58)]
     bx, scale, by = px + 1.65, 0.031, py + 1.4
     human_x = bx + 80 * scale
     sh.rect(human_x, by - 0.2, 0.015, len(models) * 0.42 + 0.1, C['accent'])
@@ -1014,7 +1014,7 @@ def p_xitadel15(sh):
             sh.t(end + 0.06, y, 0.7, 0.3, f'{v:.2f}', 10, C['ink'], MONO, anchor='ctr')
     sh.t(px + 0.3, py + ph - 0.62, pw - 0.6, 0.5, ['task_04：GLM 5.3得96.03、GPT 6得89.53，Kimi K3、DeepSeek V4 Pro为0',
                                                    '总分为7个任务均分；公开结果用2/4小时试点时长（标准6/12小时）'], 8.5, C['grey'], line=1.1, gap=0)
-    sh.t(0.6, 5.44, W, 0.4, '局限：竞赛市场由交易机器人构成，不等于交易所真实行情；回放不计我方订单对价格的冲击，下一步接真实行情数据。'
+    sh.t(0.6, 5.52, W, 0.32, '局限：竞赛市场由交易机器人构成，不等于交易所真实行情；回放不计我方订单对价格的冲击，下一步接真实行情数据。'
                            '数据：IMC Prosperity 3、4开源回测资源（MIT许可）。', 8.5, C['grey'], line=1.1)
     kicker(sh, 5.86, [('只报能复现的数字：', False), ('原始记录、指标定义、脚本与结果哈希在尽调时提供', True), ('。', False)], 18)
     sh.t(0.6, 6.42, W, 0.22, '来源：Xitadel-QuantBench公开仓库（README、REPORT、SCORING）。', 8, C['grey'])
@@ -1022,8 +1022,8 @@ def p_xitadel15(sh):
 
 
 def p_products_data(sh):
-    header(sh, '产品与数据', 2, [('14天上线7个基准与环境，已有5个公开仓库；', False), ('零外部融资', True)])
-    rows = [('Xitadel', 'Xitadel-QuantBench', '交易', '回放竞赛订单簿，按盈亏、回撤与夏普计分；已跑通迭代训练', '开源', '102星标'),
+    header(sh, '产品与数据', 2, [('7个基准与环境，从交易到软件工程；', False), ('5个已开源', True)])
+    rows = [('Xitadel', 'Xitadel-QuantBench', '交易', '做市交易旗舰环境，详见第6页', '开源', '102星标'),
             ('SimReal-MLBench', 'Simreal-MLBench', 'AI研究', '60个研究任务、7类数据，参照OpenAI的MLE-bench', '开源', '178星标'),
             ('FuturePredict Bench', 'future-prediction-bench', '事件预测', '预测真实事件，揭晓后按结果训练；数据实时接入', '部分开源', ''),
             ('MathmoBench', 'MathmoBench', '数学证明', '让AI证明答案，而不是猜答案', '开源', '102星标'),
@@ -1047,8 +1047,8 @@ def p_products_data(sh):
     sh.t(0.6, 5.04, 5, 0.22, '每个环境产出三类数据', 10, C['grey'], MONO)
     sh.t(5.6, 5.0, 7.13, 0.28, '会生长：模型错在哪，下一批数据就补到哪', 10.5, C['accent'], algn='r', anchor='ctr')
     kinds = [('Agent轨迹', '每一步动作、世界的反馈与最终结果，按真实结果标注成败', '用于监督微调与强化学习'),
-             ('专家数据', '真实工作里的示范、判断与评分标准，覆盖各行业入门岗位与顶尖科研', '用于对齐、奖励模型与评分'),
-             ('评测数据', '私有评测集与留出集，只用于检验、从不参与训练；上线前经过攻防测试', '用于模型验收与持续评测')]
+             ('专家数据', '真实工作的示范、判断与评分标准，来自专家网络（第8页）', '用于对齐、奖励模型与评分'),
+             ('评测数据', '私有评测集与留出集：只做检验、不进训练，经攻防测试', '用于模型验收与持续评测')]
     cw, gap = (W - 2 * 0.3) / 3, 0.3
     for i, (k, d, u) in enumerate(kinds):
         x = 0.6 + i * (cw + gap)
@@ -1072,8 +1072,8 @@ def p_business_progress(sh, logos):
     for x, w, h in cols:
         sh.t(x, 2.52, w, 0.28, h, 9.5, C['grey'], MONO, anchor='ctr')
     rows = [('免费评测', '公开预览版7个任务跑分、训练数据、SDK、计分规则', '1–2周', '免费', '跑分即获客；报告对标人类最佳'),
-            ('付费试点', '定制任务、留出交易日、奖励接口；自有或授权数据，交付附授权链', '8–12周', '5万–15万', '训练前后对比，按约定指标验收'),
-            ('年度授权', '全套环境、撮合引擎、对手方模型、储备任务、Agent轨迹与专家数据', '12个月', '40万–200万', '每季度更新任务与留出集：旧任务会饱和'),
+            ('付费试点', '定制任务、留出交易日、奖励接口；数据附授权链', '8–12周', '5万–15万', '训练前后对比，按约定指标验收'),
+            ('年度授权', '全套环境、撮合引擎、对手方模型、储备任务与专家数据', '12个月', '40万–200万', '每季度更新任务与留出集：旧任务会饱和'),
             ('联合训练', '训练实验、消融分析、迁移验证、托管运行', '项目或持续服务合同', None, '解决客户下一阶段的能力缺口')]
     y0, rh = 2.8, 0.52
     sh.rule(0.6, y0, W)
@@ -1092,7 +1092,7 @@ def p_business_progress(sh, logos):
         sh.t(8.85, y, 3.8, rh, why, 10.5, acc if dark else main, SANS, True, anchor='ctr', line=1.05)
         if not dark:
             sh.rule(0.6, y + rh, W)
-    sh.t(0.6, 4.96, W, 0.28, '单位经济（估算）：公开版环境平均约6人·天；第2家复用同一环境。买家集中：同一环境授权多家，延伸到交易机构。', 10.5, C['body'], anchor='ctr')
+    sh.t(0.6, 4.96, W, 0.28, '单位经济（估算）：公开版环境平均约6人·天，第2家起直接复用。买家集中：可延伸到交易机构。', 10.5, C['body'], anchor='ctr')
     sh.t(0.6, 5.34, 6, 0.22, '支持我们研发的交易机构从业者', 10, C['grey'], MONO)
     slots = [0.6 + (i + 0.5) * W / 5 for i in range(5)]
     for (pic, _w, _h), cx in zip(logos, slots[:4]):
@@ -1118,13 +1118,13 @@ def p_raise_funds(sh):
         dict(dark=False, label='01  收入引擎  · 投入2,000万元', big='环境与数据', sub='环境一次搭建，授权给多家实验室；数据按交付量收费',
              uses=[('700万', '环境生产'), ('400万', '数据生产'), ('600万', '交付'), ('300万', '销售与运营')],
              team='5名环境工程师 · 3名交付 · 2名商务；跑道24个月',
-             ms=[('3个月', '首个付费试点'), ('6个月', '第2家授权'), ('12个月', '2–3家付费实验室，年化100万–300万美元')]),
+             ms=[('3个月', '首个付费试点'), ('6个月', '第2家授权'), ('12个月', ['2–3家付费实验室', '年化100万–300万美元'])]),
         dict(dark=True, label='02  研发引擎  · 投入2,000万元', big='迭代训练', sub='交易 → 事件预测 → 财务结账：每个领域先证明增益，再规模化',
              uses=[('900万', '算力'), ('700万', '研究团队'), ('400万', '实盘与合规')],
              team='3名研究员 · 约60万GPU小时',
              ms=[('3个月', '交易增益显著性检验'), ('6个月', '事件预测验证增益'), ('12个月', '小资金实盘验证')]),
     ]
-    top, colh, gap, pad = 2.5, 2.8, 0.3, 0.3
+    top, colh, gap, pad = 2.5, 2.92, 0.3, 0.3
     cw = (W - gap) / 2
     for k, eng in enumerate(engines):
         x0, dark = 0.6 + k * (cw + gap), eng['dark']
@@ -1144,16 +1144,16 @@ def p_raise_funds(sh):
         for j, (t, d) in enumerate(eng['ms']):
             mx = ix + j * mw
             sh.t(mx, top + 2.18, mw - 0.1, 0.18, t, 9, acc, MONO)
-            sh.t(mx, top + 2.36, mw - 0.12, 0.42, d, 11, main, SERIF, line=1.05)
-    sh.t(0.6, 5.38, 8, 0.22, '估值参照：同类公司种子轮投后1亿–10亿美元', 9.5, C['grey'], MONO)
+            sh.t(mx, top + 2.36, mw - 0.12, 0.5, d, 11, main, SERIF, line=1.05, gap=0)
+    sh.t(0.6, 5.52, 8, 0.22, '估值参照：同类公司种子轮投后1亿–10亿美元', 9.5, C['grey'], MONO)
     comps = [('Applied Compute', '1亿美元', '种子轮投后 · 2025年6月'), ('Mirendil', '10亿美元', '种子轮投后 · 2026年6月'),
              ('Nof1', '1,500万美元', '融资额 · 2026年5月'), ('超衍智能', '近4亿元人民币', '天使轮 · 2026年9月')]
     for i, (name, v, when) in enumerate(comps):
         x = 0.6 + i * (tw + tg)
-        sh.rect(x, 5.62, tw, 0.6, C['tint'])
-        sh.text(x + 0.2, 5.64, tw - 0.3, 0.32, [para([R(name + '  ', 9, C['accent'], MONO), R(v, 14, C['ink'], SERIF)])], 'ctr')
-        sh.t(x + 0.2, 5.96, tw - 0.3, 0.22, when, 9, C['grey'], anchor='ctr')
-    sh.t(0.6, 6.3, W, 0.22, 'Applied Compute、Mirendil为投后估值；Nof1、超衍智能为融资额；美元按2026年9月30日中间价6.7351折算；'
+        sh.rect(x, 5.76, tw, 0.6, C['tint'])
+        sh.text(x + 0.2, 5.78, tw - 0.3, 0.32, [para([R(name + '  ', 9, C['accent'], MONO), R(v, 14, C['ink'], SERIF)])], 'ctr')
+        sh.t(x + 0.2, 6.1, tw - 0.3, 0.22, when, 9, C['grey'], anchor='ctr')
+    sh.t(0.6, 6.44, W, 0.22, 'Applied Compute、Mirendil为投后估值；Nof1、超衍智能为融资额；美元按2026年9月30日中间价6.7351折算；'
                            '数据按客户所在地区分开存储与交付，开曼—香港—境内架构于本轮交割前搭建。', 8, C['grey'])
     footer(sh)
 

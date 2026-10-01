@@ -59,8 +59,7 @@
   "c3_note": [
    "Context: training-data and RL-environment",
    "vendors earn about $8.5B a year",
-   "(Deedy Das, Jul 2026)",
-   "Finance is only the first domain"
+   "Source: Deedy Das, Jul 2026"
   ],
   "kicker_a": "One domain is worth millions to tens of millions a year; ",
   "kicker_b": "each new scorable domain adds another",
@@ -83,11 +82,11 @@
    ],
    [
     "Evaluate and train",
-    "One environment for evals and training: eval data, agent trajectories and iterative training, delivered together"
+    "One environment for evals and training: Qwen3.8-27B up to 12% better after training (page 6)"
    ],
    [
     "Own assets",
-    "Matching and scoring on our own engine; reserve tasks and unpublished held-out days; 7 environments live"
+    "Matching and scoring on our own engine; a 7,000+ expert waitlist (page 8)"
    ]
   ]
  },
@@ -128,13 +127,16 @@
    [
     "Quant experience",
     [
-     "Jane Street, Citadel, Optiver (quant);",
-     "Millennium data science; Cambridge, LSE, Duke math"
+     "All three founders have quant-firm experience (page 3);",
+     "the team designed the three rules above"
     ]
    ],
    [
     "What buyers want",
-    "Interviewees repeatedly name it a key quality test: no high score by gaming (Epoch AI, 18 interviews)"
+    [
+     "Interviewees repeatedly name it a key quality test: no high score by gaming",
+     "Epoch AI, 18 interviews"
+    ]
    ],
    [
     "Speed",

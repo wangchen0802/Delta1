@@ -61,7 +61,7 @@ def p_overview(sh):
     header(sh, 'Overview', 0, [('Professional work like trading, turned into AI training environments: ', False),
                                ('scorable, reproducible, trainable', True)])
     cells = [
-        ('What we do', 'Finance RL environments', ['Professional work like trading, made scorable', 'Sold to labs: licenses, agent trajectories, evals',
+        ('What we do', 'Finance RL environments', ['Starting with trading: order books, simulator scoring', 'Sold to labs: licenses, agent trajectories, evals',
                                                    'Next: open practice to personal agents'], False),
         ('Done so far', '7 environments', ['Trading, prediction, AI research, math, reasoning,', 'finance, software · 5 public repos · no outside funding'], False),
         ('Early evidence', '+12%', ['Qwen3.8-27B, up to 12% better on unseen', 'competition trading days; best run, not a mean'], True),
@@ -152,8 +152,7 @@ def p_problem_solution(sh):
         sh.t(x + 0.2, top + 0.36, cw - 0.4, 0.32, d, 9, C['onDarkHi'] if dark else C['body'], line=1.05)
     kicker(sh, 5.72, [('Each round keeps what real outcomes reward and retrains on it: ', False),
                       ('expert iteration today, RSI as the long-term goal', True), ('.', False)], 16)
-    sh.t(0.6, 6.3, W, 0.22, 'RSI: recursive self-improvement, where AI helps improve the next AI and each round’s real outcomes become the next round’s training data',
-         8.5, C['grey'])
+    sh.t(0.6, 6.3, W, 0.22, 'RSI: recursive self-improvement, where AI helps improve the next AI', 8.5, C['grey'])
     footer(sh)
 
 
@@ -184,9 +183,8 @@ def p_why_now(sh):
 
 def p_xitadel(sh):
     header(sh, 'Flagship proof · Xitadel', 2, [('In two weeks we ran ', False), ('the iterative training loop for market making', True)])
-    rows = [('One episode', 'Gets historical order books and product rules, researches for 6 or 12 hours with sandboxed tools, '
-                            'writes Trader.run(state); submissions are final'),
-            ('Competition market', 'Replays IMC Prosperity order books tick by tick; each fill is attributed to the book at order time'),
+    rows = [('One episode', 'Researches the order books for 6 or 12 hours with sandboxed tools, writes Trader.run(state); no resubmits'),
+            ('Competition market', 'Replays IMC Prosperity order books tick by tick (matching rules on page 12)'),
             ('Simulator as judge', 'Scored on P&L, drawdown and Sharpe; the formula is on page 12'),
             ('Human benchmark', 'The best human competition strategy on the same held-out day scores 80')]
     lw = 6.4
@@ -225,7 +223,7 @@ def p_xitadel(sh):
     sh.t(px + 0.3, py + ph - 0.62, pw - 0.6, 0.5, ['task_04: GLM 5.3 96.03, GPT 6 89.53; Kimi K3 and DeepSeek V4 Pro 0',
                                                    'Overall = mean of 7 tasks; public runs used 2/4-hour pilot limits (standard 6/12)'],
          8, C['grey'], line=1.1, gap=0)
-    sh.t(0.6, 5.44, W, 0.4, 'Limits: the competition market is made of trading bots, not exchange data; replay ignores the price impact of our orders; '
+    sh.t(0.6, 5.52, W, 0.32, 'Limits: the competition market is made of trading bots, not exchange data; replay ignores the price impact of our orders; '
                            'real market data comes next. Data: IMC Prosperity 3 and 4 open-source backtester resources (MIT).', 8, C['grey'], line=1.1)
     kicker(sh, 5.86, [('Only numbers that reproduce: ', False), ('raw logs, metric definitions, scripts and result hashes in diligence', True), ('.', False)], 16)
     sh.t(0.6, 6.42, W, 0.22, 'Source: Xitadel-QuantBench public repo (README, REPORT, SCORING).', 8, C['grey'])
@@ -233,8 +231,8 @@ def p_xitadel(sh):
 
 
 def p_products_data(sh):
-    header(sh, 'Products & data', 2, [('7 benchmarks and environments in 14 days, 5 public repos; ', False), ('no outside funding', True)])
-    rows = [('Xitadel', 'Xitadel-QuantBench', 'Trading', 'Replays competition order books; scores P&L, drawdown, Sharpe; training loop run', 'Open', '102 stars'),
+    header(sh, 'Products & data', 2, [('7 benchmarks and environments, from trading to software; ', False), ('5 open-sourced', True)])
+    rows = [('Xitadel', 'Xitadel-QuantBench', 'Trading', 'Flagship market-making environment (page 6)', 'Open', '102 stars'),
             ('SimReal-MLBench', 'Simreal-MLBench', 'AI research', '60 research tasks, 7 data types; modeled on OpenAI’s MLE-bench', 'Open', '178 stars'),
             ('FuturePredict Bench', 'future-prediction-bench', 'Prediction', 'Predicts real events, trains on outcomes once resolved; live data', 'Partly open', ''),
             ('MathmoBench', 'MathmoBench', 'Math proofs', 'Makes AI prove answers instead of guessing them', 'Open', '102 stars'),
@@ -258,8 +256,8 @@ def p_products_data(sh):
     sh.t(0.6, 5.04, 5, 0.22, 'Every environment yields three kinds of data', 10, C['grey'], MONO)
     sh.t(5.6, 5.0, 7.13, 0.28, 'Self-extending: where the model fails, the next batch fills in', 10, C['accent'], algn='r', anchor='ctr')
     kinds = [('Agent trajectories', 'Every action, the environment’s feedback and the outcome, labeled by real results', 'For fine-tuning and RL'),
-             ('Expert data', 'Demonstrations, judgments and scoring standards from real work, entry roles to top research', 'For alignment, reward models and grading'),
-             ('Eval data', 'Private eval and held-out sets, never used in training; red-teamed before release', 'For model acceptance and ongoing evals')]
+             ('Expert data', 'Demonstrations, judgments and scoring standards from real work, via our expert network (page 8)', 'For alignment, reward models and grading'),
+             ('Eval data', 'Private eval and held-out sets: for testing only, never for training; red-teamed', 'For model acceptance and ongoing evals')]
     cw, gap = (W - 2 * 0.3) / 3, 0.3
     for i, (k, d, u) in enumerate(kinds):
         x = 0.6 + i * (cw + gap)
@@ -357,9 +355,9 @@ def p_market(sh):
     note = M['c3_note']
     runs = []
     for i, line in enumerate(note):
-        runs += ([BR(9.5)] if i else []) + [R(line, 9.5, C['accentLt'] if i == len(note) - 1 else C['onDark'])]
+        runs += ([BR(9.5)] if i else []) + [R(line, 9.5, C['onDark'])]
     sh.t(x2 + pad, top + 1.12 + 0.42 * len(M['c3_rows']) + 0.16, cw - 2 * pad, 1.3, tuple(runs), 9.5, C['onDark'], line=1.2)
-    kicker(sh, 5.62, [(M['kicker_a'], False), (M['kicker_b'], True), ('.', False)], 18, 'ctr')
+    kicker(sh, 5.62, [(M['kicker_a'], False), (M['kicker_b'], True), ('.', False)], 18)
     sh.t(0.6, 6.2, W, 0.62, M['source_lines'], 7.5, C['grey'], line=1.05, gap=0)
     footer(sh)
 
@@ -425,9 +423,9 @@ def p_business(sh, logos):
     for x, w, h in cols:
         sh.t(x, 2.52, w, 0.28, h, 9, C['grey'], MONO, anchor='ctr')
     rows = [('Free eval', 'Public preview: 7 tasks, training data, SDK, scoring rules', '1–2 weeks', 'Free', 'Scores win clients; benchmarked to the best human'),
-            ('Paid pilot', 'Custom tasks, held-out days, reward API; own or licensed data with a license chain', '8–12 weeks', '$50K–$150K',
+            ('Paid pilot', 'Custom tasks, held-out days, reward API; data with a license chain', '8–12 weeks', '$50K–$150K',
              'Before/after training results on agreed metrics'),
-            ('Annual license', 'Full environments, matching engine, counterparty models, reserve tasks, trajectories, expert data', '12 months', '$400K–$2M',
+            ('Annual license', 'Full environments, matching engine, counterparty models, reserve tasks, expert data', '12 months', '$400K–$2M',
              'Tasks and held-out sets refresh quarterly; old tasks saturate'),
             ('Joint training', 'Training runs, ablations, transfer tests, managed runs', 'Project or ongoing service contract', None, 'Solves the client’s next capability gap')]
     y0, rh = 2.8, 0.52
@@ -447,8 +445,8 @@ def p_business(sh, logos):
         sh.t(8.85, y, 3.8, rh, why, 9.5, acc if dark else main, SANS, True, anchor='ctr', line=1.05)
         if not dark:
             sh.rule(0.6, y + rh, W)
-    sh.t(0.6, 4.96, W, 0.28, 'Unit economics (est.): a public environment takes about 6 person-days; a second lab reuses the same environment. '
-                            'Buyer concentration: license each environment to many labs and to trading firms.', 9.5, C['body'], anchor='ctr')
+    sh.t(0.6, 4.96, W, 0.28, 'Unit economics (est.): a public environment takes about 6 person-days; from the second lab on, it is reused as is. '
+                            'Buyer concentration: extend to trading firms.', 9.5, C['body'], anchor='ctr')
     sh.t(0.6, 5.34, 8, 0.22, 'Supported by practitioners at trading firms', 10, C['grey'], MONO)
     slots = [0.6 + (i + 0.5) * W / 5 for i in range(5)]
     for (pic, _w, _h), cx in zip(logos, slots[:4]):
@@ -473,13 +471,13 @@ def p_raise(sh):
         dict(dark=False, label='01  Revenue engine  ·  $3M', big='Environments & data', sub='Build once, license to many labs; data billed by volume',
              uses=[('$1.05M', 'Environments'), ('$600K', 'Data'), ('$900K', 'Delivery'), ('$450K', 'Sales & ops')],
              team='5 environment engineers · 3 delivery · 2 sales; 24-month runway',
-             ms=[('3 months', 'First paid pilot'), ('6 months', 'Second license'), ('12 months', '2–3 paying labs, $1M–$3M ARR')]),
+             ms=[('3 months', 'First paid pilot'), ('6 months', 'Second license'), ('12 months', ['2–3 paying labs', '$1M–$3M ARR'])]),
         dict(dark=True, label='02  R&D engine  ·  $3M', big='Iterative training', sub='Trading → prediction → finance close: prove the gain, then scale',
              uses=[('$1.35M', 'Compute'), ('$1.05M', 'Research team'), ('$600K', 'Live trading, compliance')],
              team='3 researchers · ~600K GPU hours',
              ms=[('3 months', 'Significance test, trading'), ('6 months', 'Gains in event prediction'), ('12 months', 'Small live-capital test')]),
     ]
-    top, colh, gap, pad = 2.5, 2.8, 0.3, 0.3
+    top, colh, gap, pad = 2.5, 2.92, 0.3, 0.3
     cw = (W - gap) / 2
     for k, eng in enumerate(engines):
         x0, dark = 0.6 + k * (cw + gap), eng['dark']
@@ -499,16 +497,16 @@ def p_raise(sh):
         for j, (t, d) in enumerate(eng['ms']):
             mx = ix + j * mw
             sh.t(mx, top + 2.18, mw - 0.1, 0.18, t, 8.5, acc, MONO)
-            sh.t(mx, top + 2.36, mw - 0.12, 0.42, d, 10, main, SERIF, line=1.05)
-    sh.t(0.6, 5.38, 9, 0.22, 'Valuation references: seed-stage peers at $100M–$1B post-money', 9.5, C['grey'], MONO)
+            sh.t(mx, top + 2.36, mw - 0.12, 0.5, d, 10, main, SERIF, line=1.05, gap=0)
+    sh.t(0.6, 5.52, 9, 0.22, 'Valuation references: seed-stage peers at $100M–$1B post-money', 9.5, C['grey'], MONO)
     comps = [('Applied Compute', '$100M', 'Seed post-money · Jun 2025'), ('Mirendil', '$1B', 'Seed post-money · Jun 2026'),
              ('Nof1', '$15M', 'Raised · May 2026'), ('Chaoyan 超衍智能', '~$59M', 'Angel rounds raised · Sep 2026')]
     for i, (name, v, when) in enumerate(comps):
         x = 0.6 + i * (tw + tg)
-        sh.rect(x, 5.62, tw, 0.6, C['tint'])
-        sh.text(x + 0.2, 5.64, tw - 0.3, 0.32, [para([R(name + '  ', 8.5, C['accent'], MONO), R(v, 14, C['ink'], SERIF)])], 'ctr')
-        sh.t(x + 0.2, 5.96, tw - 0.3, 0.22, when, 8.5, C['grey'], anchor='ctr')
-    sh.t(0.6, 6.28, W, 0.3, 'Applied Compute, Mirendil: post-money; Nof1, Chaoyan: amount raised. Round: RMB 40M at RMB 500M post-money, at 6.7351 RMB/USD '
+        sh.rect(x, 5.76, tw, 0.6, C['tint'])
+        sh.text(x + 0.2, 5.78, tw - 0.3, 0.32, [para([R(name + '  ', 8.5, C['accent'], MONO), R(v, 14, C['ink'], SERIF)])], 'ctr')
+        sh.t(x + 0.2, 6.1, tw - 0.3, 0.22, when, 8.5, C['grey'], anchor='ctr')
+    sh.t(0.6, 6.42, W, 0.3, 'Applied Compute, Mirendil: post-money; Nof1, Chaoyan: amount raised. Round: RMB 40M at RMB 500M post-money, at 6.7351 RMB/USD '
                            '(Sep 30, 2026 central parity). Data stored and delivered by client region; Cayman–Hong Kong–onshore structure before closing.',
          7.5, C['grey'], line=1.05)
     footer(sh)
