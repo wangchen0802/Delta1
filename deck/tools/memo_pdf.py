@@ -4,6 +4,7 @@ Noto CJK for Chinese) with headless Chromium.
 usage: python3 deck/tools/memo_pdf.py memo.md memo.pdf [--footer "text"]
 """
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -57,9 +58,8 @@ h1 { font: 25pt/1.2 'Newsreader', 'SR Serif SC', serif; color: var(--ink); margi
 h1 + p { font-size: 11pt; color: var(--grey); margin: 0 0 14pt; }
 h2 { font: 15.5pt/1.3 'Newsreader', 'SR Serif SC', serif; color: var(--ink); font-weight: 400;
      margin: 22pt 0 8pt; padding-top: 8pt; border-top: .6pt solid var(--rule); break-after: avoid; }
-h2::before { counter-increment: sec; content: counter(sec, decimal-leading-zero); display: block;
-             font: 8pt 'IBM Plex Mono', monospace; color: var(--accent); margin-bottom: 3pt; letter-spacing: .04em; }
-h2.noindex::before { content: none; }
+h2.num::before { counter-increment: sec; content: counter(sec, decimal-leading-zero); display: block;
+                 font: 8pt 'IBM Plex Mono', monospace; color: var(--accent); margin-bottom: 3pt; letter-spacing: .04em; }
 h3 { font: 600 10.6pt/1.4 'Instrument Sans', 'SR Sans SC', sans-serif; color: var(--ink); margin: 14pt 0 5pt; break-after: avoid; }
 p { margin: 0 0 7pt; orphans: 2; widows: 2; }
 strong { color: var(--ink); font-weight: 600; }
@@ -78,7 +78,8 @@ tr { break-inside: avoid; }
 th { font: 7.6pt 'IBM Plex Mono', 'SR Sans SC', monospace; color: var(--grey); text-align: left; font-weight: 400;
      padding: 5pt 7pt 4pt 0; border-bottom: .6pt solid var(--mid); }
 td { padding: 5pt 7pt 5pt 0; border-bottom: .5pt solid var(--rule); vertical-align: top; }
-td:first-child { color: var(--ink); font-weight: 600; }
+td:first-child { color: var(--ink); font-weight: 600; min-width: 4.2em; }
+.nw { white-space: nowrap; }
 tr:last-child td { border-bottom: none; }
 code { font: 8.4pt 'IBM Plex Mono', monospace; background: var(--tint); padding: 0 2pt; }
 hr { border: 0; border-top: .6pt solid var(--rule); margin: 14pt 0; }
@@ -108,7 +109,11 @@ def main():
     src, out = sys.argv[1], sys.argv[2]
     foot = sys.argv[sys.argv.index('--footer') + 1] if '--footer' in sys.argv else 'SimReal 衍真 · 机密'
     text = open(src, encoding='utf-8').read()
-    body = markdown.markdown(text, extensions=['tables', 'sane_lists', 'attr_list', 'md_in_html'])
+    md = re.sub(r'^## \d+\.\s*(.+)$', r'## \1 {: .num }', text, flags=re.M)   # numbered sections get the counter
+    body = markdown.markdown(md, extensions=['tables', 'sane_lists', 'attr_list', 'md_in_html'])
+    # short table cells with numbers (and very short labels) never break mid-token
+    body = re.sub(r'<(td|th)([^>]*)>([^<]{1,14})</\1>',
+                  lambda m: f'<{m[1]}{m[2]}><span class="nw">{m[3]}</span></{m[1]}>' if len(m[3].strip()) <= 8 or re.search(r'\d', m[3]) else m[0], body)
     head = (f'<div class="top"><img src="file://{LOGO}"><span>{foot}</span></div>' if os.path.exists(LOGO) else '')
     with tempfile.TemporaryDirectory() as d:
         cjk_subsets(text + foot, d)
