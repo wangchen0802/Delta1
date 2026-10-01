@@ -1,6 +1,8 @@
 # SimReal 商业计划书（中文）
 
-- `SimReal-BP-v32.pptx` / `SimReal-BP-v32.pdf`：最新版（25页，中文）：v31 的【待补】全部处理——价格、人数、算力、里程碑、架构按合理规划填入；事实类不编造，改用 Xitadel 公开报告的真实分数和已确认事实；进展页管线表改为“转化路径与报价”。说明见 `SimReal-v32-fill-notes.md`。
+- `SimReal-BP-v33.pptx` / `SimReal-BP-v33.pdf`：最新版（25页，中文）：按投资人对叙事的反馈重构——证据在前；封面改为“交易领域的RL训练环境与评分器”；why now只放带日期的外部事实；市场按实验室付费单位分三层自下而上（金融一个领域每年约360万–4,200万美元）；专家迭代直说，RSI只留一句；why us落在撮合与评分器并写明数据污染等局限；估值参照换成环境与数据公司；个人Agent移到计划部分；12个月目标算术更正为80万–300万美元。
+- `SimReal-narrative-memo.md` / `SimReal-narrative-memo.pdf`：叙事修订说明（11页）：逐条回应投资人反馈，含新简介、自下而上测算、RSI与专家迭代、why us / why now、还缺的证据与90天计划，以及v33逐页改动。
+- `SimReal-BP-v32.pptx` / `SimReal-BP-v32.pdf`：（25页，中文）：v31 的【待补】全部处理——价格、人数、算力、里程碑、架构按合理规划填入；事实类不编造，改用 Xitadel 公开报告的真实分数和已确认事实；进展页管线表改为“转化路径与报价”。说明见 `SimReal-v32-fill-notes.md`。
 - `SimReal-BP-v31.pptx` / `SimReal-BP-v31.pdf`：（25页，中文）：在 v30 基础上全面做实——新增“一个训练回合”“证据：实验设计”“下一步 · 个人Agent”“风险与对策”四页，“为什么是我们”改为金融know-how机制，商业模式写明免费与付费内容和单位经济，进展页加管线表，估值参照改为种子轮，资金用途写人头与跑道；【待补】见 `SimReal-v31-todo.md`；由 `deck/tools/bp_v31.py` 生成
 - `SimReal-BP-v30.pptx` / `SimReal-BP-v30.pdf`：按投资人反馈修改的新版本（23页，中文，v29保持不变）：Xitadel数据如实写为IMC Prosperity竞赛数据、12%标注待补统计口径、市场改为按实验室采购价自下而上、RSI改为“专家迭代”、补充金融know-how与意向订单位置（【待补】处需团队填写）；由 `deck/tools/bp_v30.py` 生成
 - `SimReal-BP-v29.pptx` / `SimReal-BP-v29.pdf`：最新版（23页）：个人Agent写进标语、定义与概述；第10页用2026年9月的 Muse、Dots、Instinct 与 Remote Labor Index；全篇数据按2026年9月底最新公开信息复核更新（来源见A2）；由 `deck/tools/bp_v29.py` 生成；配套简介见 `SimReal-v29-intro.md`

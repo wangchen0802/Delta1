@@ -57,7 +57,7 @@ body { margin: 0; background: #fff; color: var(--body);
 h1 { font: 25pt/1.2 'Newsreader', 'SR Serif SC', serif; color: var(--ink); margin: 0 0 6pt; font-weight: 400; }
 h1 + p { font-size: 11pt; color: var(--grey); margin: 0 0 14pt; }
 h2 { font: 15.5pt/1.3 'Newsreader', 'SR Serif SC', serif; color: var(--ink); font-weight: 400;
-     margin: 22pt 0 8pt; padding-top: 8pt; border-top: .6pt solid var(--rule); break-after: avoid; }
+     margin: 22pt 0 8pt; padding-top: 8pt; border-top: .6pt solid var(--rule); break-after: avoid; break-inside: avoid; }
 h2.num::before { counter-increment: sec; content: counter(sec, decimal-leading-zero); display: block;
                  font: 8pt 'IBM Plex Mono', monospace; color: var(--accent); margin-bottom: 3pt; letter-spacing: .04em; }
 h3 { font: 600 10.6pt/1.4 'Instrument Sans', 'SR Sans SC', sans-serif; color: var(--ink); margin: 14pt 0 5pt; break-after: avoid; }
@@ -110,6 +110,7 @@ def main():
     foot = sys.argv[sys.argv.index('--footer') + 1] if '--footer' in sys.argv else 'SimReal 衍真 · 机密'
     text = open(src, encoding='utf-8').read()
     md = re.sub(r'^## \d+\.\s*(.+)$', r'## \1 {: .num }', text, flags=re.M)   # numbered sections get the counter
+    md = re.sub(r'^((?![-*] |\s|>|\|).+)\n([-*] )', r'\1\n\n\2', md, flags=re.M)   # a list right after a line still starts a list
     body = markdown.markdown(md, extensions=['tables', 'sane_lists', 'attr_list', 'md_in_html'])
     # short table cells with numbers (and very short labels) never break mid-token
     body = re.sub(r'<(td|th)([^>]*)>([^<]{1,14})</\1>',
