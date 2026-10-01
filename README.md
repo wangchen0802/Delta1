@@ -1,5 +1,6 @@
 # SimReal 商业计划书（中文）
 
+- `SimReal-BP-v30.pptx` / `SimReal-BP-v30.pdf`：按投资人反馈修改的新版本（23页，中文，v29保持不变）：Xitadel数据如实写为IMC Prosperity竞赛数据、12%标注待补统计口径、市场改为按实验室采购价自下而上、RSI改为“专家迭代”、补充金融know-how与意向订单位置（【待补】处需团队填写）；由 `deck/tools/bp_v30.py` 生成
 - `SimReal-BP-v29.pptx` / `SimReal-BP-v29.pdf`：最新版（23页）：个人Agent写进标语、定义与概述；第10页用2026年9月的 Muse、Dots、Instinct 与 Remote Labor Index；全篇数据按2026年9月底最新公开信息复核更新（来源见A2）；由 `deck/tools/bp_v29.py` 生成；配套简介见 `SimReal-v29-intro.md`
 - `SimReal-BP-v29-EN.pptx` / `SimReal-BP-v29-EN.pdf`：v29 英文版（23页），面向海外机构：金额全部为美元（本轮600万美元，投后7,500万美元，按2026年9月约6.7的汇率取整），术语与格式为美国标准；由 `deck/tools/bp_v29_en.py` 生成；配套英文邮件见 `SimReal-email-EN.md`
 - `SimReal-BP-v29-no-terms.pptx` / `SimReal-BP-v29-no-terms.pdf`：v29 中文外发版（22页）：不含融资金额、估值、出让比例与资金金额，删去融资计划页，资金用途页改为“发展计划”；由 `python3 deck/tools/bp_v29.py SimReal-BP-v17.pptx SimReal-BP-v29-no-terms.pptx --no-terms` 生成
