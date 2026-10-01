@@ -40,7 +40,7 @@
     "$3.6M–$42M"
    ]
   ],
-  "c3_label": "③ Three live domains · per year (est.)",
+  "c3_label": "③ If 2 more domains match finance (est.)",
   "c3_big": "$10.8M–$126M",
   "c3_rows": [
    [
@@ -48,7 +48,7 @@
     "$3.6M–$42M"
    ],
    [
-    "× Event prediction, AI research",
+    "Trading + prediction + AI research",
     "× 3"
    ],
    [
@@ -63,10 +63,10 @@
    "Finance is only the first domain"
   ],
   "kicker_a": "One domain is worth millions to tens of millions a year; ",
-  "kicker_b": "each new scorable domain multiplies it",
+  "kicker_b": "each new scorable domain adds another",
   "source_lines": [
    "Sources: task and environment prices and contract sizes (six to seven figures a quarter): Epoch AI (Jan 2026, 18 interviews), SemiAnalysis (Jan 2026); vendor revenue: Deedy Das (Jul 2026), context only.",
-   "Estimates: finance priced at the upper-middle (task floor ~$500, per Mechanize’s ~$2,400 of training compute per task); volume per lab, tier counts (China benchmarked to UniPat orders) and the three-domain extrapolation are our assumptions.",
+   "Estimates: finance priced at the upper-middle (task floor ~$500, per Mechanize’s ~$2,400 of training compute per task); volume per lab (China benchmarked to UniPat orders), tier counts and the three-domain extrapolation are our assumptions.",
    "Buyers: OpenAI, Google DeepMind, Meta, xAI and other US frontier labs; Thinking Machines, Reflection AI and other new labs; Alibaba, ByteDance, DeepSeek, Moonshot and other Chinese labs."
   ]
  },
@@ -108,10 +108,10 @@
    {
     "title": "Risk in the reward",
     "lines": [
-     "Score = max(0, P&L − 0.1×DD) × Sharpe factor",
+     "A = max(0, P&L − 0.1×DD) × Sharpe factor",
      "After fixing 3 flaws in a human strategy,",
      "P&L rose 63% but Sharpe fell 7.27 → 3.03:",
-     "return and risk diverge, so risk is priced in"
+     "return and risk diverge; the reward counts both"
     ]
    },
    {
@@ -134,7 +134,7 @@
    ],
    [
     "What buyers want",
-    "Labs choosing environments keep citing one key test: no high score by gaming (Epoch AI, 18 interviews)"
+    "Interviewees repeatedly name it a key quality test: no high score by gaming (Epoch AI, 18 interviews)"
    ],
    [
     "Speed",
