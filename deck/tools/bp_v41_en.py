@@ -4,7 +4,8 @@ Content follows the YC / Sequoia / a16z order (problem, why now, solution, produ
 competition, business model, why us, team, next six months) and carries no round terms. The words live in
 bp_v41_en_content.json (drafted from v41's facts, fact-checked against bp_v41.py); this file is layout only.
 
-Usage: python3 bp_v41_en.py SimReal-BP-v17.pptx SimReal-BP-v41-EN.pptx
+Usage: python3 bp_v41_en.py SimReal-BP-v17.pptx SimReal-BP-v41-EN.pptx [content.json]
+       (v42-EN: bp_v42_en_content.json, the workflow-verified revision)
 """
 import copy
 import io
@@ -35,7 +36,8 @@ R = bp_v34.R
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ASSETS = os.path.join(HERE, '..', 'assets')
-X = json.load(open(os.path.join(HERE, 'bp_v41_en_content.json'), encoding='utf-8'))
+CONTENT = sys.argv[3] if len(sys.argv) > 3 else os.path.join(HERE, 'bp_v41_en_content.json')
+X = json.load(open(CONTENT, encoding='utf-8'))
 SECTIONS = ['Problem', 'Solution', 'Traction', 'Market', 'Business', 'Team', 'Next']
 CONF = 'Confidential  ·  For invited investors only  ·  October 2026'
 CONTACT = [('business@simreal.co', MONO), ('   ·   ', SANS), ('simreal.com.cn', MONO)]
@@ -109,7 +111,7 @@ def p_cover(sh):
     sh.t(0.6, 3.42, 9.2, 0.46, c['tagline'], 22, C['ink'], SERIF)
     sh.t(0.6, 4.1, 9.6, 0.36, c['subline'], 16, C['accent'])
     sh.rule(0.6, 4.95, 7.6)
-    for (k, v), x in zip([('Seed deck', 'October 2026'), ('Contact', 'business@simreal.co')], [0.6, 4.6]):
+    for (k, v), x in zip(X.get('cover_meta', [('Seed deck', 'October 2026'), ('Contact', 'business@simreal.co')]), [0.6, 4.6]):
         sh.t(x, 5.12, 3.4, 0.22, k, 9.5, C['grey'], MONO)
         sh.t(x, 5.4, 3.6, 0.36, v, 15, C['ink'])
     sh.t(0.6, 6.98, 8, 0.26, CONF, 8, C['grey'], anchor='ctr')

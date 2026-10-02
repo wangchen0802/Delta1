@@ -1,5 +1,6 @@
 # SimReal 商业计划书（中文）
 
+- `SimReal-BP-v42-EN.pptx` / `SimReal-BP-v42-EN.pdf`：英文版最新（13页）：v41-EN经工作流完整审校后的修订版——三版初稿（YC / Sequoia / a16z视角）合并，逐条对照bp_v41.py事实核查、按美国VC风格润色；补回被弱化的保留说法（可验证的增益、网络覆盖不等于参与交付、Muse/Dots为行业示例），客户阶段按v41改为Now / Expanding / Next，封面改为Company overview。文案见 `deck/tools/bp_v42_en_content.json`，由 `deck/tools/bp_v41_en.py ... deck/tools/bp_v42_en_content.json` 生成。
 - `SimReal-BP-v41-EN.pptx` / `SimReal-BP-v41-EN.pdf`：英文版（13页）：按YC / Sequoia / a16z推荐的顺序与写法重排（Problem → Why now → Solution → Product → Traction → Market → Competition → Business model → Why us → Team → Next 6 months），不含任何融资条款（金额、估值、出让比例、资金分配）；末页为六个月里程碑与愿景。数据与保留说法同v41。文案见 `deck/tools/bp_v41_en_content.json`，由 `deck/tools/bp_v41_en.py` 生成。
 - `SimReal-BP-v41.pptx` / `SimReal-BP-v41.pdf`：最新版（14页，中文）：以v39为底微调——“数据业务”并入“商业模式”（三类数据即AI数据这条收入线），“专家网络”并入“当前进展”（进展、从业者背景、专家网络与高校一页呈现）；各页断行改到语义处，消除半词换行与孤字；措辞与数据同v39。由 `deck/tools/bp_v41.py` 生成。
 - `SimReal-BP-v40.pptx` / `SimReal-BP-v40.pdf`：（正文20页＋附录3页，中文，未采用）：按团队给定的20页文案改写v39，标题≤12字、要点≤15字，v39数据与事实全部保留；加回“核心洞察”“浪潮”，新增“个人Agent”（含循环图）与收尾页，商业模式加个人Agent一栏，融资页加“接入首批个人Agent团队”；附录沿用Xitadel方法论、数据来源、术语表。逐页修改清单与待确认事项见 `SimReal-v40-changes.md`；由 `deck/tools/bp_v40.py` 生成。
