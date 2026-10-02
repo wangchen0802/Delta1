@@ -306,25 +306,25 @@ def p_business(sh):
     cw, xs = cols(3, 0.3)
     for i, (sg, x) in enumerate(zip(c['segments'], xs)):
         now = i == 0
-        sh.rect(x, 1.92, cw, 1.02, C['ink'] if now else C['tint'])
+        sh.rect(x, 1.92, cw, 1.12, C['ink'] if now else C['tint'])
         sh.t(x + 0.25, 2.02, cw - 0.5, 0.2, sg['stage'], 9, C['accentLt'] if now else C['accent'], MONO, True)
         sh.t(x + 0.25, 2.24, cw - 0.5, 0.34, sg['name'], 15, C['onDarkHi'] if now else C['ink'], SERIF)
-        sh.t(x + 0.25, 2.58, cw - 0.5, 0.34, sg['line'], 10.5, C['onDark'] if now else C['body'], line=1.05)
-    label(sh, 0.6, 3.1, 4, 'What they buy')
+        sh.t(x + 0.25, 2.6, cw - 0.5, 0.4, sg['line'], 10, C['onDark'] if now else C['body'], line=1.05)
+    label(sh, 0.6, 3.14, 4, 'What they buy')
     for i, (ln, x) in enumerate(zip(c['lines'], xs)):
-        sh.rect(x, 3.36, cw, 1.6, C['tint'])
-        sh.t(x + 0.25, 3.46, 1, 0.2, f'0{i + 1}', 9, C['accent'], MONO, True)
-        sh.t(x + 0.25, 3.66, cw - 0.5, 0.4, ln['name'], 18, C['ink'], SERIF)
-        sh.t(x + 0.25, 4.08, cw - 0.5, 0.4, ln['what'], 10.5, C['body'], line=1.05)
-        sh.t(x + 0.25, 4.56, cw - 0.5, 0.34, [(R('Pricing  ', 9, C['accent'], MONO), R(ln['pricing'], 10.5, C['ink'], SANS, True))], 10.5, line=1.05)
+        sh.rect(x, 3.38, cw, 1.62, C['tint'])
+        sh.t(x + 0.25, 3.48, 1, 0.2, f'0{i + 1}', 9, C['accent'], MONO, True)
+        sh.t(x + 0.25, 3.68, cw - 0.5, 0.4, ln['name'], 18, C['ink'], SERIF)
+        sh.t(x + 0.25, 4.1, cw - 0.5, 0.4, ln['what'], 10.5, C['body'], line=1.05)
+        sh.t(x + 0.25, 4.58, cw - 0.5, 0.4, [(R('Pricing  ', 9, C['accent'], MONO), R(ln['pricing'], 10.5, C['ink'], SANS, True))], 10.5, line=1.05)
     pw, pxs = cols(4, 0.4)
     for i, (k, x) in enumerate(zip(c['path'], pxs)):
         last = i == 3
-        sh.rect(x, 5.14, pw, 0.5, C['ink'] if last else C['tint'])
-        sh.t(x + 0.22, 5.14, pw - 0.44, 0.5, k, 14, C['accentLt'] if last else C['ink'], SERIF, anchor='ctr')
+        sh.rect(x, 5.18, pw, 0.48, C['ink'] if last else C['tint'])
+        sh.t(x + 0.22, 5.18, pw - 0.44, 0.48, k, 14, C['accentLt'] if last else C['ink'], SERIF, anchor='ctr')
         if i < 3:
-            sh.t(x + pw, 5.14, 0.4, 0.5, '→', 13, C['grey'], algn='ctr', anchor='ctr')
-    kicker(sh, 5.8, c['kicker'], 17)
+            sh.t(x + pw, 5.18, 0.4, 0.48, '→', 13, C['grey'], algn='ctr', anchor='ctr')
+    kicker(sh, 5.82, c['kicker'], 17)
     note(sh, c['note'], 6.42)
     footer(sh)
 
@@ -388,7 +388,7 @@ def p_next(sh):
     if c.get('extra'):
         sh.t(xs[1] + 0.32, top + ch - 0.4, cw - 0.64, 0.3, c['extra'], 11, C['onDarkHi'], SANS, True)
     v = c['vision']
-    sh.t(0.6, 5.12, W, 0.9, [v['line1'], v['line2']], 22, C['ink'], SERIF, line=1.05, gap=0)
+    sh.t(0.6, 5.12, W, 0.95, [v['line1'], v['line2']], 24, C['ink'], SERIF, line=1.05, gap=0)
     sh.t(0.6, 6.25, W, 0.3, [tuple(R(t, 11, C['grey'] if f is SANS else C['ink'], f) for t, f in CONTACT)], 11)
     footer(sh)
 

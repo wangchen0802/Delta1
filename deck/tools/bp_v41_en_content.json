@@ -1,0 +1,611 @@
+{
+ "cover": {
+  "line1": "AI that improves itself",
+  "line2": "in the real world",
+  "tagline": "Rebuilding the real world from real data",
+  "subline": "Training ground for AI labs, enterprises, and personal agents"
+ },
+ "summary": {
+  "label": "Overview",
+  "claim": {
+   "lead": "We give AI and personal agents a real world",
+   "accent": "to fail, learn, and improve themselves"
+  },
+  "cells": [
+   {
+    "k": "What we do",
+    "v": "Environments & data",
+    "lines": [
+     "For AI labs and enterprises",
+     "Proprietary environments for self-improvement",
+     "Next: open practice to personal agents"
+    ]
+   },
+   {
+    "k": "Shipped",
+    "v": "7 products, 14 days",
+    "lines": [
+     "Live: trading, AI research, event prediction",
+     "5 public repos; no outside funding"
+    ]
+   },
+   {
+    "k": "Key result",
+    "v": "+12%",
+    "lines": [
+     "Qwen3.8-27B after training in Xitadel",
+     "Up to 12% better on unseen trading days",
+     "Reproduced in multiple independent runs"
+    ]
+   },
+   {
+    "k": "Team",
+    "v": "Quant founders",
+    "lines": [
+     "Born 2005; math at Cambridge, LSE, and Duke",
+     "Experience at Jane Street, Citadel,",
+     "Optiver, and Millennium"
+    ]
+   },
+   {
+    "k": "Market",
+    "v": "$8.5B → $700B",
+    "lines": [
+     "Today: training data and RL environments",
+     "2030: company scenario, 82x today",
+     "Not an independent forecast"
+    ]
+   },
+   {
+    "k": "6-month goals",
+    "v": "20 customers",
+    "lines": [
+     "3–4 customers in months 1–3; 20 by month 6",
+     "RSI on open-source large models by month 6",
+     "Today: 2 frontier labs in talks"
+    ]
+   }
+  ],
+  "kicker": {
+   "lead": "The best training world makes the best AI.",
+   "accent": "We start with trading, then the whole world."
+  }
+ },
+ "problem": {
+  "label": "Problem",
+  "claim": {
+   "lead": "AI has learned to reason,",
+   "accent": "but it still can’t do real-world work"
+  },
+  "sub": "Real work has no answer key, only the world’s reaction",
+  "col_left": "Surface check: passed",
+  "col_right": "Real world: failed",
+  "rows": [
+   {
+    "domain": "Trading",
+    "looks": "The backtest only goes up",
+    "reality": "Loses money in markets it hasn’t seen"
+   },
+   {
+    "domain": "Software",
+    "looks": "All tests pass",
+    "reality": "Breaks in production"
+   },
+   {
+    "domain": "Finance",
+    "looks": "The books look done",
+    "reality": "Month-end close won’t reconcile"
+   },
+   {
+    "domain": "Event prediction",
+    "looks": "The analysis sounds convincing",
+    "reality": "Misses once the outcome is known"
+   }
+  ],
+  "evidence": [
+   {
+    "v": "6/32",
+    "text": "Real-money runs by frontier models that made a profit (Alpha Arena)"
+   },
+   {
+    "v": "77 < 80",
+    "text": "On Xitadel, top model GPT 6 scores 77; best human, 80"
+   }
+  ],
+  "kicker": {
+   "lead": "To learn real work, AI needs a world",
+   "accent": "where real outcomes settle every move."
+  }
+ },
+ "why_now": {
+  "label": "Why now",
+  "claim": {
+   "lead": "The bottleneck is moving from data to environments,",
+   "accent": "and professional domains still lack good ones"
+  },
+  "cards": [
+   {
+    "title": "Training has changed",
+    "evidence": [
+     "Reasoning models train with RL on automatically checked outcomes",
+     "Public human text is projected to run out between 2026 and 2032"
+    ],
+    "means": "Scarce now: auto-scoring environments"
+   },
+   {
+    "title": "Budgets are in place",
+    "evidence": [
+     "$200–$2,000 per RL task; environment contracts run 6–7 figures a quarter",
+     "Mercor acquired RL-environment startup Deeptune in July 2026"
+    ],
+    "means": "Labs now buy environments"
+   },
+   {
+    "title": "Expert tasks: unsolved",
+    "evidence": [
+     "Frontier models trading real money made a profit in only 6 of 32 runs",
+     "Meta Muse and OpenAI Dots began doing work for people in September 2026"
+    ],
+    "means": "Trading first: easy to verify, big gap"
+   }
+  ],
+  "window": {
+   "head": "The window",
+   "text": "About 20 RL-environment startups; Wing VC expects 3–5 to last.",
+   "accent": "Be first to prove gains and win long-term lab contracts"
+  },
+  "sources": "Sources: Epoch AI (public-text projection; An FAQ on RL environments, Jan 2026); SiliconANGLE, TechCrunch (Jul 2026); Nof1 Alpha Arena (May 2026); Meta and OpenAI launches (Sep 2026); Wing VC (2026). Prices are industry figures, not SimReal contracts."
+ },
+ "solution": {
+  "label": "Solution",
+  "claim": {
+   "lead": "Train models on task outcomes,",
+   "accent": "then check the gains with independent evals"
+  },
+  "steps": [
+   {
+    "name": "Base agent",
+    "lines": [
+     "Plug in the client’s model",
+     "and its tool calling"
+    ]
+   },
+   {
+    "name": "Adapt as needed",
+    "lines": [
+     "Fine-tune on demonstrations",
+     "Align with human feedback"
+    ]
+   },
+   {
+    "name": "Train with RL",
+    "lines": [
+     "Reward real outcomes",
+     "Update the model or policy"
+    ]
+   },
+   {
+    "name": "Independent evals",
+    "lines": [
+     "Test on unseen tasks",
+     "Deliver at the agreed bar"
+    ]
+   }
+  ],
+  "connector": "Weak tasks found in training",
+  "loop_title": "Self-generated task loop · R&D direction",
+  "loop": [
+   {
+    "name": "Analyze failures",
+    "desc": "Find the weak tasks in training"
+   },
+   {
+    "name": "Agent sets tasks",
+    "desc": "Generates or picks new tasks"
+   },
+   {
+    "name": "Check tasks and scoring",
+    "desc": "Rules, executors, expert review"
+   },
+   {
+    "name": "Back to training",
+    "desc": "Next round once checks pass"
+   }
+  ],
+  "loop_note": "Self-generated tasks are an R&D direction; eval tasks never feed training or generation",
+  "deliver_head": "SimReal delivers",
+  "deliver_items": [
+   "Professional data",
+   "Training environments",
+   "Scoring tools",
+   "Eval reports"
+  ]
+ },
+ "product": {
+  "label": "Product",
+  "claim": {
+   "lead": "5 benchmarks are public,",
+   "accent": "and our infrastructure cuts the cost of every training round"
+  },
+  "rows": [
+   {
+    "name": "SimReal-MLBench",
+    "desc": "60 real competition tasks that test ML research skill"
+   },
+   {
+    "name": "Xitadel-QuantBench",
+    "desc": "Replays order books vs. pro traders on the same asset; keeps trajectories"
+   },
+   {
+    "name": "MathmoBench",
+    "desc": "Advanced math that tests reasoning and problem solving"
+   },
+   {
+    "name": "Puzzle Benchmark",
+    "desc": "749 hand-written reasoning puzzles across 15 topics"
+   },
+   {
+    "name": "FuturePredict Bench",
+    "desc": "Forecasts locked before the deadline, scored on real outcomes"
+   }
+  ],
+  "infra_label": "Infrastructure: more training from the same compute",
+  "infra": [
+   {
+    "v": "1/4",
+    "k": "Time per training round",
+    "how": "Deep microVM isolation"
+   },
+   {
+    "v": "+64%",
+    "k": "Scored attempts, same resources",
+    "how": "Rollout allocation"
+   },
+   {
+    "v": "−1/3",
+    "k": "Checkpoint time, half the saves",
+    "how": "Smart checkpointing picks when to save"
+   }
+  ],
+  "note": "Repos as of Oct 2, 2026. Infra metrics are internal tests with different baselines; they can’t be multiplied or added."
+ },
+ "traction": {
+  "label": "Traction",
+  "claim": {
+   "lead": "7 products in 14 days with no outside funding;",
+   "accent": "2 frontier labs in talks"
+  },
+  "stats": [
+   {
+    "v": "2",
+    "k": "Frontier labs in talks",
+    "means": "Path to our first paid pilot"
+   },
+   {
+    "v": "14",
+    "k": "Days to build 7 products",
+    "means": "How fast we deliver"
+   },
+   {
+    "v": "512",
+    "k": "GitHub stars on 5 public repos",
+    "means": "Dev and researcher interest"
+   },
+   {
+    "v": "$0",
+    "k": "Outside funding",
+    "means": "Every dollar went into product"
+   }
+  ],
+  "date_note": "As of September 29, 2026; GitHub stars as of October 2, 2026",
+  "backers_label": "Practitioners supporting our R&D work at",
+  "network": [
+   {
+    "v": "200,000+",
+    "k": "Reachable, verifiable experts"
+   },
+   {
+    "v": "7,000+",
+    "k": "Experts on the waitlist"
+   },
+   {
+    "v": "21",
+    "k": "Universities: students and alumni"
+   }
+  ],
+  "disclaimer": "Logos show where supporters work and some of the universities in our network; they do not imply endorsement. Network reach is not registration or participation."
+ },
+ "market": {
+  "label": "Market",
+  "claim": {
+   "lead": "Spend on training data and environments is accelerating:",
+   "accent": "our 2030 scenario is about 82x today"
+  },
+  "now": {
+   "label": "Today: training data and RL environments",
+   "value": "$8.5B / year",
+   "sub": "Estimated revenue of 50+ vendors (Deedy Das, Jul 2026)"
+  },
+  "future": {
+   "label": "2030: company scenario",
+   "value": "$700B / year",
+   "sub": "About 82x today; assumes a $7T AI economy with 10% spent on training"
+  },
+  "comps": [
+   {
+    "v": "27x",
+    "d": "Mercor’s gross run-rate: $75M to $2B in 16 months",
+    "means": "Expert-data demand is growing fast"
+   },
+   {
+    "v": "10x",
+    "d": "Mercor’s valuation: $2B to $20B (in talks) in 17 months",
+    "means": "Investors have priced this category"
+   },
+   {
+    "v": "18x",
+    "d": "Snorkel AI data-services growth in about a year, to a $375M run-rate",
+    "means": "Shift to experts and environments"
+   }
+  ],
+  "note": "Sources: Mercor (TechCrunch, Sacra, Dealroom); Snorkel AI announcement (Sep 2026); Deedy Das industry map (Jul 2026). 2030 is a company scenario, not an independent research forecast."
+ },
+ "competition": {
+  "label": "Competition",
+  "claim": {
+   "lead": "We start with trading and event prediction:",
+   "accent": "others win on scale; we win on scoring and speed"
+  },
+  "heads": [
+   "What clients use today",
+   "What they do well",
+   "Where they fall short",
+   "SimReal’s edge"
+  ],
+  "rows": [
+   {
+    "alt": "Data & environment vendors",
+    "names": "Scale AI, AfterQuery, Mercor",
+    "pro": "Big expert networks, deep lab ties",
+    "con": "Mostly general domains; trade matching and risk scoring need desk experience",
+    "ours": "Desk-designed matching and risk scoring; same strategy, same score"
+   },
+   {
+    "alt": "Public benchmarks",
+    "names": "Alpha Arena and other leaderboards",
+    "pro": "Easy to compare models",
+    "con": "Eval only, no training data; saturate soon after release",
+    "ours": "Same environment yields training data; reserve tasks keep it fresh"
+   },
+   {
+    "alt": "Built in-house",
+    "names": "",
+    "pro": "Fits their own tools and business",
+    "con": "Lacks domain rules and experts; ties up research staff",
+    "ours": "Ready-made trading and event-prediction worlds plus experts, on demand"
+   }
+  ],
+  "moat": {
+   "head": "Reusable assets",
+   "text": "Tasks, scorers, held-out test sets, expert data, and failure cases grow with each client and model"
+  },
+  "kicker": {
+   "lead": "The category is priced: Bloomberg reports Alibaba plans to lead",
+   "accent": "UniPat’s $300M round at about a $2.5B valuation"
+  }
+ },
+ "business": {
+  "label": "Business model",
+  "claim": {
+   "lead": "We charge AI labs and enterprises",
+   "accent": "by delivery scope and usage rights"
+  },
+  "segments": [
+   {
+    "stage": "Now",
+    "name": "AI labs",
+    "line": "2 frontier labs in talks for data and environments"
+   },
+   {
+    "stage": "Next",
+    "name": "Enterprise agent teams",
+    "line": "Workflows become tasks to train and test before launch"
+   },
+   {
+    "stage": "Later",
+    "name": "Personal-agent developers",
+    "line": "Practice for long tasks, cross-app work, and recovery"
+   }
+  ],
+  "lines": [
+   {
+    "name": "Environments",
+    "what": "Executable tasks and outcome-scoring tools",
+    "pricing": "License by term, scope, and usage rights"
+   },
+   {
+    "name": "AI data",
+    "what": "Agent trajectories, expert data, and eval data",
+    "pricing": "By volume or batch"
+   },
+   {
+    "name": "Joint training",
+    "what": "Training experiments, transfer validation, and managed runs",
+    "pricing": "Project or ongoing service contracts"
+   }
+  ],
+  "path": [
+   "Scope and criteria",
+   "Paid pilot",
+   "Licensed delivery",
+   "Ongoing updates"
+  ],
+  "kicker": {
+   "lead": "Every model upgrade needs new tasks, trajectories, and tests,",
+   "accent": "so updates drive repeat purchases"
+  },
+  "note": "Pricing reflects the proposed business model, not signed contracts."
+ },
+ "why_us": {
+  "label": "Why us",
+  "claim": {
+   "lead": "Scoring, training, and delivery must all work at once:",
+   "accent": "we have results on all three"
+  },
+  "cards": [
+   {
+    "title": "Scoring done right",
+    "how": [
+     "Trading-desk rules, tick-level matching",
+     "P&L minus drawdown, times a Sharpe factor",
+     "Held-out last day; hash published up front"
+    ],
+    "result": [
+     "GPT 6 at 77; best human at 80",
+     "Other frontier models at 24–30"
+    ]
+   },
+   {
+    "title": "Training that pays off",
+    "how": [
+     "One environment for evals and training",
+     "MicroVM isolation, rollout allocation,",
+     "and smart checkpoints cut cost per round"
+    ],
+    "result": [
+     "Qwen3.8-27B: up to 12% better",
+     "+64% scored attempts, same resources"
+    ]
+   },
+   {
+    "title": "Fast delivery",
+    "how": [
+     "Our own environment-building tools",
+     "200,000+ reachable experts",
+     "7,000+ on the waitlist"
+    ],
+    "result": [
+     "7 products in 14 days",
+     "512 stars on 5 public repos"
+    ]
+   }
+  ],
+  "moat": {
+   "head": "Harder to copy",
+   "text": "Each client leaves tasks, scorers, failure cases, and vetted experts,",
+   "accent": "reused for the next client and domain"
+  },
+  "note": "Sources: Xitadel-QuantBench report and scoring spec (+12%: held-out days of IMC Prosperity order books); infra metrics: internal tests; stars: Oct 2, 2026."
+ },
+ "team": {
+  "label": "Team",
+  "claim": {
+   "lead": "Math, ML, quant trading, and data science;",
+   "accent": "we turned down top quant firms’ return offers to build this"
+  },
+  "people": [
+   {
+    "name": "Charles",
+    "role": "CEO",
+    "bullets": [
+     "First employee at United Stables (U stablecoin)",
+     "Helped U go 0 → $1.4B in a year, Binance in a month",
+     "Ran institutional relations; worked with SIG, DRW",
+     "Sole intern on HSBC HKD stablecoin; HKMA compliance",
+     "X (Twitter) writer with millions of views",
+     "Hedge fund intern at Citadel, London"
+    ],
+    "edu": [
+     "Born 2005 · LSE, Math (undergrad) · SCIE, Shenzhen",
+     "USAMO qualifier"
+    ]
+   },
+   {
+    "name": "Henry",
+    "role": "CTO",
+    "bullets": [
+     "Summer ML research at Cambridge",
+     "Supervised by statistician Po-Ling Loh (IMS Fellow)",
+     "Youngest undergrad AI researcher, Cambridge center",
+     "Quant experience: Jane Street, Citadel, and Optiver",
+     "Designed the 5 benchmarks and RL environments",
+     "Top 30 worldwide in a Cambridge math contest"
+    ],
+    "edu": [
+     "Born 2005 · Cambridge Math, First-Class (Scholar)",
+     "SCIE, Shenzhen · UK Physics Olympiad Super Gold"
+    ]
+   },
+   {
+    "name": "Amaris",
+    "role": "COO",
+    "bullets": [
+     "Data scientist at Millennium, Hong Kong",
+     "Millennium alt-data team’s first-ever new-grad hire",
+     "Helped launch Plug and Play’s first Hong Kong event",
+     "Held with Hong Kong Science Park; 200+ attendees",
+     "Host of J&J MedTech’s tech summit (200+ attendees)",
+     "Published author at 17; 100K+ engagements online"
+    ],
+    "edu": [
+     "Born 2005 · Duke, Math & Statistics (undergrad)",
+     "YK Pao School, Shanghai"
+    ]
+   }
+  ],
+  "kicker": {
+   "lead": "Trading-desk discipline, ML research, and institutional ties:",
+   "accent": "exactly what training environments need"
+  }
+ },
+ "next": {
+  "label": "Next 6 months",
+  "claim": {
+   "lead": "The revenue engine sells to today’s buyers;",
+   "accent": "the RSI engine works on self-improvement"
+  },
+  "tracks": [
+   {
+    "tag": "Revenue engine",
+    "title": "Environments & data",
+    "line": "Licenses and data delivery that build recurring revenue",
+    "focus": "Environments and expert data; onboarding, sign-off, and updates",
+    "milestones": [
+     {
+      "when": "Months 1–3",
+      "what": "3–4 customers",
+      "detail": "Deliver first orders, collect payment"
+     },
+     {
+      "when": "Month 6",
+      "what": "20 customers total",
+      "detail": "Expansion orders and repeat purchases"
+     }
+    ]
+   },
+   {
+    "tag": "RSI engine",
+    "title": "Recursive self-improvement",
+    "line": "R&D on self-generated tasks, training, and evals",
+    "focus": "Compute and research; validate in trading and event prediction",
+    "milestones": [
+     {
+      "when": "Months 1–3",
+      "what": "Small-model tests",
+      "detail": "Validate the self-generated task loop"
+     },
+     {
+      "when": "Month 6",
+      "what": "10+ environments",
+      "detail": "End to end; RSI on open-source LLMs"
+     }
+    ]
+   }
+  ],
+  "extra": "",
+  "vision": {
+   "line1": "Self-improving AI in the real world,",
+   "line2": "from trading to the whole world."
+  }
+ }
+}
