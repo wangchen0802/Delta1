@@ -1,5 +1,6 @@
 # SimReal 商业计划书（中文）
 
+- `SimReal-BP-v44.pdf` / `SimReal-BP-v44.pptx`：中文无融资版最新（13页）：按VC阅读顺序重排——概述、团队（第3页）、进展、问题、为什么是现在、方案、产品、技术壁垒、市场、竞争、商业模式（含客户）、团队优势；全篇改为平实短句和数字，去掉口号和金句。数据与限定说法同v41。由 `deck/tools/bp_v44.py` 生成。
 - `SimReal-BP-v43.pdf` / `SimReal-BP-v43.pptx`：中文无融资版（14页）：以v41为底，删去全部融资信息（封面、概述、融资页），末页改为“团队优势”——交付能力（7个领域14天、自有环境构建工具与训练基础设施、20万+专家网络、独立评测后交付）与紧跟新赛道（个人Agent练习场开发中：跨应用长任务、失败恢复）；“为什么是我们”聚焦计分与训练；全篇措辞再压缩。由 `deck/tools/bp_v43.py` 生成。
 - `SimReal-BP-v42-EN.pptx` / `SimReal-BP-v42-EN.pdf`：英文版最新（13页）：v41-EN经工作流完整审校后的修订版——三版初稿（YC / Sequoia / a16z视角）合并，逐条对照bp_v41.py事实核查、按美国VC风格润色；补回被弱化的保留说法（可验证的增益、网络覆盖不等于参与交付、Muse/Dots为行业示例），客户阶段按v41改为Now / Expanding / Next，封面改为Company overview。文案见 `deck/tools/bp_v42_en_content.json`，由 `deck/tools/bp_v41_en.py ... deck/tools/bp_v42_en_content.json` 生成。
 - `SimReal-BP-v41-EN.pptx` / `SimReal-BP-v41-EN.pdf`：英文版（13页）：按YC / Sequoia / a16z推荐的顺序与写法重排（Problem → Why now → Solution → Product → Traction → Market → Competition → Business model → Why us → Team → Next 6 months），不含任何融资条款（金额、估值、出让比例、资金分配）；末页为六个月里程碑与愿景。数据与保留说法同v41。文案见 `deck/tools/bp_v41_en_content.json`，由 `deck/tools/bp_v41_en.py` 生成。
