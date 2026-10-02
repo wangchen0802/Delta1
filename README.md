@@ -1,6 +1,7 @@
 # SimReal 商业计划书（中文）
 
-- `SimReal-BP-v48.pdf`：中文最新（14页）：v47去掉所有“几个月目标”——速度页底部改为融资后先做的三件事，战略页每条线只留“下一步”。由 `deck/tools/bp_v48.py` 生成。
+- `SimReal-BP-v48-EN.pptx` / `SimReal-BP-v48-EN.pdf`：v48英文版（14页，同结构同版式，不含融资金额与估值）。文案见 `deck/tools/bp_v48_en_content.json`，团队履历沿用v42-EN，由 `deck/tools/bp_v48_en.py` 生成。
+- `SimReal-BP-v48.pdf` / `SimReal-BP-v48.pptx`：中文最新（14页）：v47去掉所有“几个月目标”——速度页底部改为融资后先做的三件事，战略页每条线只留“下一步”。由 `deck/tools/bp_v48.py` 生成。
 - `SimReal-BP-v47.pdf`：中文（14页）：v46把“技术壁垒”页换成“个人Agent”练习场（开发中）；速度页的专家数字改为7,000+候补，避免与进展页重复。由 `deck/tools/bp_v47.py` 生成。
 - `SimReal-BP-v46.pdf` / `SimReal-BP-v46.pptx`：中文（14页，不含融资金额与估值）：主线改为速度——团队之后紧接“速度”页（14天7款、训练基础设施、20万+专家、融资后按这个速度的目标）；竞争页说明规模看拿下几家实验室（Mercor上半年毛营收九成以上来自三家实验室）；末页“战略与投入”给出专家数据、RL环境、Agent数据三条线的现状、投入、6/12个月目标与对标，资金投向按收入引擎/RSI引擎各半。文案见 `deck/tools/bp_v46_content.json`（多agent工作流起草、核查与润色），由 `deck/tools/bp_v46.py` 生成。
 - `SimReal-BP-v45.pdf` / `SimReal-BP-v45.pptx`：中文无融资版（13页）：v44逐句审稿后的修订——去掉会让VC皱眉的说法（“客户是”、82倍标题、“估值参照”、“顶级”“五大”“永远”），拆掉对仗和揭晓式句子，同一事物只用一个叫法；UniPat改为市场页的“可比交易”；问题页只留6/32。由 `deck/tools/bp_v45.py` 生成。
