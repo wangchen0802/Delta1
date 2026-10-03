@@ -1,5 +1,6 @@
 # SimReal 商业计划书（中文）
 
+- `SimReal-BP-v51.pdf` / `SimReal-BP-v51.pptx`：中文最新（14页）：v50把当前进展前移到团队之后，拆成两页——第4页成果（ARR 700万美元、创立三周、14天7款、2家在谈、3个世界已上线），第5页支持者与专家网络。由 `deck/tools/bp_v51.py` 生成。
 - `SimReal-BP-v50.pdf` / `SimReal-BP-v50.pptx`：中文最新（13页）：回到v39/v41的版式与措辞，去掉融资页与全部融资细节，改为traction——ARR 700万美元、创立三周交付数百万需求、14天7款产品、2家前沿实验室在谈。由 `deck/tools/bp_v50.py` 生成。
 - `SimReal-BP-v49.pdf` / `SimReal-BP-v49.pptx`：中文最新（14页）：定位改为Neolab；第10页改为“收入”页（ARR、付费客户、月环比），数字处标【待填】由创始人填写实际数据。由 `deck/tools/bp_v49.py` 生成。
 - `SimReal-BP-v48-EN.pptx` / `SimReal-BP-v48-EN.pdf`：v48英文版（14页，同结构同版式，不含融资金额与估值）。文案见 `deck/tools/bp_v48_en_content.json`，团队履历沿用v42-EN，由 `deck/tools/bp_v48_en.py` 生成。
