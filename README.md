@@ -1,6 +1,7 @@
 # SimReal 商业计划书（中文）
 
-- `SimReal-BP-v59.pdf` / `SimReal-BP-v59.pptx`：中文最新（17页）：按Neolab的定位微调措辞。“Neolab”改为中文媒体最常用的“AI新实验室（Neolab）”；“卖环境、卖数据”等措辞改成实验室口吻。“为什么是现在”加入RSI新实验室Recursive估值46.5亿美元（2026年5月）；“为什么是我们”结尾点出与其他新实验室的区别：多数还没有收入，衍真成立24天ARR 4,500万元。封面第三行精简为“让AI在现实中精准行动的引擎”。由 `deck/tools/bp_v59.py` 生成。
+- `SimReal-BP-v60.pdf` / `SimReal-BP-v60.pptx`：中文最新（16页）：去掉RSI路线图页。封面两行小标题合成一句“用真实数据，驱动AI精准行动”。客户页第三类改为个人用户（C端）：快速让AI贴合个人习惯。RSI方法论页去掉交易示例，换成“衍真强在哪”（打分专业、出题又快又准、+12%），字数减少约两成。由 `deck/tools/bp_v60.py` 生成。
+- `SimReal-BP-v59.pdf` / `SimReal-BP-v59.pptx`：中文（17页）：按Neolab的定位微调措辞。“Neolab”改为中文媒体最常用的“AI新实验室（Neolab）”；“卖环境、卖数据”等措辞改成实验室口吻。“为什么是现在”加入RSI新实验室Recursive估值46.5亿美元（2026年5月）；“为什么是我们”结尾点出与其他新实验室的区别：多数还没有收入，衍真成立24天ARR 4,500万元。封面第三行精简为“让AI在现实中精准行动的引擎”。由 `deck/tools/bp_v59.py` 生成。
 - `SimReal-BP-v58.pdf` / `SimReal-BP-v58.pptx`：中文（17页）：ARR改为4,500万元人民币；RSI以完整上线的姿态呈现（去掉所有“研发中”）；“数据基础设施”改为“数据”。“为什么是我们”改用2026年RSI的三个变化（OpenAI研究实习生、Weco AIDE²、Breaking the Environment Wall），逐条对应衍真已经交付的东西。RSI路线图只留三级台阶。专家网络拆成从业者、高校两页，挪到“为什么是我们”之后。由 `deck/tools/bp_v58.py`（配图 `deck/tools/visuals_v58.py`）生成。
 - `SimReal-BP-v57.pdf` / `SimReal-BP-v57.pptx`：中文（16页）：RSI路线图重写为两层：上层是2026年的4件真实进展（Nature刊发AI Scientist、Weco AIDE²、OpenAI自动化研究实习生、Breaking the Environment Wall），下层是衍真的三步。封面第三行改为“驱动AI实验室、企业与个人Agent在现实世界精准行动的引擎”。竞争页去掉UniPat可比交易，改为“对手拼规模，我们拼加速度”。由 `deck/tools/bp_v57.py` 生成。
 - `SimReal-BP-v56.pdf` / `SimReal-BP-v56.pptx`：中文（16页）：封面恢复v39的两行介绍，并标出成立日期（2026年9月10日）；全篇用“成立第N天做到什么”串起时间线。第2页团队写“05后量化团队”。新增RSI路线图页（人出题 → AI自己出题 → AI改进AI），每一步附公开论文佐证（DeepSeek-R1、Absolute Zero、AlphaEvolve、Darwin Gödel Machine等）。当前进展拆成两页：成立以来的时间线加训练基础设施指标，以及专家网络。融资页只讲投入方向，不再拆分金额。数据业务并入商业模式。由 `deck/tools/bp_v56.py`（配图沿用 `deck/assets/v55/rsi.png`）生成。
