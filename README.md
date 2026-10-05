@@ -1,5 +1,6 @@
 # SimReal 商业计划书（中文）
 
+- `SimReal-BP-v64-EN.pdf` / `SimReal-BP-v64-EN.pptx`：英文美元版（15页，ARR $7M，无融资页），封面主标题改为“Every industry's best AI will come from our worlds”。由 `deck/tools/bp_v64_en.py` 生成。
 - `SimReal-BP-v60-EN-USD-7M.pdf` / `SimReal-BP-v60-EN-USD-7M.pptx`：同上英文美元版，ARR写作$7M。由 `deck/tools/bp_v60_en_usd7m.py` 生成。
 - `SimReal-BP-v60-EN-USD.pdf` / `SimReal-BP-v60-EN-USD.pptx`：英文版（15页），金额全部换成美元（按团队口径约6.67人民币兑1美元：ARR $6.75M），去掉融资页和融资内容。由 `deck/tools/bp_v60_en_usd.py` 生成。
 - `SimReal-BP-v60-EN.pdf` / `SimReal-BP-v60-EN.pptx`：v60的英文版（16页），版式与数字同v60，人民币金额写作RMB M/B。由 `deck/tools/bp_v60_en.py`（配图 `deck/tools/visuals_v60_en.py`）生成。
