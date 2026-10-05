@@ -1,5 +1,6 @@
 # SimReal 商业计划书（中文）
 
+- `SimReal-BP-v60-EN-USD-7M.pdf` / `SimReal-BP-v60-EN-USD-7M.pptx`：同上英文美元版，ARR写作$7M。由 `deck/tools/bp_v60_en_usd7m.py` 生成。
 - `SimReal-BP-v60-EN-USD.pdf` / `SimReal-BP-v60-EN-USD.pptx`：英文版（15页），金额全部换成美元（按团队口径约6.67人民币兑1美元：ARR $6.75M），去掉融资页和融资内容。由 `deck/tools/bp_v60_en_usd.py` 生成。
 - `SimReal-BP-v60-EN.pdf` / `SimReal-BP-v60-EN.pptx`：v60的英文版（16页），版式与数字同v60，人民币金额写作RMB M/B。由 `deck/tools/bp_v60_en.py`（配图 `deck/tools/visuals_v60_en.py`）生成。
 - `SimReal-BP-v63.pdf` / `SimReal-BP-v63.pptx`：中文最新（17页）：产品页改为三行，每个环境一条“给AI什么 → AI做什么 → 怎么打分”的三格连环图，数据取自各仓库公开文档：Xitadel画出7个任务×4个模型的真实逐项得分热力图；MLBench列出真实Kaggle题目、研究时限与两次提交，并用基线提交演示“胜过3,242支人类队伍中的84% → 70.1分”；FuturePredict用MLB和美国地质调查局两种真实题型，配一组标明“示例”的概率和Brier打分。由 `deck/tools/bp_v63_edit.py`（配图 `deck/tools/visuals_v63.py`）生成。
