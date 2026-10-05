@@ -1,6 +1,7 @@
 # SimReal 商业计划书（中文）
 
-- `SimReal-BP-v61.pdf` / `SimReal-BP-v61.pptx`：中文最新（17页）：在团队上传的v61（`original/SimReal-BP-v61-team.pptx`）上只改竞争页：删去“国内数据商”一行，表格下新增“为什么难被抄”：失效地图（前沿模型24–77分，人类最佳80分）、成本随规模下降（单轮耗时降到1/4，同等资源多完成64%尝试）、能自证（结果哈希预先公开；训练后+12%）。其余页面不动。由 `deck/tools/bp_v61_edit.py` 生成。
+- `SimReal-BP-v62.pdf` / `SimReal-BP-v62.pptx`：中文最新（17页）：产品页三张示意图换成每张卡一幅大字号插图，讲清楚“AI做什么、怎么打分、结果如何”：Xitadel用GitHub公开排行榜（人类最佳80，GPT 6 77.3，GLM 5.3 30.1，Kimi K3 27.7，DeepSeek V4 Pro 24.6），MLBench画出60题三档难度和官方打分，FuturePredict用一个标明“示例”的MLB问题和“提问→截止→揭晓”时间线。竞争页修正“弱在哪”一栏压到衍真底色上的问题。由 `deck/tools/bp_v62_edit.py`（配图 `deck/tools/visuals_v62.py`）生成。
+- `SimReal-BP-v61.pdf` / `SimReal-BP-v61.pptx`：中文（17页）：在团队上传的v61（`original/SimReal-BP-v61-team.pptx`）上只改竞争页：删去“国内数据商”一行，表格下新增“为什么难被抄”：失效地图（前沿模型24–77分，人类最佳80分）、成本随规模下降（单轮耗时降到1/4，同等资源多完成64%尝试）、能自证（结果哈希预先公开；训练后+12%）。其余页面不动。由 `deck/tools/bp_v61_edit.py` 生成。
 - `SimReal-BP-v60.pdf` / `SimReal-BP-v60.pptx`：中文（16页）：去掉RSI路线图页。封面两行小标题合成一句“用真实数据，驱动AI精准行动”。客户页第三类改为个人用户（C端）：快速让AI贴合个人习惯。RSI方法论页去掉交易示例，换成“衍真强在哪”（打分专业、出题又快又准、+12%），字数减少约两成。由 `deck/tools/bp_v60.py` 生成。
 - `SimReal-BP-v59.pdf` / `SimReal-BP-v59.pptx`：中文（17页）：按Neolab的定位微调措辞。“Neolab”改为中文媒体最常用的“AI新实验室（Neolab）”；“卖环境、卖数据”等措辞改成实验室口吻。“为什么是现在”加入RSI新实验室Recursive估值46.5亿美元（2026年5月）；“为什么是我们”结尾点出与其他新实验室的区别：多数还没有收入，衍真成立24天ARR 4,500万元。封面第三行精简为“让AI在现实中精准行动的引擎”。由 `deck/tools/bp_v59.py` 生成。
 - `SimReal-BP-v58.pdf` / `SimReal-BP-v58.pptx`：中文（17页）：ARR改为4,500万元人民币；RSI以完整上线的姿态呈现（去掉所有“研发中”）；“数据基础设施”改为“数据”。“为什么是我们”改用2026年RSI的三个变化（OpenAI研究实习生、Weco AIDE²、Breaking the Environment Wall），逐条对应衍真已经交付的东西。RSI路线图只留三级台阶。专家网络拆成从业者、高校两页，挪到“为什么是我们”之后。由 `deck/tools/bp_v58.py`（配图 `deck/tools/visuals_v58.py`）生成。
