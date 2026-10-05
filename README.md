@@ -1,5 +1,6 @@
 # SimReal 商业计划书（中文）
 
+- `SimReal-BP-v60-EN-USD.pdf` / `SimReal-BP-v60-EN-USD.pptx`：英文版（15页），金额全部换成美元（按团队口径约6.67人民币兑1美元：ARR $6.75M），去掉融资页和融资内容。由 `deck/tools/bp_v60_en_usd.py` 生成。
 - `SimReal-BP-v60-EN.pdf` / `SimReal-BP-v60-EN.pptx`：v60的英文版（16页），版式与数字同v60，人民币金额写作RMB M/B。由 `deck/tools/bp_v60_en.py`（配图 `deck/tools/visuals_v60_en.py`）生成。
 - `SimReal-BP-v63.pdf` / `SimReal-BP-v63.pptx`：中文最新（17页）：产品页改为三行，每个环境一条“给AI什么 → AI做什么 → 怎么打分”的三格连环图，数据取自各仓库公开文档：Xitadel画出7个任务×4个模型的真实逐项得分热力图；MLBench列出真实Kaggle题目、研究时限与两次提交，并用基线提交演示“胜过3,242支人类队伍中的84% → 70.1分”；FuturePredict用MLB和美国地质调查局两种真实题型，配一组标明“示例”的概率和Brier打分。由 `deck/tools/bp_v63_edit.py`（配图 `deck/tools/visuals_v63.py`）生成。
 - `SimReal-BP-v62.pdf` / `SimReal-BP-v62.pptx`：中文（17页）：产品页三张示意图换成每张卡一幅大字号插图，讲清楚“AI做什么、怎么打分、结果如何”：Xitadel用GitHub公开排行榜（人类最佳80，GPT 6 77.3，GLM 5.3 30.1，Kimi K3 27.7，DeepSeek V4 Pro 24.6），MLBench画出60题三档难度和官方打分，FuturePredict用一个标明“示例”的MLB问题和“提问→截止→揭晓”时间线。竞争页修正“弱在哪”一栏压到衍真底色上的问题。由 `deck/tools/bp_v62_edit.py`（配图 `deck/tools/visuals_v62.py`）生成。
