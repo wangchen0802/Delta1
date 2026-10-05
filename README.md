@@ -1,6 +1,7 @@
 # SimReal 商业计划书（中文）
 
-- `SimReal-BP-v62.pdf` / `SimReal-BP-v62.pptx`：中文最新（17页）：产品页三张示意图换成每张卡一幅大字号插图，讲清楚“AI做什么、怎么打分、结果如何”：Xitadel用GitHub公开排行榜（人类最佳80，GPT 6 77.3，GLM 5.3 30.1，Kimi K3 27.7，DeepSeek V4 Pro 24.6），MLBench画出60题三档难度和官方打分，FuturePredict用一个标明“示例”的MLB问题和“提问→截止→揭晓”时间线。竞争页修正“弱在哪”一栏压到衍真底色上的问题。由 `deck/tools/bp_v62_edit.py`（配图 `deck/tools/visuals_v62.py`）生成。
+- `SimReal-BP-v63.pdf` / `SimReal-BP-v63.pptx`：中文最新（17页）：产品页改为三行，每个环境一条“给AI什么 → AI做什么 → 怎么打分”的三格连环图，数据取自各仓库公开文档：Xitadel画出7个任务×4个模型的真实逐项得分热力图；MLBench列出真实Kaggle题目、研究时限与两次提交，并用基线提交演示“胜过3,242支人类队伍中的84% → 70.1分”；FuturePredict用MLB和美国地质调查局两种真实题型，配一组标明“示例”的概率和Brier打分。由 `deck/tools/bp_v63_edit.py`（配图 `deck/tools/visuals_v63.py`）生成。
+- `SimReal-BP-v62.pdf` / `SimReal-BP-v62.pptx`：中文（17页）：产品页三张示意图换成每张卡一幅大字号插图，讲清楚“AI做什么、怎么打分、结果如何”：Xitadel用GitHub公开排行榜（人类最佳80，GPT 6 77.3，GLM 5.3 30.1，Kimi K3 27.7，DeepSeek V4 Pro 24.6），MLBench画出60题三档难度和官方打分，FuturePredict用一个标明“示例”的MLB问题和“提问→截止→揭晓”时间线。竞争页修正“弱在哪”一栏压到衍真底色上的问题。由 `deck/tools/bp_v62_edit.py`（配图 `deck/tools/visuals_v62.py`）生成。
 - `SimReal-BP-v61.pdf` / `SimReal-BP-v61.pptx`：中文（17页）：在团队上传的v61（`original/SimReal-BP-v61-team.pptx`）上只改竞争页：删去“国内数据商”一行，表格下新增“为什么难被抄”：失效地图（前沿模型24–77分，人类最佳80分）、成本随规模下降（单轮耗时降到1/4，同等资源多完成64%尝试）、能自证（结果哈希预先公开；训练后+12%）。其余页面不动。由 `deck/tools/bp_v61_edit.py` 生成。
 - `SimReal-BP-v60.pdf` / `SimReal-BP-v60.pptx`：中文（16页）：去掉RSI路线图页。封面两行小标题合成一句“用真实数据，驱动AI精准行动”。客户页第三类改为个人用户（C端）：快速让AI贴合个人习惯。RSI方法论页去掉交易示例，换成“衍真强在哪”（打分专业、出题又快又准、+12%），字数减少约两成。由 `deck/tools/bp_v60.py` 生成。
 - `SimReal-BP-v59.pdf` / `SimReal-BP-v59.pptx`：中文（17页）：按Neolab的定位微调措辞。“Neolab”改为中文媒体最常用的“AI新实验室（Neolab）”；“卖环境、卖数据”等措辞改成实验室口吻。“为什么是现在”加入RSI新实验室Recursive估值46.5亿美元（2026年5月）；“为什么是我们”结尾点出与其他新实验室的区别：多数还没有收入，衍真成立24天ARR 4,500万元。封面第三行精简为“让AI在现实中精准行动的引擎”。由 `deck/tools/bp_v59.py` 生成。
