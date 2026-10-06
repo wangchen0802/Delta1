@@ -1,5 +1,6 @@
 # SimReal 商业计划书（中文）
 
+- `SimReal-BP-v66-EN.pdf` / `SimReal-BP-v66-EN.pptx`：英文版（12页），按YC与a16z的种子轮deck指引重写以提高清晰度：封面一句话说明做什么，一页一个观点，标题即结论，顺序为问题→方案→产品→进展→为什么是现在→市场→商业模式→优势。文案按团队提供的定位（AI-native neolab for RSI；环境、验证器与训练数据；AI参与闭环；奖励来自无法被说服的真实结果；数据是收入引擎；量化研究背景加亚洲专业人才）。创始人信息更正：去掉高中，$U，Henry在Po-Ling Loh教授门下的剑桥AI研究中心任最年轻研究员。由 `deck/tools/bp_v66_en.py`（配图 `deck/tools/visuals_v66_en.py`）生成。
 - `SimReal-BP-v65-EN.pdf` / `SimReal-BP-v65-EN.pptx`：英文终版（12页），按团队选定的页面（`original/SimReal-BP-v60-EN-USD-7M-team.pptx`）重建并保留其文字修改；Amaris改为YK Pao School；市场页“2030: the AI economy”；客户页改为AI frontier labs / Enterprise agents / Personal agents；页码重新连续编号。由 `deck/tools/bp_v65_en.py` 生成。
 - `SimReal-BP-v64-EN.pdf` / `SimReal-BP-v64-EN.pptx`：英文美元版（15页，ARR $7M，无融资页），封面主标题改为“Every industry's best AI will come from our worlds”。由 `deck/tools/bp_v64_en.py` 生成。
 - `SimReal-BP-v60-EN-USD-7M.pdf` / `SimReal-BP-v60-EN-USD-7M.pptx`：同上英文美元版，ARR写作$7M。由 `deck/tools/bp_v60_en_usd7m.py` 生成。
