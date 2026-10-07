@@ -256,7 +256,7 @@ def p_rsi(sh):
 
 PRODUCT_IMG = os.path.join(ASSETS, 'v69')
 DETAIL = [('交易环境', 'Xitadel', '102', '公开成绩', 'xitadel.png'),
-          ('AI研究环境', 'SimReal-MLBench', '302', '图中为基线提交的成绩', 'mlbench.png'),
+          ('AI研究环境', 'SimReal-MLBench', '302', '基线成绩，并非AI Agent', 'mlbench.png'),
           ('事件预测环境', 'FuturePredict', '27', '数字为示例', 'forecast.png')]
 DY0, DRH, DGAP = 1.84, 1.42, 0.06
 STEP_COLS = [(3.24, '1', '给AI的题'), (6.14, '2', 'AI做什么'), (9.04, '3', '和谁比')]   # panel lefts 2 / 292 / 582 px in the strip
@@ -280,7 +280,7 @@ def p_products(sh):
     sh.t(0.85, end + 0.06, W - 0.4, 0.36, [(R('5个开源基准，GitHub 602星', 12, C['accent'], SANS, True),
                                            R('：SimReal-MLBench 302  ·  Xitadel 102  ·  MathmoBench 101  ·  Puzzle 70  ·  FuturePredict 27'
                                              '（截至2026年10月4日）', 12, C['ink']))], 12, anchor='ctr')
-    note(sh, '人类最佳交易员：IMC Prosperity（全球交易竞赛）中每项任务的最佳真实策略。事件预测的基线：截止前封存的预测。', 6.68, 8)
+    note(sh, '人类最佳：IMC Prosperity（全球交易竞赛）中每项任务的最佳真实策略。事件预测的基线：同样提前锁定的参考预测。', 6.68, 8)
     footer(sh)
 
 

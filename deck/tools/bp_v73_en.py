@@ -354,7 +354,7 @@ def p_customers(sh):
 
 PRODUCT_IMG = os.path.join(ASSETS, 'v73en')
 DETAIL = [('Trading', 'Xitadel', 'Published results', 'xitadel.png'),
-          ('AI research', 'SimReal-MLBench', 'Result shown: a baseline run', 'mlbench.png'),
+          ('AI research', 'SimReal-MLBench', 'Baseline result, not an AI agent', 'mlbench.png'),
           ('Forecasting', 'FuturePredict', 'Illustrative numbers', 'forecast.png')]
 DY0, DRH, DGAP = 1.86, 1.48, 0.06
 STEP_COLS = [(3.24, '1', 'Given'), (6.14, '2', 'The AI'), (9.04, '3', 'Scored against')]   # panel lefts 2 / 292 / 582 px in the strip
@@ -372,8 +372,8 @@ def p_product_detail(sh):
         sh.t(0.85, y + 0.32, 2.2, 0.22, tag, 9.5, C['accent'], MONO, True)
         sh.t(0.85, y + 0.54, 2.2, 0.4, name, 18, C['ink'], SERIF)
         sh.t(0.85, y + 0.98, 2.2, 0.22, prov, 9.5, C['grey'])
-    note(sh, 'Best human trader: the best real strategy on each task from IMC Prosperity, a global trading competition. '
-             'FuturePredict baseline: a forecast sealed before the deadline.', 6.52)
+    note(sh, 'Best human: on each task, the best real strategy from IMC Prosperity, a global trading competition. '
+             'FuturePredict baseline: a reference forecast, also locked in advance.', 6.52)
     footer(sh)
 
 

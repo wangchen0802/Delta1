@@ -52,9 +52,9 @@ def panel(title, body, width, tag=''):
 
 
 def xitadel():
-    x2 = f'<span style="color:{FAINT}"> ×2</span>'
+    x2 = f'<span style="color:{GREY}"> ×2</span>'
     pills = ''.join(f'<span class="pill">{p}</span>' for p in [f'Spot{x2}', f'Options{x2}', 'Basket', 'Conversion', 'Multi-asset'])
-    pa = panel('7 markets', f'<div style="margin-bottom:-6px">{pills}</div>', P1)
+    pa = panel('7 trading tasks', f'<div style="margin-bottom:-6px">{pills}</div>', P1)
     k = lambda s: f'<span style="color:{ACC}">{s}</span>'
     code = (f'<div class="mono" style="background:#FAF9F6;border-radius:4px;padding:6px 10px;font-size:12.5px;line-height:1.5;color:{BODY};white-space:pre">'
             f'{k("class")} Trader:\n    {k("def")} run(self, state):\n        {k("return")} orders</div>')
@@ -73,11 +73,11 @@ def xitadel():
                  f'<div style="position:absolute;left:0;top:0;height:11px;width:{v*ppt:.0f}px;background:{c};border-radius:0 3px 3px 0"></div></div>'
                  f'<div class="num" style="width:{vw}px;text-align:right;font-size:12.5px;{vcss}">{v:g}</div></div>')
     dash = (f'<div style="position:absolute;left:{lw + 80*ppt - 1:.0f}px;top:14px;width:0;height:72px;border-left:1px dashed {GREY}"></div>')
-    pc = panel('The best human trader', f'<div style="position:relative">{body}{dash}</div>', P3)
+    pc = panel('The best human on each task', f'<div style="position:relative">{body}{dash}</div>', P3)
     return pa + ARROW + pb + ARROW + pc
 
 def mlbench():
-    head = (f'<div style="display:flex;justify-content:space-between;font-size:11.5px;color:{GREY};padding-bottom:2px;border-bottom:1px solid #E2E0DA">'
+    head = (f'<div style="display:flex;justify-content:space-between;font-size:12.5px;color:{GREY};padding-bottom:2px;border-bottom:1px solid #E2E0DA">'
             f'<span>For example</span><span>Time limit</span></div>')
     rws = ''.join(f'<div style="display:flex;justify-content:space-between;font-size:13px;line-height:20px;{"border-bottom:1px solid #EEECE6;" if i < 2 else ""}">'
                   f'<span style="color:{INK}">{a}</span><span class="num" style="color:{GREY}">{b}</span></div>'
@@ -98,43 +98,42 @@ def mlbench():
         ch += (f'<div style="width:{w + (0 if first else 6)}px;margin-left:{ml};height:30px;background:{bg};clip-path:{clip};{rad}'
                f'display:flex;align-items:center;justify-content:center;padding-left:{0 if first else 6}px;padding-right:{0 if last else 4}px;'
                f'font-size:12.5px;font-weight:600;color:{col}">{s}</div>')
-    pb = panel('Runs the whole project', f'<div style="display:flex">{ch}</div><div style="font-size:13px;color:{BODY};margin-top:10px">The better of 2 submissions counts</div>', P2)
+    pb = panel('Runs the whole project', f'<div style="display:flex">{ch}</div><div style="font-size:13px;color:{BODY};margin-top:10px">Best of up to 2 submissions</div>', P2)
     p = 0.837
-    line1 = f'<div style="font-size:12px;color:{GREY}">Bike Sharing Demand competition</div>'
+    line1 = f'<div style="font-size:12.5px;color:{GREY}">Bike Sharing Demand competition</div>'
     stat = (f'<div style="display:flex;align-items:baseline;white-space:nowrap;margin:2px 0 6px">'
-            f'<span style="font-size:13px;color:{BODY};margin-right:5px">Beat</span>'
-            f'<span class="num" style="font-size:24px;font-weight:700;color:{ACC};margin-right:5px">84%</span>'
+            f'<span style="font-size:13px;color:{BODY};margin-right:5px">A baseline beat</span>'
+            f'<span class="num" style="font-size:24px;font-weight:700;color:{INK};margin-right:5px">84%</span>'
             f'<span style="font-size:13px;color:{BODY}">of 3,242 human teams</span></div>')
     track = (f'<div style="position:relative;height:8px;border-radius:4px;background:#EDEBE5">'
              f'<div style="position:absolute;left:0;top:0;height:8px;width:{p*100:.1f}%;border-radius:4px 0 0 4px;background:#F6D9C6"></div>'
-             f'<div style="position:absolute;left:{p*100:.1f}%;top:-3px;width:4px;height:14px;margin-left:-2px;border-radius:2px;background:{ACC}"></div></div>'
-             f'<div style="display:flex;justify-content:space-between;font-size:11.5px;color:{GREY};margin-top:4px"><span>Last place</span><span>First place</span></div>')
-    pc = panel('The Kaggle leaderboard', line1 + stat + track, P3)
+             f'<div style="position:absolute;left:{p*100:.1f}%;top:-3px;width:4px;height:14px;margin-left:-2px;border-radius:2px;background:{INK}"></div></div>'
+             f'<div style="display:flex;justify-content:space-between;font-size:12.5px;color:{GREY};margin-top:4px"><span>Last place</span><span>First place</span></div>')
+    pc = panel('The final Kaggle leaderboard', line1 + stat + track, P3)
     return pa + ARROW + pb + ARROW + pc
 
 def forecast():
     chips = ''.join(f'<span class="num" style="display:inline-block;font-size:12.5px;line-height:18px;padding:0 10px;margin-right:6px;border-radius:9px;background:{TINT};color:{BODY}">{c}</span>' for c in ['0', '1', '2+'])
     card = (f'<div style="background:#FAF9F6;border-radius:4px;padding:6px 9px">'
-            f'<div style="font-size:11.5px;color:{GREY};margin-bottom:1px">USGS earthquake data</div>'
+            f'<div style="font-size:12.5px;color:{GREY};margin-bottom:1px">USGS earthquake data</div>'
             f'<div style="font-size:13px;line-height:17px;color:{INK}">How many magnitude 5+ earthquakes<br>worldwide tomorrow?</div>'
             f'<div style="margin-top:6px">{chips}</div></div>')
-    pa = panel('A question about tomorrow', card, P1)
+    pa = panel('A question with no answer yet', card, P1)
     probs = [('0', 10, MID), ('1', 30, MID), ('2+', 60, ACC)]
     bars = ''.join(f'<div style="display:flex;align-items:center;height:20px"><div class="num" style="width:30px;font-size:12.5px;color:{BODY}">{k}</div>'
                    f'<div style="height:12px;width:{v*2.4:.0f}px;background:{c};border-radius:0 3px 3px 0"></div>'
                    f'<div class="num" style="font-size:12.5px;margin-left:6px;color:{INK};{"font-weight:700" if v == 60 else ""}">{v}%</div></div>' for k, v, c in probs)
-    pb = panel('Gives its odds', bars + f'<div style="font-size:13px;color:{BODY};margin-top:6px">Locked before the deadline</div>', P2, 'illustrative')
+    pb = panel('Gives its odds', bars + f'<div style="font-size:13px;color:{BODY};margin-top:6px">Locked before anyone knows the answer</div>', P2)
     lw, sc = 72, 600
-    res = (f'<div style="font-size:13px;color:{BODY};margin-bottom:5px">Result: <b style="color:{INK};font-weight:700">2+ quakes</b></div>')
-    head = f'<div style="font-size:11.5px;color:{GREY};margin-left:{lw}px;margin-bottom:2px">Error (lower is better)</div>'
+    head = f'<div style="font-size:12.5px;color:{GREY};margin-left:{lw}px;margin-bottom:3px">Error (lower is better)</div>'
     b_base = (f'<div style="display:flex;align-items:center;height:22px"><div style="width:{lw}px;font-size:12.5px;color:{BODY}">Baseline</div>'
               f'<div style="height:16px;width:{0.33*sc:.0f}px;background:{MID};border-radius:0 3px 3px 0"></div>'
               f'<div class="num" style="font-size:12.5px;margin-left:6px;color:{INK}">0.33</div></div>')
     b_ai = (f'<div style="display:flex;align-items:center;height:22px"><div style="width:{lw}px;font-size:12.5px;color:{INK};font-weight:600">AI</div>'
             f'<div class="num" style="height:16px;width:{0.13*sc:.0f}px;background:{ACC};color:#fff;font-size:12.5px;font-weight:700;line-height:16px;text-align:right;padding-right:5px">0.13</div>'
-            f'<div style="height:16px;width:{0.20*sc:.0f}px;background:{ACCPALE};border:1.5px dashed {ACC};border-left:none;border-radius:0 3px 3px 0;'
+            f'<div style="height:16px;width:{0.20*sc:.0f}px;background:transparent;border:1.5px dashed {MID};border-left:none;border-radius:0 3px 3px 0;'
             f'font-size:12.5px;font-weight:700;color:{ACC};display:flex;align-items:center;justify-content:center;white-space:nowrap">Reward 0.20</div></div>')
-    pc = panel('The real outcome', res + head + b_base + b_ai, P3, 'illustrative')
+    pc = panel('The real outcome: 2+ quakes', head + b_base + b_ai, P3, 'illustrative')
     return pa + ARROW + pb + ARROW + pc
 
 JS = """

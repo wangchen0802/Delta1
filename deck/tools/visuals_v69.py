@@ -44,9 +44,9 @@ def panel(title, body, width, tag=''):
 
 
 def xitadel():
-    x2 = f'<span style="color:{FAINT}"> ×2</span>'
+    x2 = f'<span style="color:{GREY}"> ×2</span>'
     pills = ''.join(f'<span class="pill">{p}</span>' for p in [f'现货{x2}', f'期权{x2}', '篮子与成分', '跨境转换', '多资产'])
-    pa = panel('7个市场', f'<div style="margin-bottom:-6px">{pills}</div>', P1)
+    pa = panel('7个交易任务', f'<div style="margin-bottom:-6px">{pills}</div>', P1)
     k = lambda t: f'<span style="color:{ACC}">{t}</span>'
     code = (f'<div class="mono" style="background:#FAF9F6;border-radius:4px;padding:5px 10px;font-size:12.5px;line-height:1.45;color:{BODY};white-space:pre">'
             f'{k("class")} Trader:\n    {k("def")} run(self, state):\n        {k("return")} orders</div>')
@@ -65,12 +65,12 @@ def xitadel():
                  f'<div style="position:absolute;left:0;top:0;height:11px;width:{v * ppt:.0f}px;background:{c};border-radius:0 3px 3px 0"></div></div>'
                  f'<div class="num" style="width:{vw}px;text-align:right;font-size:12.5px;{vcss}">{v:g}</div></div>')
     dash = f'<div style="position:absolute;left:{lw + 80 * ppt - 1:.0f}px;top:14px;width:0;height:72px;border-left:1px dashed {GREY}"></div>'
-    pc = panel('人类最佳交易员', f'<div style="position:relative">{body}{dash}</div>', P3)
+    pc = panel('每项任务的人类最佳', f'<div style="position:relative">{body}{dash}</div>', P3)
     return pa + ARROW + pb + ARROW + pc
 
 
 def mlbench():
-    head = (f'<div style="display:flex;justify-content:space-between;font-size:11.5px;color:{GREY};padding-bottom:2px;border-bottom:1px solid #E2E0DA">'
+    head = (f'<div style="display:flex;justify-content:space-between;font-size:12.5px;color:{GREY};padding-bottom:2px;border-bottom:1px solid #E2E0DA">'
             f'<span>例如</span><span>时限</span></div>')
     rws = ''.join(f'<div style="display:flex;justify-content:space-between;font-size:13px;line-height:20px;{"border-bottom:1px solid #EEECE6;" if i < 2 else ""}">'
                   f'<span style="color:{INK}">{a}</span><span class="num" style="color:{GREY}">{b}</span></div>'
@@ -91,16 +91,16 @@ def mlbench():
                f'font-size:12.5px;font-weight:600;color:{col}">{t}</div>')
     pb = panel('独立做完整个项目', f'<div style="display:flex">{ch}</div><div style="font-size:13px;color:{BODY};margin-top:9px">最多提交2次，取更好的一次</div>', P2)
     p = 0.837
-    line1 = f'<div style="font-size:12px;color:{GREY}">共享单车需求预测竞赛</div>'
+    line1 = f'<div style="font-size:12.5px;color:{GREY}">共享单车需求预测竞赛</div>'
     stat = (f'<div style="display:flex;align-items:baseline;white-space:nowrap;margin:1px 0 5px">'
-            f'<span style="font-size:13px;color:{BODY};margin-right:5px">超过</span>'
-            f'<span class="num" style="font-size:24px;font-weight:700;color:{ACC};margin-right:5px">84%</span>'
+            f'<span style="font-size:13px;color:{BODY};margin-right:5px">基线提交超过</span>'
+            f'<span class="num" style="font-size:24px;font-weight:700;color:{INK};margin-right:5px">84%</span>'
             f'<span style="font-size:13px;color:{BODY}">的人类队伍（共3,242支）</span></div>')
     track = (f'<div style="position:relative;height:8px;border-radius:4px;background:#EDEBE5">'
              f'<div style="position:absolute;left:0;top:0;height:8px;width:{p * 100:.1f}%;border-radius:4px 0 0 4px;background:#F6D9C6"></div>'
-             f'<div style="position:absolute;left:{p * 100:.1f}%;top:-3px;width:4px;height:14px;margin-left:-2px;border-radius:2px;background:{ACC}"></div></div>'
-             f'<div style="display:flex;justify-content:space-between;font-size:11.5px;color:{GREY};margin-top:4px"><span>最后一名</span><span>第一名</span></div>')
-    pc = panel('Kaggle真实排行榜', line1 + stat + track, P3)
+             f'<div style="position:absolute;left:{p * 100:.1f}%;top:-3px;width:4px;height:14px;margin-left:-2px;border-radius:2px;background:{INK}"></div></div>'
+             f'<div style="display:flex;justify-content:space-between;font-size:12.5px;color:{GREY};margin-top:4px"><span>最后一名</span><span>第一名</span></div>')
+    pc = panel('Kaggle最终排行榜', line1 + stat + track, P3)
     return pa + ARROW + pb + ARROW + pc
 
 
@@ -108,26 +108,25 @@ def forecast():
     chips = ''.join(f'<span class="num" style="display:inline-block;font-size:12.5px;line-height:18px;padding:0 10px;margin-right:6px;border-radius:9px;background:{TINT};color:{BODY}">{c}</span>'
                     for c in ['0次', '1次', '2次及以上'])
     card = (f'<div style="background:#FAF9F6;border-radius:4px;padding:6px 9px">'
-            f'<div style="font-size:11.5px;color:{GREY};margin-bottom:1px">美国地质调查局（USGS）数据</div>'
+            f'<div style="font-size:12.5px;color:{GREY};margin-bottom:1px">美国地质调查局（USGS）数据</div>'
             f'<div style="font-size:13px;line-height:18px;color:{INK}">明天全球会发生几次5级以上地震？</div>'
             f'<div style="margin-top:6px">{chips}</div></div>')
-    pa = panel('一道关于明天的题', card, P1)
+    pa = panel('一道还没有答案的题', card, P1)
     probs = [('0次', 10, MID), ('1次', 30, MID), ('2次+', 60, ACC)]
     bars = ''.join(f'<div style="display:flex;align-items:center;height:20px"><div class="num" style="width:40px;font-size:12.5px;color:{BODY}">{k}</div>'
                    f'<div style="height:12px;width:{v * 2.4:.0f}px;background:{c};border-radius:0 3px 3px 0"></div>'
                    f'<div class="num" style="font-size:12.5px;margin-left:6px;color:{INK};{"font-weight:700" if v == 60 else ""}">{v}%</div></div>' for k, v, c in probs)
-    pb = panel('给出概率', bars + f'<div style="font-size:13px;color:{BODY};margin-top:5px">截止前锁定</div>', P2, '示例')
+    pb = panel('给出概率', bars + f'<div style="font-size:13px;color:{BODY};margin-top:5px">答案揭晓前锁定</div>', P2)
     lw, sc = 72, 600
-    res = f'<div style="font-size:13px;color:{BODY};margin-bottom:4px">结果：<b style="color:{INK};font-weight:700">2次及以上</b></div>'
-    head = f'<div style="font-size:11.5px;color:{GREY};margin-left:{lw}px;margin-bottom:2px">误差（越低越好）</div>'
+    head = f'<div style="font-size:12.5px;color:{GREY};margin-left:{lw}px;margin-bottom:3px">误差（越低越好）</div>'
     b_base = (f'<div style="display:flex;align-items:center;height:22px"><div style="width:{lw}px;font-size:12.5px;color:{BODY}">基线</div>'
               f'<div style="height:16px;width:{0.33 * sc:.0f}px;background:{MID};border-radius:0 3px 3px 0"></div>'
               f'<div class="num" style="font-size:12.5px;margin-left:6px;color:{INK}">0.33</div></div>')
     b_ai = (f'<div style="display:flex;align-items:center;height:22px"><div style="width:{lw}px;font-size:12.5px;color:{INK};font-weight:700">AI</div>'
             f'<div class="num" style="height:16px;width:{0.13 * sc:.0f}px;background:{ACC};color:#fff;font-size:12.5px;font-weight:700;line-height:16px;text-align:right;padding-right:5px">0.13</div>'
-            f'<div style="height:16px;width:{0.20 * sc:.0f}px;background:{ACCPALE};border:1.5px dashed {ACC};border-left:none;border-radius:0 3px 3px 0;'
+            f'<div style="height:16px;width:{0.20 * sc:.0f}px;background:transparent;border:1.5px dashed {MID};border-left:none;border-radius:0 3px 3px 0;'
             f'font-size:12.5px;font-weight:700;color:{ACC};display:flex;align-items:center;justify-content:center;white-space:nowrap">奖励 0.20</div></div>')
-    pc = panel('真实结果', res + head + b_base + b_ai, P3, '示例')
+    pc = panel('真实结果：2次及以上', head + b_base + b_ai, P3, '示例')
     return pa + ARROW + pb + ARROW + pc
 
 
