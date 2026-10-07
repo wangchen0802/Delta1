@@ -1,5 +1,6 @@
 # SimReal 商业计划书（中文）
 
+- `SimReal-BP-v72-EN.pdf` / `SimReal-BP-v72-EN.pptx`：英文版（14页）：在v71-EN基础上，封面主标题改为“Every industry's best agents / will be trained in our worlds”（原“Every industry's best AI / will come from our worlds”读起来像是我们自己做AI）。其余同v71-EN。由 `deck/tools/bp_v72_en.py` 生成。
 - `SimReal-BP-v71-EN.pdf` / `SimReal-BP-v71-EN.pptx`：英文版（14页）：在v70-EN基础上，概览页副标题改为“An AI-native neolab building RSI engines: the environments, verifiers and data that let agents improve themselves”，直接说明我们做的是RSI引擎。其余同v70-EN。由 `deck/tools/bp_v71_en.py` 生成。
 - `SimReal-BP-v70-EN.pdf` / `SimReal-BP-v70-EN.pptx`：英文版（14页）：在v69-EN基础上删去融资页的汇率换算注释（Converted from RMB at 6.67 per US dollar），其余同v69-EN。由 `deck/tools/bp_v70_en.py` 生成。
 - `SimReal-BP-v69-EN.pdf` / `SimReal-BP-v69-EN.pptx`：英文版（14页）：在v68-EN基础上，只改第7页三张产品图的第三栏（评分栏）：所有数字统一一种字体；Xitadel删去说明文字，“Best human”参照行改为纯文字加分隔线；MLBench改为“84% of teams beaten → 70.1 score out of 100”加名次条；FuturePredict写明实际结果、两条误差和“Reward 0.20 = baseline error − AI error”。其余页面同v68-EN。由 `deck/tools/bp_v69_en.py`（配图 `deck/tools/visuals_v69_en.py`）生成。
