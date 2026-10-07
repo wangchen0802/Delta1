@@ -1,5 +1,6 @@
 # SimReal 商业计划书（中文）
 
+- `SimReal-BP-v71-EN.pdf` / `SimReal-BP-v71-EN.pptx`：英文版（14页）：在v70-EN基础上，概览页副标题改为“An AI-native neolab building RSI engines: the environments, verifiers and data that let agents improve themselves”，直接说明我们做的是RSI引擎。其余同v70-EN。由 `deck/tools/bp_v71_en.py` 生成。
 - `SimReal-BP-v70-EN.pdf` / `SimReal-BP-v70-EN.pptx`：英文版（14页）：在v69-EN基础上删去融资页的汇率换算注释（Converted from RMB at 6.67 per US dollar），其余同v69-EN。由 `deck/tools/bp_v70_en.py` 生成。
 - `SimReal-BP-v69-EN.pdf` / `SimReal-BP-v69-EN.pptx`：英文版（14页）：在v68-EN基础上，只改第7页三张产品图的第三栏（评分栏）：所有数字统一一种字体；Xitadel删去说明文字，“Best human”参照行改为纯文字加分隔线；MLBench改为“84% of teams beaten → 70.1 score out of 100”加名次条；FuturePredict写明实际结果、两条误差和“Reward 0.20 = baseline error − AI error”。其余页面同v68-EN。由 `deck/tools/bp_v69_en.py`（配图 `deck/tools/visuals_v69_en.py`）生成。
 - `SimReal-BP-v68-EN.pdf` / `SimReal-BP-v68-EN.pptx`：英文版（14页）：在v67-EN基础上，“How it works”三张产品图的评分说明全部改成白话（Xitadel加“最佳人类=80”参照行；MLBench写明排名与得分换算；FuturePredict写明误差与奖励），左栏改为“AI做什么 / 按什么打分”；商业模式页写清每类客户买什么、怎么收费，并给出估算价格（实验室价格取Epoch AI 2026年1月访谈中的市场价，企业与个人价格为我们的假设，页底注明）；Network页写明网络覆盖最难进的初级岗位和研究，对应Agent当前两大方向（简化日常工作、自动化研究）；融资页只保留$6M，去掉估值和出让比例。另做一轮全稿清晰度修改（措辞更直白、环境名称统一）。由 `deck/tools/bp_v68_en.py`（配图 `deck/tools/visuals_v68_en_rsi.py`、`deck/tools/visuals_v68_en.py`）生成。
