@@ -1,5 +1,6 @@
 # SimReal 商业计划书（中文）
 
+- `SimReal-BP-v65.pdf` / `SimReal-BP-v65.pptx`：中文最新（17页，全部可编辑）：在v64基础上改“为什么是现在”，不再说瓶颈“离开了数据”（我们也做数据业务）：副标题改为“训练的瓶颈从公开文本转到可验证的数据和环境，钱已经在花，专业领域的供给还很少”；第一张卡“瓶颈转向可验证数据”，写明环境产出可验证的训练数据；第二张卡结论改为“实验室和资本为数据、环境、RSI买单”；第三张卡标题改为“专业数据和环境还很少”。其余同v64。由 `deck/tools/bp_v65.py` 生成，再经 `embed_cjk.py` 嵌入中文字体。
 - `SimReal-BP-v64.pdf` / `SimReal-BP-v64.pptx`：中文最新（17页，全部可编辑）：以v63为底稿，用我们自己的生成脚本把整份重建为可编辑版本（v63有14页是团队文件里的整页图片，经逐像素比对与我们的v60一致；产品、交付物、竞争三页按v63原文重排）。在此基础上：“为什么是现在”三张卡改为与副标题一一对应（瓶颈转到环境、钱已经在花、专业环境还很少），第三张卡把Meta、OpenAI推出Agent与“专业任务仍频繁出错、先从交易做起”串起来；专家网络页写明专家怎么用、比数据外包强在哪（按小时卖工时、人工抽检 vs 一线从业者出题打分、验证器逐条检验、沉淀为自有环境）；高校网络页写明覆盖顶级入门岗位与前沿科研，分别为替人处理日常工作、自动做研究的Agent提供训练数据；团队页Henry一行按创始人更正改为“剑桥AI研究中心最年轻的研究员，导师Po-Ling Loh”。由 `deck/tools/bp_v64.py`（配图 `visuals_v58.py`、`visuals_v63.py`）生成，再经 `embed_cjk.py` 嵌入中文字体。
 - `SimReal-BP-v72-EN.pdf` / `SimReal-BP-v72-EN.pptx`：英文版（14页）：在v71-EN基础上，封面主标题改为“Every industry's best agents / will be trained in our worlds”（原“Every industry's best AI / will come from our worlds”读起来像是我们自己做AI）。其余同v71-EN。由 `deck/tools/bp_v72_en.py` 生成。
 - `SimReal-BP-v71-EN.pdf` / `SimReal-BP-v71-EN.pptx`：英文版（14页）：在v70-EN基础上，概览页副标题改为“An AI-native neolab building RSI engines: the environments, verifiers and data that let agents improve themselves”，直接说明我们做的是RSI引擎。其余同v70-EN。由 `deck/tools/bp_v71_en.py` 生成。
