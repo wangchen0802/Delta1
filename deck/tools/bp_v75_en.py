@@ -11,7 +11,7 @@ follow an outside review of that deck before quant-fund and RL-environment inves
     model, round. Market is anchored on today's $8.5B; the 2030 scenario moves to a footnote. Competitors are named.
   - Straight apostrophes in slide text become typographic ones.
 
-Usage: python3 visuals_v68_en_rsi.py; python3 bp_v75_en.py SimReal-BP-v17.pptx out.pptx
+Usage: python3 visuals_v75_en_rsi.py; python3 bp_v75_en.py SimReal-BP-v17.pptx out.pptx
 """
 import copy
 import io
@@ -78,7 +78,7 @@ def means(sh, x, y, w, text, sz=11.5, dark=False):
 
 # ------------------------------------------------------------------ pages ---
 def contact(sh, y):
-    sh.t(0.6, y, W, 0.3, [(R('business@simreal.co', 11, C['ink'], MONO), R('   ·   ', 11, C['grey']), R('simreal.com.cn', 11, C['ink'], MONO))], 11)
+    sh.t(0.6, y, W, 0.3, [(R('business@simreal.co', 11, C['ink'], MONO),)], 11)
 
 
 def place(pic, cx, cy, scale=1.0):
@@ -101,11 +101,11 @@ def p_overview(sh):
     header(sh, 'Overview', 0, [('An AI-native neolab building ', F),
                                ('the environments, verifiers and data that let agents improve themselves', T)])
     cells = [
-        ('Revenue', '$3M run-rate', ['Gross revenue run-rate,', 'before any outside capital'], T),
-        ('Flagship', 'Trading environment', ['Market making, options, baskets;', 'risk-adjusted P&L on a held-out day'], F),
-        ('Pipeline', '2 frontier labs', ['In direct talks; our data already', 'reaches labs through their data vendors'], F),
-        ('Team', 'Three founders, all 21', ['Cambridge, LSE and Duke mathematics', 'Jane Street, Citadel, Optiver, Millennium'], F),
-        ('Open source', '600+ GitHub stars', ['Across our open benchmarks;', '7 environments built in 14 days'], F),
+        ('Revenue', '$3M run-rate', ['Gross, from our expert-data business', 'that predates SimReal; no outside capital'], T),
+        ('Flagship', 'Trading environment', ['Market making, options, baskets;', 'scored on P&L on a withheld day'], F),
+        ('Pipeline', '2 frontier labs', ['In direct talks; today we sell through', 'data vendors that serve these labs'], F),
+        ('Team', 'Three founders, all 21', ['Cambridge, LSE and Duke mathematics', 'Interned at Jane Street, Citadel, Optiver'], F),
+        ('Open source', '600+ GitHub stars', ['Across our open benchmarks,', 'as of October 2026'], F),
         ('Market', '$8.5B a year', ['Spent today on training data', 'and RL environments'], F),
     ]
     cw, xs = cols(3)
@@ -118,8 +118,8 @@ def p_overview(sh):
     sh.rect(0.6, 5.72, W, 0.86, C['ink'])
     sh.t(0.85, 5.72, 1.7, 0.86, 'How it fits', 15, C['accentLt'], SERIF, anchor='ctr')
     sh.t(2.6, 5.72, W - 2.3, 0.86, [(R('Our data business funds the environments. ', 12.5, C['onDarkHi'], SANS, True),
-                                      R('The environments make that data verifiable and cheaper to produce. '
-                                        'Training our own models in them closes the loop.', 12.5, C['onDark']))], 12.5, anchor='ctr', line=1.15)
+                                      R('The environments are built to make that data verifiable and cheaper to produce. '
+                                        'Training open models in them closes the loop.', 12.5, C['onDark']))], 12.5, anchor='ctr', line=1.15)
     footer(sh)
 
 
@@ -127,20 +127,21 @@ def p_team(sh):
     header(sh, 'Team', 0, [('Three 21-year-old founders. ', F), ('Together they turned down $800K+ in first-year pay to build SimReal', T)])
     b, sz = C['body'], 11
     people = [
-        ('Charles', 'CEO', ['Employee #1 at United Stables: $U grew from zero to $1.4B+ in circulation and listed on Binance within a month',
+        ('Charles', 'CEO', ['Employee #1 at United Stables: $U listed on Binance within a month of launch and grew to $1.4B+ in circulation',
                             'Led institutional partnerships with YZi Labs, SIG, DRW and Wintermute',
                             "Only intern on HSBC's HKD stablecoin project, working on HKMA compliance",
                             'Hedge fund intern, Citadel'],
          ['LSE, Mathematics', 'USAMO qualifier']),
         ('Henry', 'CTO', ["Cambridge Mathematics, St John's College, First Class with scholarship",
-                          'Research with Prof. Po-Ling Loh, University of Cambridge',
-                          'Quant internships at Jane Street, Citadel and Optiver'],
+                          'Research with Prof. Po-Ling Loh at Cambridge',
+                          'Quant internships: Jane Street, Citadel, Optiver'],
          ['Top 30 worldwide on STEP, Cambridge’s hardest maths entrance exam', 'British Physics Olympiad Top Gold']),
         ('Amaris', 'COO', ['Data scientist, Millennium Hong Kong', "First graduate hire on Millennium's alternative-data team",
                            "Co-organized Plug and Play's first Hong Kong event, with HKSTP (200+ attendees)"],
          ['Duke, Mathematics and Statistics']),
     ]
     cw, xs = cols(3, 0.3)
+    label(sh, 0.6, 1.56, 6, 'Where we have worked or interned')
     y0, ch = 2.42, 3.75
     for (name, role, lines, edu), x in zip(people, xs):
         sh.rect(x, y0, cw, ch, C['tint'])
@@ -153,7 +154,7 @@ def p_team(sh):
 
 def p_problem(sh):
     header(sh, 'Problem', 1, [('Agents can reason. ', F), ('They still fail at real work', T)])
-    rows = [('Trading', 'Profitable in backtest', 'Loses money live'), ('Software', 'All tests pass', 'Breaks in production'),
+    rows = [('Trading', 'Profitable on the data it was tuned on', 'Loses money on new days'), ('Software', 'All tests pass', 'Breaks in production'),
             ('Accounting', 'Books look closed', "Month-end doesn't reconcile"), ('Forecasting', 'Analysis sounds right', 'Outcome proves it wrong')]
     y0, rh = 2.15, 0.66
     sh.rect(7.35, y0 - 0.36, 5.38, 0.36 + rh * len(rows), C['tint'])
@@ -168,13 +169,13 @@ def p_problem(sh):
         sh.t(7.6, y, 5.0, rh, b, 19, C['ink'], SERIF, anchor='ctr')
         sh.rule(0.6, y + rh, W)
     sh.t(0.6, 5.0, 1.8, 0.6, '6/32', 30, C['accent'], SERIF, anchor='ctr')
-    sh.t(2.5, 5.0, 9.5, 0.6, 'In a live trading contest (Alpha Arena), frontier models made money in only 6 of 32 runs', 13, C['body'], anchor='ctr')
-    kicker(sh, 5.85, [('The gap: ', F), ('agents have nowhere realistic to practice, and no source of truth to learn from', T)], 19)
+    sh.t(2.5, 5.0, 9.5, 0.6, 'In a live trading contest (Nof1’s Alpha Arena), frontier models made money in only 6 of 32 runs', 13, C['body'], anchor='ctr')
+    kicker(sh, 5.85, [('The gap: ', F), ('too few realistic places to practice, and too little ground truth to learn from', T)], 19)
     note(sh, 'Source: Nof1, Alpha Arena (May 2026).', 6.5)
     footer(sh)
 
 
-RSI_IMG = os.path.join(ASSETS, 'v68en', 'rsi.png')
+RSI_IMG = os.path.join(ASSETS, 'v75en', 'rsi.png')
 
 
 def p_rsi(sh):
@@ -190,7 +191,7 @@ def p_rsi(sh):
                              'write the verifiers and improve the environments themselves.', 11.5, C['body'], line=1.15)
     sh.rule(rx, 4.38, rw, C['mid'])
     sh.rect(rx, 4.52, rw, 1.56, C['ink'])
-    sh.t(rx + 0.3, 4.64, 3.9, 0.22, 'Training loop working, on less compute', 9.5, C['accentLt'], MONO, True)
+    sh.t(rx + 0.3, 4.64, 3.9, 0.22, 'Training infrastructure: more per unit of compute', 9.5, C['accentLt'], MONO, True)
     loop = [('1/4', ['the time per', 'practice run']), ('+64%', ['scored attempts,', 'same compute']), ('−1/3', ['time spent saving', 'checkpoints'])]
     for i, (v, d) in enumerate(loop):
         x = rx + 0.3 + i * 1.3
@@ -208,13 +209,13 @@ def chip(sh, x, y, text, fill, color, sz=10.5):
 
 
 def p_products(sh):
-    header(sh, 'Product', 2, [('Trading is the flagship environment. ', F), ("Each one is scored by something the agent can't argue with", T)])
+    header(sh, 'Product', 2, [('Trading is the flagship environment, ', F), ("scored by P&L: something the agent can't argue with", T)])
     fx, fy, fw, fh = 0.6, 1.72, 7.45, 4.6
     sh.rect(fx, fy, fw, fh, C['ink'])
     ix, iw = fx + 0.38, fw - 0.76
     sh.t(ix, fy + 0.3, iw, 0.22, 'FLAGSHIP  ·  TRADING', 10, C['accentLt'], MONO, True)
     sh.text(ix, fy + 0.56, iw, 0.6, [para([R('Xitadel', 32, C['onDarkHi'], SERIF), R('     open source', 10.5, C['accentLt'], MONO)])], 'ctr')
-    sh.t(ix, fy + 1.24, iw, 0.56, 'An agent researches a market, codes a strategy and is scored on a held-out trading day it never saw.',
+    sh.t(ix, fy + 1.24, iw, 0.56, 'An agent researches a market, codes a strategy and is scored on a trading day withheld from it.',
          13.5, C['onDarkHi'], line=1.2)
     sh.t(ix, fy + 1.98, iw, 0.22, 'Seven published tasks, five types', 9.5, C['onDark'], MONO)
     x, y = ix, fy + 2.26
@@ -226,11 +227,11 @@ def p_products(sh):
         y += 0.4
     sh.rect(ix, fy + 3.2, iw, 0.01, DARK_RULE)
     sh.t(ix, fy + 3.38, iw, 0.22, 'Scored by', 9.5, C['accentLt'], MONO, True)
-    sh.t(ix, fy + 3.66, iw, 0.7, ['Risk-adjusted P&L on a trading day held out from training,',
-                                  'against the best human strategy on each task (set at 80 of 100)'], 13, C['onDarkHi'], line=1.2, gap=2)
+    sh.t(ix, fy + 3.66, iw, 0.7, ['P&L on a withheld trading day, penalized for drawdown and low Sharpe,',
+                                  'against the strongest human strategy on each task (set at 80 of 100)'], 12.5, C['onDarkHi'], line=1.2, gap=2)
     rx, rw = 8.35, W + 0.6 - 8.35
     label(sh, rx, 1.72, rw, 'Supporting environments')
-    sup = [('SimReal-MLBench', '301', 'ML research', '60 past Kaggle competitions, ranked on the final human leaderboard'),
+    sup = [('SimReal-MLBench', '301', 'ML research', '60 past Kaggle competitions, compared with the final leaderboard'),
            ('FuturePredict', '27', 'Forecasting', 'Questions with no answer yet, scored on the resolved outcome against a sealed baseline')]
     for i, (name, stars, dom, d) in enumerate(sup):
         y = 2.02 + i * 1.32
@@ -240,16 +241,16 @@ def p_products(sh):
         sh.t(rx, y + 0.74, rw, 0.5, d, 11, C['body'], line=1.15)
     sh.rule(rx, 4.66, rw, C['mid'])
     label(sh, rx, 4.76, rw, 'Also built')
-    sh.t(rx, 5.0, rw, 0.66, ['Math proofs (MathmoBench)  ·  Reasoning (Puzzle Benchmark)', 'Software (SWE-Forward)  ·  Accounting (Month-End Close)'],
-         11, C['body'], line=1.2, gap=2)
+    sh.t(rx, 4.98, rw, 0.8, ['Math proofs (MathmoBench)  ·  Reasoning (Puzzle Benchmark)', 'Accounting (Month-End Close)',
+                             'Software (SWE-Forward): must survive the next real release'], 10.5, C['body'], line=1.15, gap=1)
     sh.t(rx, 5.86, rw, 0.4, [(R('600+', 16, C['accent'], SERIF), R('  GitHub stars across our open benchmarks', 11, C['ink'], SANS, True))], 11, anchor='ctr')
-    note(sh, 'SWE-Forward and Month-End Close are private. Best human: the best real strategy on each task from IMC Prosperity, '
+    note(sh, 'SWE-Forward and Month-End Close are private. Human reference: the strongest real strategy on each task from IMC Prosperity, '
              'a trading competition. GitHub stars as of October 2026.', 6.5)
     footer(sh)
 
 
 def p_traction(sh):
-    header(sh, 'Traction', 3, [('$3M revenue run-rate, before any outside capital. ', F), ('Our data already reaches frontier labs', T)])
+    header(sh, 'Traction', 3, [('$3M revenue run-rate, before any outside capital. ', F), ('Sold through data vendors that serve frontier labs', T)])
     lx, lw, top, ch = 0.6, 4.55, 1.72, 3.9
     sh.rect(lx, top, lw, ch, C['ink'])
     ix, iw = lx + 0.35, lw - 0.7
@@ -257,16 +258,16 @@ def p_traction(sh):
     sh.t(ix, top + 0.56, iw, 0.9, '$3M', 54, C['accentLt'], SERIF)
     sh.t(ix, top + 1.5, iw, 0.32, 'Gross revenue run-rate', 15, C['onDarkHi'], SANS, True)
     sh.rect(ix, top + 1.98, iw, 0.01, DARK_RULE)
-    sh.t(ix, top + 2.1, iw, 1.6, ['Before any outside capital',
-                                  'Expert data, sold through the data vendors that serve frontier labs',
-                                  'Orders are placed on demand; direct lab contracts are in talks'],
+    sh.t(ix, top + 2.1, iw, 1.6, ['From our expert-data business, which began before SimReal was incorporated',
+                                  'Sold through data vendors that serve frontier labs; orders are placed on demand',
+                                  'Direct lab contracts are in talks'],
          11.5, C['onDark'], line=1.15, gap=6)
     rx = lx + lw + 0.4
     rw = W + 0.6 - rx
     label(sh, rx, top, rw, 'Since founding on September 10, 2026', C['accent'])
     rows = [('Day 14', '7 environments shipped', 'Trading, ML research, forecasting, math, reasoning, software, accounting'),
-            ('Training', 'Training loop working', 'Models train on past trading days and are tested on a day held out from training'),
-            ('Data', '10+ types of expert data delivered', 'Produced by practitioners and checked by our verifiers'),
+            ('Training', 'Training loop running end to end', 'Models train on past trading days and are scored on a withheld day'),
+            ('Data', '10+ types of expert data delivered', 'Through our expert-data business'),
             ('Open source', '600+ GitHub stars', 'Across our open benchmarks, as of October 2026'),
             ('Pipeline', '2 frontier labs in direct talks', 'For environment and data contracts')]
     y0, rh = top + 0.3, 0.72
@@ -290,9 +291,9 @@ def p_why_now(sh):
     sh.t(xl + 0.2, 1.74, 4, 0.32, 'What changed in 2026', 9.5, C['grey'], MONO, anchor='ctr')
     sh.t(xr, 1.74, 4, 0.32, 'What we have built', 9.5, C['accent'], MONO, True, anchor='ctr')
     rows = [('AI is doing AI research', 'OpenAI: agents do 3.1 days of work for every researcher-day', 'OpenAI, Sep 2026',
-             ['SimReal-MLBench: an exam for AI research', '60 past Kaggle competitions, scored against humans']),
+             ['SimReal-MLBench: an exam for ML research agents', '60 past Kaggle competitions, compared with humans']),
             ('AI is improving itself', 'An agent rewrote its own code and improved 7 times in 8 days', 'Weco AIDE², Sep 2026',
-             ['Training loop working in trading', 'Train on past days; test on held-out trading days']),
+             ['Training loop running in trading', 'Train on past days; score on withheld trading days']),
             ('Environments are the bottleneck', 'When the environment gets noisy, top agents drop from 83.9% to 57.6%', 'Breaking the Environment Wall, Sep 2026',
              ['Seven environments in 14 days', '200K+ students and alumni to build more'])]
     y0, rh = 2.06, 1.08
@@ -320,29 +321,28 @@ def p_market(sh):
     sh.rect(0.6, 1.72, W, 1.9, C['tint'])
     label(sh, 0.9, 1.97, 5, 'Today: training data and RL environments')
     sh.t(0.9, 2.25, 5, 0.72, '$8.5B / year', 38, C['ink'], SERIF)
-    sh.t(0.9, 3.05, 5.2, 0.3, 'Combined revenue of 50+ vendors', 11.5, C['body'])
+    sh.t(0.9, 3.05, 5.2, 0.3, 'Combined run-rates of 50+ data and environment vendors', 11.5, C['body'])
     sh.rect(6.6, 1.97, 0.01, 1.4, C['mid'])
-    label(sh, 6.9, 1.97, 5.5, 'Bottom-up: one frontier-lab account', C['accent'])
+    label(sh, 6.9, 1.97, 5.5, 'Per-account estimate: one frontier lab', C['accent'])
     sh.t(6.9, 2.25, 5.6, 0.72, '$1.2M–$4M+ / year', 38, C['accent'], SERIF)
     sh.t(6.9, 3.05, 5.6, 0.3, 'Our estimate at market rates for environments and tasks', 11.5, C['body'])
     growth = [('27x', ['Mercor gross run-rate:', '$75M to $2B in 16 months'], 'Demand for expert data is growing fast'),
-              ('10x', ['Mercor valuation:', '$2B to $20B in 17 months (in talks)'], 'Investors are paying up'),
               ('18x', ["Snorkel AI's new data business:", 'growth in one year'], 'Demand is shifting to experts and environments')]
-    cw, xs = cols(3)
+    cw, xs = cols(2, 0.6)
     for (v, d, m), x in zip(growth, xs):
         sh.rect(x, 4.0, cw, 0.02, C['ink'])
         sh.t(x, 4.1, cw, 0.66, v, 36, C['ink'], SERIF)
         sh.t(x, 4.84, cw, 0.5, d, 12, C['body'], line=1.1, gap=0)
         means(sh, x, 5.38, cw, m, 12)
     note(sh, 'Sources: Deedy Das market map (Jul 2026); Mercor (TechCrunch, Dealroom); Snorkel AI (Sep 2026); market rates from Epoch AI '
-             '(Jan 2026). For context only, a top-down 2030 scenario (a $7T AI economy spending 10% on training) implies about $700B a year.', 6.3)
+             '(Jan 2026). Vendor run-rates are partly gross.', 6.3)
     footer(sh)
 
 
 def p_customers(sh):
-    header(sh, 'Business model', 5, [('We sell environments, data and evals. ', F),
-                                     ('Frontier labs pay today through data vendors; enterprise agents next', T)])
-    cards = [('Now', 'Frontier AI labs', 'Environments, verified tasks and evals to post-train their models',
+    header(sh, 'Business model', 5, [('We sell expert data today, through vendors that serve frontier labs. ', F),
+                                     ('Environments, evals and enterprise next', T)])
+    cards = [('Now', 'Frontier AI labs', 'Expert data and verified tasks today; environments and evals in direct talks',
               'Today per task, through data vendors; next, direct quarterly contracts', '$300K–$1M+', 'Per lab, per quarter, direct',
               'Market rates: $200–$2,000 a task; about $300K for a complex environment'),
              ('Next', 'Enterprise agents', 'Custom environments and tests that prove an agent can do the job',
@@ -369,7 +369,7 @@ def p_customers(sh):
         sh.t(ix, top + 2.9, iw, 0.44, price, 24, acc, SERIF)
         sh.t(ix, top + 3.34, iw, 0.22, unit, 11, main, SANS, True)
         sh.t(ix, top + 3.58, iw, 0.36, detail, 9.5, sub, line=1.1)
-    kicker(sh, 5.9, [('One set of environments serves all three, ', F), ('and every new model needs new tasks', T)], 18)
+    kicker(sh, 5.9, [('The same environments and verifiers carry across all three, ', F), ('and every new model needs new tasks', T)], 18)
     note(sh, 'Estimates, not signed prices. Lab prices are market rates from Epoch AI interviews with environment builders and AI labs '
              '(January 2026). Enterprise prices are our assumptions.', 6.46)
     footer(sh)
@@ -377,9 +377,9 @@ def p_customers(sh):
 
 def p_product_detail(sh):
     header(sh, 'Inside the trading environment', 2, [('Research, code, then a private held-out day. ', F),
-                                                    ('Scored on risk-adjusted P&L against the best human', T)])
+                                                    ('Scored on P&L against the best human strategy', T)])
     steps = [('01', 'Research', 'Historical order books and trades for 2–8 training days, with position limits and product rules'),
-             ('02', 'Code', 'The agent backtests locally and submits a Python strategy:  Trader.run(state) → orders'),
+             ('02', 'Code', 'The agent backtests locally and submits a Python strategy: Trader.run(state) → orders'),
              ('03', 'Held-out replay', 'Run step by step on a private test day. At each step the strategy sees only the order books, '
                                        'reported trades and its own position')]
     cw, xs = cols(3, 0.3)
@@ -392,7 +392,7 @@ def p_product_detail(sh):
         sh.t(x - 0.3, 1.72, 0.3, 1.95, '→', 14, C['grey'], algn='ctr', anchor='ctr')
     # published results
     lx, lw = 0.6, 6.3
-    label(sh, lx, 3.98, lw, 'Published results  ·  score out of 100, best human = 80')
+    label(sh, lx, 3.98, lw, 'Published results  ·  score out of 100; human reference = 80')
     rows = [('Best human', 80, C['ink'], True), ('GPT 6', 77.3, C['accent'], True), ('GLM 5.3', 30.1, C['mid'], False),
             ('Kimi K3', 27.7, C['mid'], False), ('DeepSeek V4 Pro', 24.6, C['mid'], False)]
     bx, bw = lx + 1.75, 3.7
@@ -404,21 +404,21 @@ def p_product_detail(sh):
     # scoring and controls
     rx, rw = 7.4, W + 0.6 - 7.4
     label(sh, rx, 3.98, rw, 'Score and controls', C['accent'])
-    ctl = [('Score', ['(P&L − 0.1 × max drawdown) × Sharpe factor (0.8–1.0)', 'Rescaled so the best human = 80 and twice it = 100']),
-           ('Selection', 'Tasks fixed before any model was scored; reserve tasks replace test days once they are no longer hidden'),
-           ('Audit', 'Full results hash-committed (SHA-256); the training reward is kept separate from this rubric')]
+    ctl = [('Score', ['max(0, P&L − 0.1 × max drawdown) × Sharpe factor (0.8–1.0)', 'Rescaled: best human = 80, twice it = 100 (the cap)']),
+           ('Selection', 'Tasks fixed before any model was scored; reserve test days replace any that become public'),
+           ('Audit', 'Full results hash-committed (SHA-256); the training reward is separate from this score')]
     for i, (k, d) in enumerate(ctl):
         y = 4.3 + i * 0.66
         sh.rule(rx, y, rw, C['mid'])
         sh.t(rx, y + 0.08, 1.1, 0.5, k, 11, C['ink'], SANS, True)
         sh.t(rx + 1.15, y + 0.08, rw - 1.15, 0.56, d, 11, C['body'], line=1.15)
-    note(sh, 'Best human: the best real strategy on each task from IMC Prosperity, a trading competition. Seven published tasks across five task types.', 6.4)
+    note(sh, 'Human reference: the strongest real strategy on each task from IMC Prosperity, a trading competition. Seven published tasks across five task types.', 6.4)
     footer(sh)
 
 
 def p_why_us(sh):
     header(sh, 'Why us', 4, [('Data vendors sell expert hours. ', F), ('We build assets that compound with every customer', T)])
-    sh.t(0.6, 1.6, W, 0.26, 'Today we sell expert data through those vendors. The environments and verifiers we build along the way stay with us.',
+    sh.t(0.6, 1.6, W, 0.26, 'Today we sell expert data through data vendors that serve frontier labs. The environments and verifiers we build ourselves stay with us.',
          11, C['grey'])
     xs, ws = [0.6, 2.75, 6.75], [2.15, 4.0, 5.98]
     top, rh, n = 1.98, 0.6, 4
@@ -426,11 +426,11 @@ def p_why_us(sh):
     sh.rule(0.6, top, W, C['ink'])
     sh.t(xs[1], top + 0.02, ws[1], 0.32, 'Expert-data vendors', 9.5, C['grey'], MONO, anchor='ctr')
     sh.t(xs[2], top + 0.02, ws[2], 0.32, 'SimReal', 9.5, C['accent'], MONO, True, anchor='ctr')
-    rows = [('What compounds', 'Expert hours; each project starts from scratch',
+    rows = [('What compounds', 'Mostly expert hours',
              'Environments, verifiers and maps of where models fail, plus the models we train in them'),
             ('Cost curve', 'Rises with headcount',
-             'Falls with scale: once a verifier exists, new data is generated and checked automatically'),
-            ('Proof of quality', 'Spot checks and reviewer judgment',
+             'Built to fall with scale: once a verifier exists, new data is checked automatically'),
+            ('Proof of quality', 'Mostly human review',
              'Hidden tests, out-of-sample scoring and hash-committed (SHA-256) results'),
             ('Velocity', 'A new domain means new recruiting', '7 environments in 14 days')]
     y0 = top + 0.34
@@ -443,7 +443,7 @@ def p_why_us(sh):
     sh.rule(0.6, y0 + n * rh, W)
     ly = y0 + n * rh + 0.14
     label(sh, 0.6, ly, 3, 'Landscape', C['accent'])
-    land = [('Expert-data vendors', 'Mercor, Surge AI, Scale AI', 'Sell expert hours'),
+    land = [('Expert-data vendors', 'Mercor, Surge AI, Scale AI', 'Mostly sell expert hours; some now build environments'),
             ('Environment startups', 'Mechanize, Halluminate, AfterQuery, UniPat', 'Build environments for AI labs'),
             ('SimReal', 'Expert data and environments', 'Environments scored by real outcomes; data that already earns revenue')]
     for i, (k, who, what) in enumerate(land):
@@ -460,7 +460,7 @@ def p_why_us(sh):
 
 
 def p_network(sh, logos, polymarket, schools):
-    header(sh, 'Network', 4, [('Experts from the most competitive entry-level jobs and from research, ', F),
+    header(sh, 'Network', 4, [('Students, alumni and practitioners from top entry-level jobs and research, ', F),
                               ('the work agents are now built to do', T)])
     label(sh, 0.6, 1.66, 10, 'Practitioners in our R&D have worked at top trading firms and markets, including')
     slots = [0.6 + (i + 0.5) * W / 5 for i in range(5)]
@@ -503,11 +503,11 @@ def p_raise(sh):
     sh.t(0.9, top + 0.62, lw - 0.6, 1.0, '$6M', 60, C['accentLt'], SERIF)
     sh.t(0.9, top + 1.66, lw - 0.6, 0.4, 'Seed round', 18, C['onDarkHi'], SERIF)
     sh.t(0.9, top + ch - 0.62, lw - 0.6, 0.4, 'Three directions, each with a milestone  →', 11, C['onDark'], line=1.1)
-    dirs = [('01', 'Environments and data', 'Take the trading playbook to more expert domains', 'Environment engineers  ·  Expert network',
+    dirs = [('01', 'Environments & data', 'Take the trading playbook to more expert domains', 'Engineers  ·  Expert network',
              '10+ expert-domain environments'),
-            ('02', 'Self-improvement', 'Scale the training loop to larger models and more domains', 'Compute  ·  Researchers',
+            ('02', 'Self-improvement', 'Scale the training loop to larger models and domains', 'Compute  ·  Researchers',
              'Training loop on open-weight large models'),
-            ('03', 'Delivery', 'Turn on-demand data orders into direct, recurring contracts', 'Delivery team  ·  Sales', '20 customers')]
+            ('03', 'Delivery', 'Turn on-demand orders into direct, recurring contracts', 'Delivery team  ·  Sales', '20 customers')]
     x0 = 0.6 + lw + 0.25
     cw, xs = cols(3, 0.25, x0, W + 0.6 - x0)
     for (n, k, d, inv, goal), x in zip(dirs, xs):

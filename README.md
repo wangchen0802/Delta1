@@ -13,6 +13,13 @@
 - `SimReal-BP-v64.pdf` / `SimReal-BP-v64.pptx`：中文最新（17页，全部可编辑）：以v63为底稿，用我们自己的生成脚本把整份重建为可编辑版本（v63有14页是团队文件里的整页图片，经逐像素比对与我们的v60一致；产品、交付物、竞争三页按v63原文重排）。在此基础上：“为什么是现在”三张卡改为与副标题一一对应（瓶颈转到环境、钱已经在花、专业环境还很少），第三张卡把Meta、OpenAI推出Agent与“专业任务仍频繁出错、先从交易做起”串起来；专家网络页写明专家怎么用、比数据外包强在哪（按小时卖工时、人工抽检 vs 一线从业者出题打分、验证器逐条检验、沉淀为自有环境）；高校网络页写明覆盖顶级入门岗位与前沿科研，分别为替人处理日常工作、自动做研究的Agent提供训练数据；团队页Henry一行按创始人更正改为“剑桥AI研究中心最年轻的研究员，导师Po-Ling Loh”。由 `deck/tools/bp_v64.py`（配图 `visuals_v58.py`、`visuals_v63.py`）生成，再经 `embed_cjk.py` 嵌入中文字体。
 - `SimReal-BP-v74-EN.pdf` / `SimReal-BP-v74-EN.pptx`：英文版（14页）：在v73-EN基础上把ARR由$7M改为$3M，共5处：概览、Traction标题和里程碑、Why now底栏、Why us的Velocity一行。其余同v73-EN。由 `deck/tools/bp_v74_en.py` 生成。
 - `SimReal-BP-Optiver-PSI.pdf` / `SimReal-BP-Optiver-PSI.pptx`：发给 Optiver PSI 的英文定制版（14页），基于团队的 SimReal-BP-Public_Oct。产品部分按主次重做：第6页以交易环境 Xitadel 为主，MLBench、FuturePredict 为辅，其余产品只用一行带过；第7页讲交易环境内部（研究→写策略→留出日回放、公开成绩、打分与防作弊）。最后一页改为 Why Optiver PSI，对应 PSI 公开的投资标准。全篇措辞从严：RSI 改为 self-improvement；GitHub 星数统一写作 600+，不再列各仓库的数；Customers 改为 Pipeline；2030 年数字标明为我们的估算。由 `deck/tools/bp_psi_en.py` 生成。
+- `SimReal-BP-v75-EN.pdf` / `SimReal-BP-v75-EN.pptx`：英文对外统一版（14页），所有投资人都用这一份，不写收件方。按外部审阅意见修改：
+  - 收入：统一写作“$3M gross revenue run-rate, before any outside capital”，说明来自 SimReal 成立前就在做的数据业务，经服务前沿实验室的数据商卖出；去掉 ARR 和“24 天”。
+  - 训练结果：+12% 不再出现，统一写“training loop running”；正文不再用 RSI 缩写，环形图也换成了不带 RSI 的版本。
+  - 团队：经历写成可核实的说法（实习写明是实习；STEP 写明是入学考试；放弃的薪酬改为 $800K+；$1.4B+ 写明是流通量）。
+  - 结构：Why now 移到问题页之后；Network 放在 Why us 之后；新增 Round 页；Why us 点名了竞争对手。
+  - 市场：以今天的 $8.5B 为锚，删掉 $700B 和估值倍数卡；商业模式写清目前是数据商在付费。
+  由 `deck/tools/bp_v75_en.py` 生成（环形图：`visuals_v75_en_rsi.py`）。
 - `SimReal-BP-v73-EN.pdf` / `SimReal-BP-v73-EN.pptx`：英文版（14页）：在v72-EN基础上把第7页“How it works”做得更精炼、更清楚（四个角度出方案、三位评审打分后合成，再经投资人、设计、事实核对三位审稿修订），可见文字约从330词减到约185词：上方一行“1 Given / 2 The AI / 3 Scored against”交代三步；Xitadel改为总分条形图对比“Best human 80”；MLBench写作“A baseline beat 84% of 3,242 human teams”，并在左栏注明“Baseline result, not an AI agent”；FuturePredict把奖励画成两条误差之间的空档。其余同v72-EN。由 `deck/tools/bp_v73_en.py`（配图 `visuals_v68_en_rsi.py`、`visuals_v73_en.py`）生成。
 - `SimReal-BP-v72-EN.pdf` / `SimReal-BP-v72-EN.pptx`：英文版（14页）：在v71-EN基础上，封面主标题改为“Every industry's best agents / will be trained in our worlds”（原“Every industry's best AI / will come from our worlds”读起来像是我们自己做AI）。其余同v71-EN。由 `deck/tools/bp_v72_en.py` 生成。
 - `SimReal-BP-v71-EN.pdf` / `SimReal-BP-v71-EN.pptx`：英文版（14页）：在v70-EN基础上，概览页副标题改为“An AI-native neolab building RSI engines: the environments, verifiers and data that let agents improve themselves”，直接说明我们做的是RSI引擎。其余同v70-EN。由 `deck/tools/bp_v71_en.py` 生成。
